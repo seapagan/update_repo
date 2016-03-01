@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pullreview-coverage'
   spec.add_development_dependency 'should_not'
 
+  spec.add_dependency 'colorize'
+
   # Depends on Ruby version if we can use 'Reek'
   spec.add_development_dependency 'reek', '~> 3.3' if RUBY_VERSION > '2.0'
 end
