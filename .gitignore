@@ -7,3 +7,5 @@
 /pkg/
 /spec/reports/
 /tmp/
+.remote-sync.json
+.token
