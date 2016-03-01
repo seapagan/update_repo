@@ -2,6 +2,7 @@ require "bundler/gem_tasks"
 require "rspec/core/rake_task"
 require 'rubocop/rake_task'
 require 'inch/rake'
+require 'wwtd/tasks'
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -27,5 +28,5 @@ else
   end
 end
 
-# task default: [:rubocop, :inch, :reek, :spec, :build]
+# task default: [:rubocop, :inch, :reek, :spec, :wwtd, :build]
 task default: [ :spec, :build] # leave the others off until we are more advanced.
