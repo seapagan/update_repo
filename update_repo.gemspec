@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.10'
   spec.add_development_dependency 'pullreview-coverage'
   spec.add_development_dependency 'should_not'
+  spec.add_development_dependency 'wwtd'
 
   spec.add_dependency 'colorize'
 
