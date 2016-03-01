@@ -6,8 +6,14 @@ This is the conversion to a Gem of one of my standalone Ruby scripts. Still very
 
 ## Usage
 
+#### Pre-requirements
+
+It goes without saying that at the very least a working copy of [Git][git] needs to be installed on your machine. Also, the script has only been tested under Linux, not windows.
+
+[git]: http://git-scm.com
+
 #### Quick start
-Create a [YAML](http://yaml.org/)-formatted configuration file `.updatereporc` that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
+Create a [YAML](http://yaml.org/)-formatted configuration file `.updatereporc` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
 ```yaml
 ---
 location:
@@ -15,6 +21,7 @@ location:
 - /data/RepoDir
 ```
 This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below.
+
 This file should be located in the users home directory (`~/.updatereporc`).
 
 Run the script :
