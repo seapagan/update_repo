@@ -1,5 +1,11 @@
 # update_repo [![Gem Version](https://badge.fury.io/rb/update_repo.svg)](https://badge.fury.io/rb/update_repo) [![Build Status](https://travis-ci.org/seapagan/update_repo.svg?branch=master)](https://travis-ci.org/seapagan/update_repo)
 
+[![Dependency Status](https://gemnasium.com/seapagan/update_repo.svg)](https://gemnasium.com/seapagan/update_repo)
+[![Coverage Status](https://coveralls.io/repos/seapagan/update_repo/badge.svg?branch=master&service=github)](https://coveralls.io/github/seapagan/update_repo?branch=master)
+[![Code Climate](https://codeclimate.com/github/seapagan/update_repo/badges/gpa.svg)](https://codeclimate.com/github/seapagan/update_repo)
+[![Inline docs](http://inch-ci.org/github/seapagan/update_repo.svg?branch=master)](http://inch-ci.org/github/seapagan/update_repo)
+[![PullReview stats](https://www.pullreview.com/github/seapagan/update_repo/badges/master.svg?)](https://www.pullreview.com/github/seapagan/update_repo/reviews/master)
+
 A Simple Gem to keep multiple cloned Git Repositories up to date.
 
 This is the conversion to a Gem of one of my standalone Ruby scripts. Still very much work in progress, but functions as required.
