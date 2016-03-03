@@ -9,19 +9,19 @@ module UpdateRepo
 
   def recurse_dir(dirname, exceptions)
     Dir.foreach(dirname) do |dir|
-      dirpath= dirname + '/' + dir
-      if File.directory?(dirpath) && dir != '.' && dir != '..' then
+      dirpath = dirname + '/' + dir
+      if File.directory?(dirpath) && dir != '.' && dir != '..'
         gitpath = dirpath + '/.git'
-        if File.exists?(gitpath) && File.directory?(gitpath) then
-            if exceptions.nil? || !exceptions.include?(dir.chomp)
-              update_repo(dirpath)
-              $counter += 1
-            else
-              Dir.chdir(gitpath) do
-                repo_url = `git config remote.origin.url`.chomp
-                print "* Skipping #{dirpath}".yellow, " (#{repo_url})\n"
-              end
+        if File.exist?(gitpath) && File.directory?(gitpath)
+          if !exceptions.include?(dir.chomp)
+            update_repo(dirpath)
+            $counter += 1
+          else
+            Dir.chdir(gitpath) do
+              repo_url = `git config remote.origin.url`.chomp
+              print "* Skipping #{dirpath}".yellow, " (#{repo_url})\n"
             end
+          end
         else
           recurse_dir(dirpath, exceptions)
         end
@@ -35,10 +35,10 @@ module UpdateRepo
     puts "Using Configuration from #{location}"
     puts "\nRepo location(s):".underline
     configs['location'].each do |loc|
-      print "-> ", loc.cyan, "\n"
+      print '-> ', loc.cyan, "\n"
     end
-    if !configs['exceptions'].nil? then
-      print "\nExclusions:".underline, " ", configs['exceptions'].join(', ').yellow, "\n"
+    if configs['exceptions']
+      print "\nExclusions:".underline, ' ', configs['exceptions'].join(', ').yellow, "\n"
     end
     puts # blank line before processing starts
   end
@@ -46,8 +46,8 @@ module UpdateRepo
   def update_repo(dirname)
     Dir.chdir(dirname) do
       repo_url = `git config remote.origin.url`.chomp
-      print "* ", "Checking ", dirname.green, " (#{repo_url})\n"
-      print "  -> "
+      print '* ', 'Checking ', dirname.green, " (#{repo_url})\n"
+      print '  -> '
       system "git pull"
     end
   end

@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "update_repo"
+require 'update_repo'
 include UpdateRepo
 
 # start the process...
@@ -17,4 +17,4 @@ end
 # get duration since we saved the time
 duration = Time.now - start_time
 
-puts "\nUpdates completed - #{$counter} repositories processed in #{Time.at(duration).utc.strftime("%H:%M:%S")}\n".underline
+puts "\nUpdates completed - #{$counter} repositories processed in #{Time.at(duration).utc.strftime('%H:%M:%S')}\n".underline
