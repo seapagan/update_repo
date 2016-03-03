@@ -1,4 +1,4 @@
-require "update_repo/version"
+require 'update_repo/version'
 require 'yaml'
 require 'colorize'
 
@@ -48,7 +48,7 @@ module UpdateRepo
       repo_url = `git config remote.origin.url`.chomp
       print '* ', 'Checking ', dirname.green, " (#{repo_url})\n"
       print '  -> '
-      system "git pull"
+      system 'git pull'
     end
   end
 
