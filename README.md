@@ -64,6 +64,7 @@ Not in any specific order :
 - Add flag for 'default' repo directory (or another specific directory - if it does not already exist it will be created and added to the standard list) which will be used for new additions.
 - Option to save log file for each run.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them; Similar option to just dump a list of the remote git locations.
+- Add ability to export a text dump of each repo location and then re-import this on a different machine or after reinstall
 - Document configuration file format and options.
 - Add testing!
 
