@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require "update_repo"
+require 'update_repo'
 
 walk_repo = UpdateRepo::WalkRepo.new
 # start the process...
@@ -8,13 +8,11 @@ configs, location = walk_repo.check_config
 walk_repo.show_header(configs, location)
 
 # save the current time
-start_time = Time.now
+# walk_repo.start_time = Time.now
+
 configs['location'].each do |loc|
   walk_repo.recurse_dir(loc, configs['exceptions'])
 end
 
-# get operation duration...
-duration = Time.now - start_time
-
-# print out a brief footer. This will be expanded later.
-puts "\nUpdates completed - #{walk_repo.counter} repositories processed in #{Time.at(duration).utc.strftime("%H:%M:%S")}\n".underline
+# print out an informative footer...
+walk_repo.footer
