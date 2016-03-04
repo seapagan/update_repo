@@ -28,4 +28,4 @@ else
 end
 
 # task default: [:rubocop, :inch, :reek, :spec, :build]
-task default: [:rubocop, :spec, :build] # leave the others off for now.
+task default: [:rubocop, :inch, :spec, :build] # leave the others off for now.
