@@ -43,15 +43,15 @@ module UpdateRepo
       # print an informative header before starting
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      puts "Using Configuration from #{location}"
-      list_locations(configs, location)
+      print "Using Configuration from #{location}\n"
+      list_locations(configs)
       if configs['exceptions']
         print "\nExclusions:".underline, ' ',
               configs['exceptions'].join(', ').yellow, "\n"
       end
       # save the start time for later display in the footer...
       @start_time = Time.now
-      puts # blank line before processing starts
+      print "\n" # blank line before processing starts
     end
 
     def check_config
@@ -69,7 +69,8 @@ module UpdateRepo
         return YAML.load_file(user_config), File.expand_path(user_config)
       end
       # otherwise return error
-      puts "Error : Cannot find configuration file '#{user_config}', aborting".red
+      print 'Error : Cannot find configuration file'.red, user_config.red,
+            'aborting'.red
       exit 1
     end
 
@@ -82,7 +83,7 @@ module UpdateRepo
 
     private
 
-    def list_locations(configs, location)
+    def list_locations(configs)
       puts "\nRepo location(s):".underline
       configs['location'].each do |loc|
         print '-> ', loc.cyan, "\n"
