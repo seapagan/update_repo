@@ -14,9 +14,10 @@ This is the conversion to a Gem of one of my standalone Ruby scripts. Still very
 
 #### Pre-requirements
 
-It goes without saying that at the very least a working copy of [Git][git] needs to be installed on your machine. Also, the script has only been tested under Linux, not windows.
+It goes without saying that at the very least a working copy of both [`Git`][git] and [`Ruby`][ruby] need to be installed on your machine. Also, the script has only been tested under Linux, not windows.
 
 [git]: http://git-scm.com
+[ruby]: http://www.ruby-lang.org
 
 #### Quick start
 Create a [YAML](http://yaml.org/)-formatted configuration file `.updatereporc` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
@@ -46,6 +47,8 @@ To be added.
 Not in any specific order :
 
 - Improve error-checking and recovery while parsing the configuration file (convert to using my '[Confoog][confoog]' gem for example)
+  * Ignore and report invalid or missing directories
+  * Expand eg '~/' to full valid path.
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
 - Error checking and reporting for the git processes - retry for connection issues etc (config setting).
 - Add extra (optional) stats / info at end-of-job :
