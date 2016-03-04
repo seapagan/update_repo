@@ -12,29 +12,32 @@ module UpdateRepo
   # repositories found therein.
   class WalkRepo
     attr_reader :counter
-    attr_writer :start_time
-    # $counter = 0
 
     def initialize
       @counter = 0
       @start_time = 0
     end
 
+    # This function will perform the required actions
+    def start
+      configs, location = check_config
+      show_header(configs, location)
+      configs['location'].each do |loc|
+        recurse_dir(loc, configs['exceptions'])
+      end
+      # print out an informative footer...
+      footer
+    end
+
     def recurse_dir(dirname, exceptions)
       Dir.foreach(dirname) do |dir|
         dirpath = dirname + '/' + dir
-        if File.directory?(dirpath) && dir != '.' && dir != '..'
-          gitpath = dirpath + '/.git'
-          if File.exist?(gitpath) && File.directory?(gitpath)
-            if !exceptions.include?(dir.chomp)
-              update_repo(dirpath)
-              @counter += 1
-            else
-              skip_dir(dirpath)
-            end
-          else
-            recurse_dir(dirpath, exceptions)
-          end
+        next unless File.directory?(dirpath) && notdot?(dir)
+        if gitdir?(dirpath)
+          dir.chomp!
+          !exceptions.include?(dir) ? update_repo(dirpath) : skip_dir(dirpath)
+        else
+          recurse_dir(dirpath, exceptions)
         end
       end
     end
@@ -102,7 +105,17 @@ module UpdateRepo
         repo_url = `git config remote.origin.url`.chomp
         print '* ', 'Checking ', dirname.green, " (#{repo_url})\n", '  -> '
         system 'git pull'
+        @counter += 1
       end
+    end
+
+    def gitdir?(dirpath)
+      gitpath = dirpath + '/.git'
+      File.exist?(gitpath) && File.directory?(gitpath)
+    end
+
+    def notdot?(dir)
+      (dir != '.' && dir != '..')
     end
   end
 end
