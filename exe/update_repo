@@ -2,17 +2,7 @@
 
 require 'update_repo'
 
+# create a new instance of the class...
 walk_repo = UpdateRepo::WalkRepo.new
-# start the process...
-configs, location = walk_repo.check_config
-walk_repo.show_header(configs, location)
-
-# save the current time
-# walk_repo.start_time = Time.now
-
-configs['location'].each do |loc|
-  walk_repo.recurse_dir(loc, configs['exceptions'])
-end
-
-# print out an informative footer...
-walk_repo.footer
+# then start the process...
+walk_repo.start
