@@ -1,20 +1,8 @@
 #!/usr/bin/env ruby
 
 require 'update_repo'
-include UpdateRepo
 
-# start the process...
-configs, location = check_config
-
-show_header(configs, location)
-
-# save the current time
-start_time = Time.now
-configs['location'].each do |loc|
-  recurse_dir(loc, configs['exceptions'])
-end
-
-# get duration since we saved the time
-duration = Time.now - start_time
-
-puts "\nUpdates completed - #{$counter} repositories processed in #{Time.at(duration).utc.strftime('%H:%M:%S')}\n".underline
+# create a new instance of the class...
+walk_repo = UpdateRepo::WalkRepo.new
+# then start the process...
+walk_repo.start
