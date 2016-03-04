@@ -84,7 +84,7 @@ module UpdateRepo
     private
 
     def list_locations(configs)
-      puts "\nRepo location(s):".underline
+      print "\nRepo location(s):\n".underline
       configs['location'].each do |loc|
         print '-> ', loc.cyan, "\n"
       end
