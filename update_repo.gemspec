@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'wwtd'
 
   spec.add_dependency 'colorize'
+  spec.add_dependency 'confoog'
 
   # Depends on Ruby version if we can use 'Reek'
   spec.add_development_dependency 'reek', '~> 3.3' if RUBY_VERSION > '2.0'

@@ -46,9 +46,8 @@ To be added.
 ## To-Do
 Not in any specific order :
 
-- Improve error-checking and recovery while parsing the configuration file (convert to using my '[Confoog][confoog]' gem for example)
+- Improve error-checking and recovery while parsing the configuration file
   * Ignore and report invalid or missing directories
-  * Expand eg '~/' to full valid path.
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
 - Error checking and reporting for the git processes - retry for connection issues etc (config setting).
 - Add extra (optional) stats / info at end-of-job :

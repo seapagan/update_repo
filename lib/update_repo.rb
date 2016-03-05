@@ -2,6 +2,7 @@ require 'update_repo/version'
 require 'yaml'
 require 'colorize'
 require 'update_repo/version'
+require 'confoog'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -19,8 +20,16 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
+      # @counter - this will be ioncremented with each repo updated.
       @counter = 0
+      # @ start_time - will be used to get elapsed time
       @start_time = 0
+      # @config - Class. Reads the configuration from a file in YAML format and
+      # allows easy access to the configuration data
+      @config = Confoog::Settings.new(filename: '.updatereporc',
+                                      prefix: 'update_repo',
+                                      autoload: true)
+      exit 1 unless @config.status[:errors] == Status::INFO_FILE_LOADED
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -28,10 +37,10 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      configs, location = check_config
-      show_header(configs, location)
-      configs['location'].each do |loc|
-        recurse_dir(loc, configs['exceptions'])
+      exceptions = @config['exceptions']
+      show_header(exceptions)
+      @config['location'].each do |loc|
+        recurse_dir(loc, exceptions)
       end
       # print out an informative footer...
       footer
@@ -48,7 +57,6 @@ module UpdateRepo
         dirpath = dirname + '/' + dir
         next unless File.directory?(dirpath) && notdot?(dir)
         if gitdir?(dirpath)
-          dir.chomp!
           !exceptions.include?(dir) ? update_repo(dirpath) : skip_dir(dirpath)
         else
           recurse_dir(dirpath, exceptions)
@@ -56,45 +64,19 @@ module UpdateRepo
       end
     end
 
-    # locate the configuration file and return this data.
-    # Note that this will be re-written later to use my 'confoog' gem.
-    # @return [hash] Hash containing all the configuration parameters.
-    # @return [string] Location of the configuration file.
-    def check_config
-      # locate the configuration file.
-      # first we check in this script location and if present then we ignore any
-      # further files.
-      dev_config = File.join '.', CONFIG_FILE
-      user_config = File.join Gem.user_home, CONFIG_FILE
-
-      if File.exist? dev_config
-        # configuration exists in script directory so we ignore any others.
-        return YAML.load_file(dev_config), File.expand_path(dev_config)
-      elsif File.exist? user_config
-        # configuration exists in user home directory so we use that.
-        return YAML.load_file(user_config), File.expand_path(user_config)
-      end
-      # otherwise return error
-      print 'Error : Cannot find configuration file'.red, user_config.red,
-            'aborting'.red
-      exit 1
-    end
-
     # Display a simple header to the console
-    # @param configs [hash] Configuration hash, used here to list exceptions.
-    # @param location [string] location of config file.
     # @example
-    #   show_header
-    # @return []
-    def show_header(configs, location)
+    #   show_header(exceptions)
+    # @return [void]
+    def show_header(exceptions)
       # print an informative header before starting
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      print "Using Configuration from #{location}\n"
-      list_locations(configs)
-      if configs['exceptions']
+      print "Using Configuration from '#{@config.config_path}'\n"
+      list_locations
+      if exceptions
         print "\nExclusions:".underline, ' ',
-              configs['exceptions'].join(', ').yellow, "\n"
+              exceptions.join(', ').yellow, "\n"
       end
       # save the start time for later display in the footer...
       @start_time = Time.now
@@ -109,9 +91,9 @@ module UpdateRepo
             "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
     end
 
-    def list_locations(configs)
+    def list_locations
       print "\nRepo location(s):\n".underline
-      configs['location'].each do |loc|
+      @config['location'].each do |loc|
         print '-> ', loc.cyan, "\n"
       end
     end
