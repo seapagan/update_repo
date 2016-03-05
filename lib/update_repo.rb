@@ -38,7 +38,6 @@ module UpdateRepo
     #   walk_repo.start
     def start
       exceptions = @config['exceptions']
-      puts exceptions
       show_header(exceptions)
       @config['location'].each do |loc|
         recurse_dir(loc, exceptions)
