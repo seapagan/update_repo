@@ -1,7 +1,6 @@
 require 'update_repo/version'
 require 'yaml'
 require 'colorize'
-require 'update_repo/version'
 require 'confoog'
 
 # Overall module with classes performing the functionality
