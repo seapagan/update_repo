@@ -2,6 +2,7 @@ require 'update_repo/version'
 require 'yaml'
 require 'colorize'
 require 'confoog'
+require 'trollop'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -29,8 +30,11 @@ module UpdateRepo
       # allows easy access to the configuration data
       @config = Confoog::Settings.new(filename: '.updatereporc',
                                       prefix: 'update_repo',
-                                      autoload: true)
+                                      autoload: true,
+                                      autosave: false)
       exit 1 unless @config.status[:errors] == Status::INFO_FILE_LOADED
+      # store the command line variables in a configuration variable
+      @config['cmd'] = set_options
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -48,6 +52,15 @@ module UpdateRepo
     end
 
     private
+
+    def set_options
+      Trollop.options do
+        version "\nupdate_repo version #{VERSION} (C)2016 G. Ramsay\n"
+        # opt :color, 'Use colored output', :default => true
+        # opt :quiet, 'Only minimal output to the terminal', :default => false
+        # opt :silent, 'Completely silent, no output to terminal at all.'
+      end
+    end
 
     # take each directory contained in the Repo directory, and if it is detected
     # as a Git repository then update it.
