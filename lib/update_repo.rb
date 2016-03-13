@@ -21,6 +21,8 @@ module UpdateRepo
     def initialize
       # @counter - this will be incremented with each repo updated.
       @counter = 0
+      # @skip_counter - will count all repos deliberately skipped
+      @skip_counter = 0
       # @ start_time - will be used to get elapsed time
       @start_time = 0
       # @config - Class. Reads the configuration from a file in YAML format and
@@ -86,12 +88,9 @@ module UpdateRepo
     # @return [void]
     def footer
       duration = Time.now - @start_time
-      print "\nUpdates completed - ", "#{@counter}".yellow, " repositories ",
-            "processed in ", show_time(duration)
-    end
-
-    def show_time(duration)
-      "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
+      print "\nUpdates completed : ", @counter.to_s.yellow, ' repositories '
+      print "processed (and #{@skip_counter} skipped)" unless @skip_counter == 0
+      print ' in ', show_time(duration)
     end
 
     def list_locations
@@ -105,6 +104,7 @@ module UpdateRepo
       Dir.chdir(dirpath) do
         repo_url = `git config remote.origin.url`.chomp
         print "* Skipping #{dirpath}".yellow, " (#{repo_url})\n"
+        @skip_counter += 1
       end
     end
 
@@ -124,6 +124,10 @@ module UpdateRepo
 
     def notdot?(dir)
       (dir != '.' && dir != '..')
+    end
+
+    def show_time(duration)
+      "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
     end
   end
 end
