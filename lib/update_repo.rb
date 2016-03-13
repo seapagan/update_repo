@@ -86,8 +86,12 @@ module UpdateRepo
     # @return [void]
     def footer
       duration = Time.now - @start_time
-      print "\nUpdates completed - #{@counter} repositories processed in ",
-            "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
+      print "\nUpdates completed - ", "#{@counter}".yellow, " repositories ",
+            "processed in ", show_time(duration)
+    end
+
+    def show_time(duration)
+      "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
     end
 
     def list_locations
