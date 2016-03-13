@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Grant Ramsay']
   spec.email         = ['seapagan@gmail.com']
 
-  spec.summary       = 'A Simple Gem to keep multiple cloned Git Repositories up to date'
+  spec.summary       = 'A Simple Gem to keep multiple locally-cloned Git Repositories up to date'
   spec.homepage      = 'http://opensource.seapagan.net'
   spec.license       = 'MIT'
 
