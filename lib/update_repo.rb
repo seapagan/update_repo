@@ -88,9 +88,10 @@ module UpdateRepo
     # @return [void]
     def footer
       duration = Time.now - @start_time
-      print "\nUpdates completed : ", @counter.to_s.yellow, ' repositories '
-      print "processed (and #{@skip_counter} skipped)" unless @skip_counter == 0
-      print ' in ', show_time(duration)
+      print "\nUpdates completed : ", @counter.to_s.green,
+            ' repositories processed'
+      print ' / ', @skip_counter.to_s.yellow, ' skipped' unless @skip_counter == 0
+      print ' in ', show_time(duration), "\n\n"
     end
 
     def list_locations
@@ -127,7 +128,8 @@ module UpdateRepo
     end
 
     def show_time(duration)
-      "#{Time.at(duration).utc.strftime('%H:%M:%S')}\n\n".cyan
+      time_taken = Time.at(duration).utc
+      time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.').cyan
     end
   end
 end
