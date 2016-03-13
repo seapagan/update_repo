@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require 'update_repo'
 
 # create a new instance of the class...

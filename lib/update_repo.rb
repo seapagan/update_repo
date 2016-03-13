@@ -19,7 +19,7 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      # @counter - this will be ioncremented with each repo updated.
+      # @counter - this will be incremented with each repo updated.
       @counter = 0
       # @ start_time - will be used to get elapsed time
       @start_time = 0
