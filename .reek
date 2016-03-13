@@ -1,0 +1,6 @@
+---
+TooManyStatements:
+  max_statements: 10
+
+UtilityFunction:
+  public_methods_only: true
