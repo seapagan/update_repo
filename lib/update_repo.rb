@@ -87,7 +87,7 @@ EOS
     # @param dir [string] Directory to be checked
     # @return [boolean] True if this is NOT an exception, False otherwise
     def notexception?(dir)
-      !@config['exceptions'].include?(dir.chomp('/'))
+      !@config['exceptions'].include?(File.basename(dir))
     end
 
     # Display a simple header to the console
