@@ -38,10 +38,9 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      exceptions = @config['exceptions']
-      show_header(exceptions)
+      show_header(@config['exceptions'])
       @config['location'].each do |loc|
-        recurse_dir(loc, exceptions)
+        recurse_dir(loc)
       end
       # print out an informative footer...
       footer
@@ -73,20 +72,22 @@ EOS
     end
     # rubocop:enable Metrics//MethodLength
 
-    # take each directory contained in the Repo directory, and if it is detected
-    # as a Git repository then update it.
+    # take each directory contained in the Repo directory, if it is detected as
+    # a Git repository then update it (or as directed by command line)
     # @param dirname [string] Contains the directory to search for Git repos.
-    # @param exceptions [array] Each repo matching one of these will be ignored.
-    def recurse_dir(dirname, exceptions)
-      Dir.foreach(dirname) do |dir|
-        dirpath = dirname + '/' + dir
-        next unless File.directory?(dirpath) && notdot?(dir)
-        if gitdir?(dirpath)
-          !exceptions.include?(dir) ? update_repo(dirpath) : skip_dir(dirpath)
-        else
-          recurse_dir(dirpath, exceptions)
+    def recurse_dir(dirname)
+      Dir.chdir(dirname) do
+        Dir['**/'].each do |dir|
+          notexception?(dir) ? update_repo(dir) : skip_repo(dir) if gitdir?(dir)
         end
       end
+    end
+
+    # tests to see if the given directory is an exception and should be skipped
+    # @param dir [string] Directory to be checked
+    # @return [boolean] True if this is NOT an exception, False otherwise
+    def notexception?(dir)
+      !@config['exceptions'].include?(dir.chomp('/'))
     end
 
     # Display a simple header to the console
@@ -125,8 +126,8 @@ EOS
       end
     end
 
-    def skip_dir(dirpath)
-      Dir.chdir(dirpath) do
+    def skip_repo(dirpath)
+      Dir.chdir(dirpath.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         print "* Skipping #{dirpath}".yellow, " (#{repo_url})\n"
         @skip_count += 1
@@ -134,7 +135,7 @@ EOS
     end
 
     def update_repo(dirname)
-      Dir.chdir(dirname) do
+      Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         print '* ', 'Checking ', dirname.green, " (#{repo_url})\n", '  -> '
         system 'git pull'
@@ -145,10 +146,6 @@ EOS
     def gitdir?(dirpath)
       gitpath = dirpath + '/.git'
       File.exist?(gitpath) && File.directory?(gitpath)
-    end
-
-    def notdot?(dir)
-      (dir != '.' && dir != '..')
     end
 
     def show_time(duration)
