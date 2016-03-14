@@ -13,10 +13,6 @@ module UpdateRepo
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
   class WalkRepo
-    # Read-only attribute holding the total number of traversed repositories
-    # @attr_reader :counter [fixnum] total number of traversed repositories
-    attr_reader :counter
-
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
