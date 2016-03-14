@@ -2,6 +2,7 @@ require 'update_repo/version'
 require 'yaml'
 require 'colorize'
 require 'confoog'
+require 'trollop'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -12,10 +13,6 @@ module UpdateRepo
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
   class WalkRepo
-    # Read-only attribute holding the total number of traversed repositories
-    # @attr_reader :counter [fixnum] total number of traversed repositories
-    attr_reader :counter
-
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
@@ -29,8 +26,11 @@ module UpdateRepo
       # allows easy access to the configuration data
       @config = Confoog::Settings.new(filename: '.updatereporc',
                                       prefix: 'update_repo',
-                                      autoload: true)
+                                      autoload: true,
+                                      autosave: false)
       exit 1 unless @config.status[:errors] == Status::INFO_FILE_LOADED
+      # store the command line variables in a configuration variable
+      @config['cmd'] = set_options
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -48,6 +48,30 @@ module UpdateRepo
     end
 
     private
+
+    # rubocop:disable Metrics//MethodLength
+    def set_options
+      Trollop.options do
+        version "\nupdate_repo version #{VERSION} (C)2016 G. Ramsay\n"
+        banner <<-EOS
+Keep multiple local Git-Cloned Repositories up to date with one command.
+
+Usage:
+      update_repo [options]
+
+Options are not required. If none are specified then the program will read from
+the standard configuration file (~/.updatereporc) and automatically update the
+specified Repositories.
+
+Options:
+EOS
+        # opt :color, 'Use colored output', default: true
+        # opt :quiet, 'Only minimal output to the terminal', default: false
+        # opt :silent, 'Completely silent, no output to terminal at all.',
+        #    default: false
+      end
+    end
+    # rubocop:enable Metrics//MethodLength
 
     # take each directory contained in the Repo directory, and if it is detected
     # as a Git repository then update it.
