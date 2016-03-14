@@ -129,7 +129,7 @@ EOS
     def skip_repo(dirpath)
       Dir.chdir(dirpath.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print "* Skipping #{dirpath}".yellow, " (#{repo_url})\n"
+        print '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
         @skip_count += 1
       end
     end
@@ -137,7 +137,7 @@ EOS
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print '* ', 'Checking ', dirname.green, " (#{repo_url})\n", '  -> '
+        print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
         system 'git pull'
         @counter += 1
       end
