@@ -2,10 +2,10 @@
 require 'update_repo'
 
 # Catch ctrl-c and abort gracefully without Ruby back trace...
-Signal.trap('INT') {
+Signal.trap('INT') do
   print "\r  -> ".red, "Aborting on user request.\n\n"
   exit
-}
+end
 
 # create a new instance of the class...
 walk_repo = UpdateRepo::WalkRepo.new
