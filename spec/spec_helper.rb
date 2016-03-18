@@ -4,7 +4,7 @@ require 'simplecov'
 require 'pullreview/coverage'
 require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter,
   PullReview::Coverage::Formatter
