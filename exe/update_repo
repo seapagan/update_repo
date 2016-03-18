@@ -1,6 +1,12 @@
 #!/usr/bin/env ruby
 require 'update_repo'
 
+# Catch ctrl-c and abort gracefully without Ruby back trace...
+Signal.trap('INT') {
+  print "\r  -> ".red, "Aborting on user request.\n"
+  exit
+}
+
 # create a new instance of the class...
 walk_repo = UpdateRepo::WalkRepo.new
 # then start the process...
