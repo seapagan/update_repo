@@ -59,7 +59,7 @@ Usage:
       update_repo [options]
 
 Options are not required. If none are specified then the program will read from
-the standard configuration file (~/.updaterepo) and automatically update the
+the standard configuration file (~/#{CONFIG_FILE}) and automatically update the
 specified Repositories.
 
 Options:
