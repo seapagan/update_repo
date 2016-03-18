@@ -22,15 +22,19 @@ module UpdateRepo
       @skip_count = 0
       # @ start_time - will be used to get elapsed time
       @start_time = 0
+      # read the options from Trollop and store in temp variable.
+      # we do it this way around otherwise if configuration file is missing it
+      # gives the error messages even on '--help' and '--version'
+      temp_opt = set_options
       # @config - Class. Reads the configuration from a file in YAML format and
       # allows easy access to the configuration data
       @config = Confoog::Settings.new(filename: CONFIG_FILE,
                                       prefix: 'update_repo',
                                       autoload: true,
                                       autosave: false)
-      config_error unless @config.status[:errors] == Status::INFO_FILE_LOADED
       # store the command line variables in a configuration variable
-      @config['cmd'] = set_options
+      @config['cmd'] = temp_opt
+      config_error unless @config.status[:errors] == Status::INFO_FILE_LOADED
     end
 
     # This function will perform the required actions to traverse the Repo.
