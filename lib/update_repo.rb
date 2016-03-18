@@ -63,8 +63,9 @@ module UpdateRepo
     # rubocop:disable Metrics//MethodLength
     def set_options
       Trollop.options do
-        version "\nupdate_repo version #{VERSION} (C)2016 G. Ramsay\n"
+        version "update_repo version #{VERSION} (C)2016 G. Ramsay\n"
         banner <<-EOS
+
 Keep multiple local Git-Cloned Repositories up to date with one command.
 
 Usage:
