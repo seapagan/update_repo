@@ -28,7 +28,7 @@ module UpdateRepo
                                       prefix: 'update_repo',
                                       autoload: true,
                                       autosave: false)
-      exit 1 unless @config.status[:errors] == Status::INFO_FILE_LOADED
+      config_error unless @config.status[:errors] == Status::INFO_FILE_LOADED
       # store the command line variables in a configuration variable
       @config['cmd'] = set_options
     end
@@ -47,6 +47,14 @@ module UpdateRepo
     end
 
     private
+
+    def config_error
+      if @config.status[:errors] == Status::ERR_CANT_LOAD
+        print 'Note that the the default configuration file was '.red,
+              "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n\n".red
+      end
+      exit 1
+    end
 
     # rubocop:disable Metrics//MethodLength
     def set_options
