@@ -6,7 +6,7 @@ require 'inch/rake'
 RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new do |task|
-  task.options << 'lib'
+  task.options << 'lib' << 'exe'
 end
 
 Inch::Rake::Suggest.new do |suggest|
