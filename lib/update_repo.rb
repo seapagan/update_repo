@@ -12,6 +12,7 @@ module UpdateRepo
 
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
+  # rubocop:disable Metrics/ClassLength
   class WalkRepo
     # Class constructor. No parameters required.
     # @return [void]
@@ -42,6 +43,7 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
+      String.disable_colorization = true unless @config['cmd'][:color]
       show_header(@config['exceptions'])
       @config['location'].each do |loc|
         recurse_dir(loc)
@@ -60,7 +62,7 @@ module UpdateRepo
       exit 1
     end
 
-    # rubocop:disable Metrics//MethodLength
+    # rubocop:disable Metrics/MethodLength
     def set_options
       Trollop.options do
         version "update_repo version #{VERSION} (C)2016 G. Ramsay\n"
@@ -77,13 +79,13 @@ specified Repositories.
 
 Options:
 EOS
-        # opt :color, 'Use colored output', default: true
+        opt :color, 'Use colored output', default: true
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.',
         #    default: false
       end
     end
-    # rubocop:enable Metrics//MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     # take each directory contained in the Repo directory, if it is detected as
     # a Git repository then update it (or as directed by command line)
