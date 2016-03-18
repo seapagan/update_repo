@@ -8,7 +8,7 @@ require 'trollop'
 # Contains Class UpdateRepo::WalkRepo
 module UpdateRepo
   # This constant holds the name to the config file, located in ~/
-  CONFIG_FILE = '.updatereporc'.freeze
+  CONFIG_FILE = '.updaterepo'.freeze
 
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
@@ -24,7 +24,7 @@ module UpdateRepo
       @start_time = 0
       # @config - Class. Reads the configuration from a file in YAML format and
       # allows easy access to the configuration data
-      @config = Confoog::Settings.new(filename: '.updatereporc',
+      @config = Confoog::Settings.new(filename: CONFIG_FILE,
                                       prefix: 'update_repo',
                                       autoload: true,
                                       autosave: false)
@@ -59,7 +59,7 @@ Usage:
       update_repo [options]
 
 Options are not required. If none are specified then the program will read from
-the standard configuration file (~/.updatereporc) and automatically update the
+the standard configuration file (~/.updaterepo) and automatically update the
 specified Repositories.
 
 Options:
