@@ -38,7 +38,22 @@ $ update_repo
 
 ## Configuration
 #### Configuration file
-To be added.
+The configuration file defaults to `~/.updaterepo` and is a standard [YAML](http://yaml.org/)-formatted text file. The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
+
+`location:` - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :
+```yaml
+---
+location:
+- /media/myuser/git-repos
+- /data/RepoDir
+```
+
+`exceptions:` - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the __directory__ holding the repository (has the `.git` directory inside)
+```yaml
+exceptions:
+- ubuntu-trusty
+- update_repo
+```
 
 #### Command line switches
 Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories.
