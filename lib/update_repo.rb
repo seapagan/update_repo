@@ -43,7 +43,7 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      String.disable_colorization = true unless @config['cmd'][:color]
+      String.disable_colorization = true unless param_set('color')
       show_header(@config['exceptions'])
       @config['location'].each do |loc|
         recurse_dir(loc)
@@ -53,6 +53,15 @@ module UpdateRepo
     end
 
     private
+
+    # Determine options from the command line and configuration file. Command
+    # line takes precedence
+    def param_set(option)
+      # @config['cmd'][option.to_sym] or @config[option]
+      print 'Cmd line    : ', @config['cmd'][option.to_sym], "\n"
+      print 'config file : ', @config[option], "\n"
+      exit
+    end
 
     def config_error
       if @config.status[:errors] == Status::ERR_CANT_LOAD
