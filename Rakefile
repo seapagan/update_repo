@@ -7,6 +7,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new do |task|
   task.options << 'lib' << 'exe'
+  task.fail_on_error = false
 end
 
 Inch::Rake::Suggest.new do |suggest|
