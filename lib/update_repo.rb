@@ -57,10 +57,7 @@ module UpdateRepo
     # Determine options from the command line and configuration file. Command
     # line takes precedence
     def param_set(option)
-      # @config['cmd'][option.to_sym] or @config[option]
-      print 'Cmd line    : ', @config['cmd'][option.to_sym], "\n"
-      print 'config file : ', @config[option], "\n"
-      exit
+      @config['cmd'][option.to_sym] || @config[option]
     end
 
     def config_error
@@ -123,6 +120,7 @@ EOS
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
+      print "Command line is : #{@config['cmd']}\n"
       list_locations
       if exceptions
         print "\nExclusions:".underline, ' ',
