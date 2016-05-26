@@ -1,4 +1,5 @@
 require 'update_repo/version'
+require 'update_repo/helpers'
 require 'yaml'
 require 'colorize'
 require 'confoog'
@@ -14,6 +15,7 @@ module UpdateRepo
   # repositories found therein.
   # rubocop:disable Metrics/ClassLength
   class WalkRepo
+    include Helpers
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
@@ -69,6 +71,7 @@ module UpdateRepo
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/LineLength
     def set_options
       Trollop.options do
         version "update_repo version #{VERSION} (C)2016 G. Ramsay\n"
@@ -86,12 +89,15 @@ specified Repositories.
 Options:
 EOS
         opt :color, 'Use colored output', default: true
+        opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
+        opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.',
         #    default: false
       end
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable  Metrics/LineLength
 
     # take each directory contained in the Repo directory, if it is detected as
     # a Git repository then update it (or as directed by command line)
@@ -99,7 +105,9 @@ EOS
     def recurse_dir(dirname)
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
-          notexception?(dir) ? update_repo(dir) : skip_repo(dir) if gitdir?(dir)
+          if gitdir?(dir)
+            notexception?(dir) ? update_repo(dir) : skip_repo(dir)
+          end
         end
       end
     end
@@ -117,6 +125,8 @@ EOS
     # @return [void]
     def show_header(exceptions)
       # print an informative header before starting
+      # unless we are dumping the repo information
+      return if param_set('dump')
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
@@ -134,6 +144,9 @@ EOS
     # print out a brief footer. This will be expanded later.
     # @return [void]
     def footer
+      # no footer if we are dumping the repo information
+      return if param_set('dump')
+
       duration = Time.now - @start_time
       print "\nUpdates completed : ", @counter.to_s.green,
             ' repositories processed'
@@ -159,20 +172,20 @@ EOS
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
-        system 'git pull'
+        this_dir = Dir.pwd
+        dumping? ? dump_repo(this_dir, repo_url) : do_update(repo_url)
         @counter += 1
       end
     end
 
-    def gitdir?(dirpath)
-      gitpath = dirpath + '/.git'
-      File.exist?(gitpath) && File.directory?(gitpath)
+    def do_update(repo_url)
+      print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
+      system 'git pull'
     end
 
-    def show_time(duration)
-      time_taken = Time.at(duration).utc
-      time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.').cyan
+    def dump_repo(dir, url)
+      print "#{trunc_dir(dir, @config['cmd'][:prune])},#{url}\n"
     end
+
   end
 end
