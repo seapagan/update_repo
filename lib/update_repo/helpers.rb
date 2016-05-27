@@ -1,6 +1,9 @@
 # Module 'Helers' containing assorted helper functions required elsewhere
 module Helpers
-  # will remove the first 'how_many' root levels from a directory path 'dir'..
+  # will remove the FIRST 'how_many' root levels from a directory path 'dir'..
+  # @param dir [string] Path to be truncated
+  # @param how_many [integer] How many levels to be dropped from path.
+  # @return [string] the properly truncated path
   def trunc_dir(dir, how_many)
     # make sure we don't lose any root slash if '--prune' is NOT specified
     return dir if how_many == 0
@@ -26,6 +29,6 @@ module Helpers
 
   def show_time(duration)
     time_taken = Time.at(duration).utc
-    time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.').cyan
+    time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.')
   end
 end

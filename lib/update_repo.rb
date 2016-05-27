@@ -126,12 +126,14 @@ EOS
     def show_header(exceptions)
       # print an informative header before starting
       # unless we are dumping the repo information
-      return if param_set('dump')
+      return if dumping?
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
       print "Command line is : #{@config['cmd']}\n"
+      # list out the locations that will be searched
       list_locations
+      # lisgt any exceptions that we have from the config file
       if exceptions
         print "\nExclusions:".underline, ' ',
               exceptions.join(', ').yellow, "\n"
@@ -145,13 +147,12 @@ EOS
     # @return [void]
     def footer
       # no footer if we are dumping the repo information
-      return if param_set('dump')
-
+      return if dumping?
       duration = Time.now - @start_time
       print "\nUpdates completed : ", @counter.to_s.green,
             ' repositories processed'
       print ' / ', @skip_count.to_s.yellow, ' skipped' unless @skip_count == 0
-      print ' in ', show_time(duration), "\n\n"
+      print ' in ', show_time(duration).cyan, "\n\n"
     end
 
     def list_locations
@@ -186,6 +187,5 @@ EOS
     def dump_repo(dir, url)
       print "#{trunc_dir(dir, @config['cmd'][:prune])},#{url}\n"
     end
-
   end
 end
