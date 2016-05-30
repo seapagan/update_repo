@@ -65,6 +65,8 @@ Options:
   -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
   -p, --prune=<i>            Number of directory levels to remove from the --dump output.
                              Only valid when --dump or -d specified (Default: 0)
+  -i, --import               Import a previous dump of directories and Git repository URL's,
+                             (created using --dump) then proceed to clone them locally.
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```
@@ -88,6 +90,7 @@ Not in any specific order :
 - Option to save log file for each run.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them; Similar option to just dump a list of the remote git locations.
 - Add ability to export a text dump of each repo location `[DONE]` and then re-import this on a different machine or after reinstall `[TODO]`
+- Ensure that both --dump and --import cannot be specified at the same time.
 - Document configuration file format and options.
 - Add testing!
 
