@@ -14,13 +14,18 @@ module Helpers
     File.join(path_array)
   end
 
+  # mark these as private simply so that 'reek' wont flag as utility function.
+  private
+
   # true if we are dumping the file structure and git urls instead of updating.
   def dumping?
     param_set('dump')
   end
 
-  # mark these as private simply so that 'reek' wont flag as utility function.
-  private
+  # true if we are importing a previously dumped list of Git repos.
+  def importing?
+    param_set('import')
+  end
 
   def gitdir?(dirpath)
     gitpath = dirpath + '/.git'
