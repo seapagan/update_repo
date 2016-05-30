@@ -90,7 +90,6 @@ Not in any specific order :
 - Option to save log file for each run.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them; Similar option to just dump a list of the remote git locations.
 - Add ability to export a text dump of each repo location `[DONE]` and then re-import this on a different machine or after reinstall `[TODO]`
-- Ensure that both --dump and --import cannot be specified at the same time.
 - Document configuration file format and options.
 - Add testing!
 
