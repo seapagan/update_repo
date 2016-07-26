@@ -49,7 +49,7 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = true unless param_set('color')
-      show_header(@config['exceptions'])
+      show_header
       @config['location'].each do |loc|
         recurse_dir(loc)
       end
@@ -124,9 +124,9 @@ EOS
 
     # Display a simple header to the console
     # @example
-    #   show_header(exceptions)
+    #   show_header
     # @return [void]
-    def show_header(exceptions)
+    def show_header
       # print an informative header before starting
       # unless we are dumping the repo information
       return if dumping?
@@ -136,11 +136,8 @@ EOS
       print "Command line is : #{@config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
-      # lisgt any exceptions that we have from the config file
-      if exceptions
-        print "\nExclusions:".underline, ' ',
-              exceptions.join(', ').yellow, "\n"
-      end
+      # list any exceptions that we have from the config file
+      list_exceptions
       # save the start time for later display in the footer...
       @start_time = Time.now
       print "\n" # blank line before processing starts
@@ -153,10 +150,18 @@ EOS
       return if dumping?
       duration = Time.now - @start_time
       print "\nUpdates completed : ", @counter.to_s.green,
-            ' repositories processed'
-      print ' / ', @skip_count.to_s.yellow, ' skipped' unless @skip_count == 0
-      print ' / ', @failed_count.to_s.red, ' failed'.red unless @fail_count == 0
+            ' repositories processed'.green
+      summary(@skip_count, 'yellow', 'skipped')
+      summary(@fail_count, 'red', 'failed')
       print ' in ', show_time(duration).cyan, "\n\n"
+    end
+
+    def list_exceptions
+      exceptions = @config['exceptions']
+      if exceptions
+        print "\nExclusions:".underline, ' ',
+              exceptions.join(', ').yellow, "\n"
+      end
     end
 
     def list_locations

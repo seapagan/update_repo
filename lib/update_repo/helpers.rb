@@ -1,4 +1,4 @@
-# Module 'Helers' containing assorted helper functions required elsewhere
+# Module 'Helpers' containing assorted helper functions required elsewhere
 module Helpers
   # will remove the FIRST 'how_many' root levels from a directory path 'dir'..
   # @param dir [string] Path to be truncated
@@ -6,7 +6,7 @@ module Helpers
   # @return [string] the properly truncated path
   def trunc_dir(dir, how_many)
     # make sure we don't lose any root slash if '--prune' is NOT specified
-    return dir if how_many == 0
+    return dir if how_many.zero?
     # convert to array then lose the first 'how_many' parts
     path_array = Pathname(dir).each_filename.to_a
     path_array = path_array.drop(how_many)
@@ -30,5 +30,11 @@ module Helpers
   def show_time(duration)
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.')
+  end
+
+  # print the specified summary metric, called from the footer.
+  def summary(which, color, event)
+    output = "#{which} #{event}"
+    print ' / ', output.send(color.to_sym) unless which.zero?
   end
 end
