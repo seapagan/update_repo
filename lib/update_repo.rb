@@ -46,9 +46,14 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = true unless param_set('color')
+      no_import_export if dumping? && importing?
       show_header
-      @config['location'].each do |loc|
-        recurse_dir(loc)
+      if importing?
+
+      else
+        @config['location'].each do |loc|
+          recurse_dir(loc)
+        end
       end
       # print out an informative footer...
       footer
@@ -109,6 +114,8 @@ EOS
           next unless gitdir?(dir)
           if dumping?
             dump_repo(File.join(dirname, dir))
+          elsif importing?
+            # placeholder
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
           end
