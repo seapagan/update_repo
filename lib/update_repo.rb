@@ -4,6 +4,7 @@ require 'yaml'
 require 'colorize'
 require 'confoog'
 require 'trollop'
+require 'open3'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -21,8 +22,10 @@ module UpdateRepo
     def initialize
       # @counter - this will be incremented with each repo updated.
       @counter = 0
-      # @skip_counter - will count all repos deliberately skipped
+      # @skip_count - will count all repos deliberately skipped
       @skip_count = 0
+      # @failed_count - will count how many, if any, repo's failed the update.
+      @fail_count = 0
       # @ start_time - will be used to get elapsed time
       @start_time = 0
       # read the options from Trollop and store in temp variable.
@@ -152,6 +155,7 @@ EOS
       print "\nUpdates completed : ", @counter.to_s.green,
             ' repositories processed'
       print ' / ', @skip_count.to_s.yellow, ' skipped' unless @skip_count == 0
+      print ' / ', @failed_count.to_s.red, ' failed'.red unless @fail_count == 0
       print ' in ', show_time(duration).cyan, "\n\n"
     end
 
@@ -181,7 +185,22 @@ EOS
 
     def do_update(repo_url)
       print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
-      system 'git pull'
+      # system 'git pull'
+      Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
+        { out: stdout, err: stderr }.each do |key, stream|
+          Thread.new do
+            until (line = stream.gets).nil?
+              if key == :err && line =~ /^fatal:/
+                print line.red
+                @fail_count += 1
+              else
+                print line.cyan
+              end
+            end
+          end
+        end
+        thread.join
+      end
     end
 
     def dump_repo(dir, url)
