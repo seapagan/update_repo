@@ -75,11 +75,13 @@ Not in any specific order :
 - Improve error-checking and recovery while parsing the configuration file
   * Ignore and report invalid or missing directories
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
-- Error checking and reporting for the git processes - retry for connection issues etc (config setting).
+- Error checking and reporting for the git processes `[IN PROGRESS]`
+  * Add more failure cases, not all git errors fail with "fatal:"
+- retry for connection issues etc (config setting).
 - Add extra (optional) stats / info at end-of-job :
-    * list of changed repos
-    * errors or connection problems
-    * _more..._
+  * list of changed repos
+  * errors or connection problems `[IN PROGRESS]`
+  * _more..._
 - Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file.
 - Add command line options for verbose or quiet, with same options in config file.
 - Add ability to specify a new directory (containing Git repos) to search from the command line, and optionally save this to the standard configuration.

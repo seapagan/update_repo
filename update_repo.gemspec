@@ -25,8 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'fakefs'
+  spec.add_development_dependency 'json', '= 1.8.3'
   spec.add_development_dependency 'coveralls'
-  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'inch'
   spec.add_development_dependency 'simplecov', '~> 0.10'
   spec.add_development_dependency 'pullreview-coverage'
@@ -38,5 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'trollop'
 
   # Depends on Ruby version if we can use 'Reek'
-  spec.add_development_dependency 'reek', '~> 3.3' if RUBY_VERSION > '2.0'
+  spec.add_development_dependency 'reek', '~> 3.3' if RUBY_VERSION >= '2.0'
+  # Depends on Ruby version if we can use 'rubocop'
+  spec.add_development_dependency 'rubocop' if RUBY_VERSION >= '2.0'
 end
