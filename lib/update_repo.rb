@@ -4,6 +4,7 @@ require 'yaml'
 require 'colorize'
 require 'confoog'
 require 'trollop'
+require 'open3'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -21,8 +22,10 @@ module UpdateRepo
     def initialize
       # @counter - this will be incremented with each repo updated.
       @counter = 0
-      # @skip_counter - will count all repos deliberately skipped
+      # @skip_count - will count all repos deliberately skipped
       @skip_count = 0
+      # @failed_count - will count how many, if any, repo's failed the update.
+      @fail_count = 0
       # @ start_time - will be used to get elapsed time
       @start_time = 0
       # read the options from Trollop and store in temp variable.
@@ -133,7 +136,7 @@ EOS
     # rubocop:disable Metrics/MethodLength
     # Display a simple header to the console
     # @example
-    #   show_header(exceptions)
+    #   show_header
     # @return [void]
     def show_header
       # print an informative header before starting
@@ -146,11 +149,8 @@ EOS
       print "Command line is : #{@config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
-      # lisgt any exceptions that we have from the config file
-      if exceptions
-        print "\nExclusions:".underline, ' ',
-              exceptions.join(', ').yellow, "\n"
-      end
+      # list any exceptions that we have from the config file
+      list_exceptions
       # save the start time for later display in the footer...
       @start_time = Time.now
       print "\n" # blank line before processing starts
@@ -164,9 +164,18 @@ EOS
       return if dumping?
       duration = Time.now - @start_time
       print "\nUpdates completed : ", @counter.to_s.green,
-            ' repositories processed'
-      print ' / ', @skip_count.to_s.yellow, ' skipped' unless @skip_count == 0
+            ' repositories processed'.green
+      summary(@skip_count, 'yellow', 'skipped')
+      summary(@fail_count, 'red', 'failed')
       print ' in ', show_time(duration).cyan, "\n\n"
+    end
+
+    def list_exceptions
+      exceptions = @config['exceptions']
+      if exceptions
+        print "\nExclusions:".underline, ' ',
+              exceptions.join(', ').yellow, "\n"
+      end
     end
 
     def list_locations
@@ -194,7 +203,22 @@ EOS
 
     def do_update(repo_url)
       print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
-      system 'git pull'
+      # system 'git pull'
+      Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
+        { out: stdout, err: stderr }.each do |key, stream|
+          Thread.new do
+            until (line = stream.gets).nil?
+              if key == :err && line =~ /^fatal:/
+                print line.red
+                @fail_count += 1
+              else
+                print line.cyan
+              end
+            end
+          end
+        end
+        thread.join
+      end
     end
 
     def dump_repo(dir)
