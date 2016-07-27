@@ -43,10 +43,10 @@ module UpdateRepo
     def start
       String.disable_colorization = true unless param_set('color')
       no_import_export if dumping? && importing?
-      show_header
       if importing?
-
+        Trollop.die "Sorry 'Import' functionality is not implemented yet".red
       else
+        show_header
         @config['location'].each do |loc|
           recurse_dir(loc)
         end

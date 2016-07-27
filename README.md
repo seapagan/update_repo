@@ -65,8 +65,6 @@ Options:
   -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
   -p, --prune=<i>            Number of directory levels to remove from the --dump output.
                              Only valid when --dump or -d specified (Default: 0)
-  -i, --import               Import a previous dump of directories and Git repository URL's,
-                             (created using --dump) then proceed to clone them locally.
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```
