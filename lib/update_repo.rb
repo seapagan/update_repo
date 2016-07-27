@@ -20,7 +20,7 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      @metrics = { counter: 0, skipped: 0, failed: 0, start_time: 0 }
+      @metrics = { count: 0, skipped: 0, failed: 0, updated: 0, start_time: 0 }
       # read the options from Trollop and store in temp variable.
       # we do it this way around otherwise if configuration file is missing it
       # gives the error messages even on '--help' and '--version'
@@ -153,8 +153,9 @@ EOS
       # no footer if we are dumping the repo information
       return if dumping?
       duration = Time.now - @metrics[:start_time]
-      print "\nUpdates completed : ", @metrics[:counter].to_s.green,
+      print "\nUpdates completed : ", @metrics[:count].to_s.green,
             ' repositories processed'.green
+      summary(@metrics[:updated], 'cyan', 'updated')
       summary(@metrics[:skipped], 'yellow', 'skipped')
       summary(@metrics[:failed], 'red', 'failed')
       print ' in ', show_time(duration).cyan, "\n\n"
@@ -187,13 +188,12 @@ EOS
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         do_update(repo_url)
-        @metrics[:counter] += 1
+        @metrics[:count] += 1
       end
     end
 
     def do_update(repo_url)
       print '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
-      # system 'git pull'
       Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
         { out: stdout, err: stderr }.each do |key, stream|
           Thread.new do
@@ -203,6 +203,7 @@ EOS
                 @metrics[:failed] += 1
               else
                 print '   ', line.cyan
+                @metrics[:updated] += 1 if line =~ /files?\schanged/
               end
             end
           end
