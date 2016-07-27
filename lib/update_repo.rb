@@ -20,14 +20,7 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      # @counter - this will be incremented with each repo updated.
-      @counter = 0
-      # @skip_count - will count all repos deliberately skipped
-      @skip_count = 0
-      # @failed_count - will count how many, if any, repo's failed the update.
-      @fail_count = 0
-      # @ start_time - will be used to get elapsed time
-      @start_time = 0
+      @metrics = { counter: 0, skipped: 0, failed: 0, start_time: 0 }
       # read the options from Trollop and store in temp variable.
       # we do it this way around otherwise if configuration file is missing it
       # gives the error messages even on '--help' and '--version'
@@ -150,7 +143,7 @@ EOS
       # list any exceptions that we have from the config file
       list_exceptions
       # save the start time for later display in the footer...
-      @start_time = Time.now
+      @metrics[:start_time] = Time.now
       print "\n" # blank line before processing starts
     end
 
@@ -159,11 +152,11 @@ EOS
     def footer
       # no footer if we are dumping the repo information
       return if dumping?
-      duration = Time.now - @start_time
-      print "\nUpdates completed : ", @counter.to_s.green,
+      duration = Time.now - @metrics[:start_time]
+      print "\nUpdates completed : ", @metrics[:counter].to_s.green,
             ' repositories processed'.green
-      summary(@skip_count, 'yellow', 'skipped')
-      summary(@fail_count, 'red', 'failed')
+      summary(@metrics[:skipped], 'yellow', 'skipped')
+      summary(@metrics[:failed], 'red', 'failed')
       print ' in ', show_time(duration).cyan, "\n\n"
     end
 
@@ -186,7 +179,7 @@ EOS
       Dir.chdir(dirpath.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         print '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
-        @skip_count += 1
+        @metrics[:skipped] += 1
       end
     end
 
@@ -194,7 +187,7 @@ EOS
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         do_update(repo_url)
-        @counter += 1
+        @metrics[:counter] += 1
       end
     end
 
@@ -207,7 +200,7 @@ EOS
             until (line = stream.gets).nil?
               if key == :err && line =~ /^fatal:/
                 print '   ', line.red
-                @fail_count += 1
+                @metrics[:failed] += 1
               else
                 print '   ', line.cyan
               end
