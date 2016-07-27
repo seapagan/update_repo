@@ -199,17 +199,17 @@ EOS
     end
 
     def do_update(repo_url)
-      print '* Checking ', Dir.pwd.green, " (#{repo_url})\n", '  -> '
+      print '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       # system 'git pull'
       Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
         { out: stdout, err: stderr }.each do |key, stream|
           Thread.new do
             until (line = stream.gets).nil?
               if key == :err && line =~ /^fatal:/
-                print line.red
+                print '   ', line.red
                 @fail_count += 1
               else
-                print line.cyan
+                print '   ', line.cyan
               end
             end
           end
