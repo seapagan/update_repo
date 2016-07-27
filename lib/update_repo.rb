@@ -209,7 +209,8 @@ EOS
               @metrics[:failed] += 1
             else
               print '   ', line.cyan
-              @metrics[:updated] += 1 if line =~ /files?\schanged/
+              # @metrics[:updated] += 1 if line =~ /files?\schanged/
+              @metrics[:updated] += 1 if line =~ /^From\shttps?:\/\//
             end
           end
         end
