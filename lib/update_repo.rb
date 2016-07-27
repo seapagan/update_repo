@@ -133,7 +133,6 @@ EOS
       !@config['exceptions'].include?(File.basename(dir))
     end
 
-    # rubocop:disable Metrics/MethodLength
     # Display a simple header to the console
     # @example
     #   show_header
@@ -142,7 +141,6 @@ EOS
       # print an informative header before starting
       # unless we are dumping the repo information
       return if dumping?
-      exceptions = @config['exceptions']
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
@@ -155,7 +153,6 @@ EOS
       @start_time = Time.now
       print "\n" # blank line before processing starts
     end
-    # rubocop:enable Metrics/MethodLength
 
     # print out a brief footer. This will be expanded later.
     # @return [void]
