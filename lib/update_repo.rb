@@ -49,9 +49,14 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = true unless param_set('color')
+      no_import_export if dumping? && importing?
       show_header
-      @config['location'].each do |loc|
-        recurse_dir(loc)
+      if importing?
+
+      else
+        @config['location'].each do |loc|
+          recurse_dir(loc)
+        end
       end
       # print out an informative footer...
       footer
@@ -94,6 +99,7 @@ EOS
         opt :color, 'Use colored output', default: true
         opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
+        opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.',
         #    default: false
@@ -108,7 +114,12 @@ EOS
     def recurse_dir(dirname)
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
-          if gitdir?(dir)
+          next unless gitdir?(dir)
+          if dumping?
+            dump_repo(File.join(dirname, dir))
+          elsif importing?
+            # placeholder
+          else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
           end
         end
@@ -182,8 +193,7 @@ EOS
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        this_dir = Dir.pwd
-        dumping? ? dump_repo(this_dir, repo_url) : do_update(repo_url)
+        do_update(repo_url)
         @counter += 1
       end
     end
@@ -208,8 +218,11 @@ EOS
       end
     end
 
-    def dump_repo(dir, url)
-      print "#{trunc_dir(dir, @config['cmd'][:prune])},#{url}\n"
+    def dump_repo(dir)
+      Dir.chdir(dir.chomp!('/')) do
+        repo_url = `git config remote.origin.url`.chomp
+        print "#{trunc_dir(dir, @config['cmd'][:prune])},#{repo_url}\n"
+      end
     end
   end
 end

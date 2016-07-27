@@ -4,3 +4,6 @@ TooManyStatements:
 
 UtilityFunction:
   public_methods_only: true
+
+RepeatedConditional:
+  max_ifs: 3
