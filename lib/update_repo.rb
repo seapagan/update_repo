@@ -195,20 +195,24 @@ EOS
     def do_update(repo_url)
       print '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
-        { out: stdout, err: stderr }.each do |key, stream|
-          Thread.new do
-            until (line = stream.gets).nil?
-              if key == :err && line =~ /^fatal:/
-                print '   ', line.red
-                @metrics[:failed] += 1
-              else
-                print '   ', line.cyan
-                @metrics[:updated] += 1 if line =~ /files?\schanged/
-              end
+        do_threads(stdout, stderr)
+        thread.join
+      end
+    end
+
+    def do_threads(stdout, stderr)
+      { out: stdout, err: stderr }.each do |key, stream|
+        Thread.new do
+          while (line = stream.gets)
+            if key == :err && line =~ /^fatal:/
+              print '   ', line.red
+              @metrics[:failed] += 1
+            else
+              print '   ', line.cyan
+              @metrics[:updated] += 1 if line =~ /files?\schanged/
             end
           end
         end
-        thread.join
       end
     end
 
