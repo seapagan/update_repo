@@ -102,9 +102,9 @@ EOS
         opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
         opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
+        opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
         # opt :quiet, 'Only minimal output to the terminal', default: false
-        # opt :silent, 'Completely silent, no output to terminal at all.',
-        #    default: false
+        # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
     end
     # rubocop:enable Metrics/MethodLength
