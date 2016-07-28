@@ -34,17 +34,11 @@ module Helpers
 
   def show_time(duration)
     time_taken = Time.at(duration).utc
-    time_taken.strftime('%-H hours, %-M Minutes and %-S seconds.')
+    time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
   end
 
   # we cant use --dump and --import on the same command line
   def no_import_export
     Trollop.die 'update_repo : Cannot specify both --dump and --import'
-  end
-
-  # print the specified summary metric, called from the footer.
-  def summary(which, color, event)
-    output = "#{which} #{event}"
-    print ' / ', output.send(color.to_sym) unless which.zero?
   end
 end

@@ -20,7 +20,10 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      @metrics = { count: 0, skipped: 0, failed: 0, updated: 0, start_time: 0 }
+      @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
+                   start_time: 0 }
+      @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
+                   failed: 'red' }
       # read the options from Trollop and store in temp variable.
       # we do it this way around otherwise if configuration file is missing it
       # gives the error messages even on '--help' and '--version'
@@ -29,8 +32,7 @@ module UpdateRepo
       # allows easy access to the configuration data
       @config = Confoog::Settings.new(filename: CONFIG_FILE,
                                       prefix: 'update_repo',
-                                      autoload: true,
-                                      autosave: false)
+                                      autoload: true, autosave: false)
       # store the command line variables in a configuration variable
       @config['cmd'] = temp_opt
       config_error unless @config.status[:errors] == Status::INFO_FILE_LOADED
@@ -153,12 +155,17 @@ EOS
       # no footer if we are dumping the repo information
       return if dumping?
       duration = Time.now - @metrics[:start_time]
-      print "\nUpdates completed : ", @metrics[:count].to_s.green,
-            ' repositories processed'.green
-      summary(@metrics[:updated], 'cyan', 'updated')
-      summary(@metrics[:skipped], 'yellow', 'skipped')
-      summary(@metrics[:failed], 'red', 'failed')
-      print ' in ', show_time(duration).cyan, "\n\n"
+      print "\nUpdates completed in ", show_time(duration).cyan
+      print_metrics
+      print " |\n\n"
+    end
+
+    def print_metrics
+      @summary.each do |metric, color|
+        metric_value = @metrics[metric]
+        output = "#{metric_value} #{metric.capitalize}"
+        print ' | ', output.send(color.to_sym) unless metric_value.zero?
+      end
     end
 
     def list_exceptions
@@ -188,7 +195,7 @@ EOS
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         do_update(repo_url)
-        @metrics[:count] += 1
+        @metrics[:processed] += 1
       end
     end
 
