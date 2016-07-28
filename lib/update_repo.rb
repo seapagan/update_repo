@@ -44,20 +44,27 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = true unless param_set('color')
-      no_import_export if dumping? && importing?
-      if importing?
-        Trollop.die "Sorry 'Import' functionality is not implemented yet".red
-      else
-        show_header
-        @config['location'].each do |loc|
-          recurse_dir(loc)
-        end
+      # make sure we dont have bad cmd-line parameter combinations ...
+      check_params
+      # print out our header ...
+      show_header unless dumping? || importing?
+      @config['location'].each do |loc|
+        recurse_dir(loc)
       end
-      # print out an informative footer...
-      footer unless dumping?
+      # print out an informative footer ...
+      footer unless dumping? || importing?
     end
 
     private
+
+    def check_params
+      if dumping? && importing?
+        Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
+      end
+      if importing?
+        Trollop.die "Sorry 'Import' functionality is not implemented yet".red
+      end
+    end
 
     # Determine options from the command line and configuration file. Command
     # line takes precedence
@@ -135,7 +142,6 @@ EOS
     def show_header
       # print an informative header before starting
       # unless we are dumping the repo information
-      return if dumping?
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
