@@ -78,8 +78,7 @@ Not in any specific order :
 - Error checking and reporting for the git processes `[IN PROGRESS]`
   * Add more failure cases, not all git errors fail with "fatal:"
 - retry for connection issues etc (config setting).
-- Add extra (optional) stats / info at end-of-job :
-  * list of changed repos
+- Improve the stats / info at end-of-job :
   * errors or connection problems `[IN PROGRESS]`
   * _more..._
 - Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file.
@@ -89,7 +88,9 @@ Not in any specific order :
 - Add flag for 'default' repo directory (or another specific directory - if it does not already exist it will be created and added to the standard list) which will be used for new additions.
 - Option to save log file for each run.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them; Similar option to just dump a list of the remote git locations.
-- Add ability to export a text dump of each repo location `[DONE]` and then re-import this on a different machine or after reinstall `[TODO]`
+- Add Import & Export functionality :
+  * ability to export a text dump of each repo location `[DONE]`
+  * re-import the above dump on a different machine or after reinstall
 - Document configuration file format and options.
 - Add testing!
 
