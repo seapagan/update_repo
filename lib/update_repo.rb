@@ -20,7 +20,10 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      @metrics = { count: 0, skipped: 0, failed: 0, updated: 0, start_time: 0 }
+      @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
+                   start_time: 0 }
+      @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
+                   failed: 'red' }
       # read the options from Trollop and store in temp variable.
       # we do it this way around otherwise if configuration file is missing it
       # gives the error messages even on '--help' and '--version'
@@ -29,8 +32,7 @@ module UpdateRepo
       # allows easy access to the configuration data
       @config = Confoog::Settings.new(filename: CONFIG_FILE,
                                       prefix: 'update_repo',
-                                      autoload: true,
-                                      autosave: false)
+                                      autoload: true, autosave: false)
       # store the command line variables in a configuration variable
       @config['cmd'] = temp_opt
       config_error unless @config.status[:errors] == Status::INFO_FILE_LOADED
@@ -42,20 +44,27 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = true unless param_set('color')
-      no_import_export if dumping? && importing?
-      if importing?
-        Trollop.die "Sorry 'Import' functionality is not implemented yet".red
-      else
-        show_header
-        @config['location'].each do |loc|
-          recurse_dir(loc)
-        end
+      # make sure we dont have bad cmd-line parameter combinations ...
+      check_params
+      # print out our header ...
+      show_header unless dumping? || importing?
+      @config['location'].each do |loc|
+        recurse_dir(loc)
       end
-      # print out an informative footer...
-      footer
+      # print out an informative footer ...
+      footer unless dumping? || importing?
     end
 
     private
+
+    def check_params
+      if dumping? && importing?
+        Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
+      end
+      if importing?
+        Trollop.die "Sorry 'Import' functionality is not implemented yet".red
+      end
+    end
 
     # Determine options from the command line and configuration file. Command
     # line takes precedence
@@ -133,7 +142,6 @@ EOS
     def show_header
       # print an informative header before starting
       # unless we are dumping the repo information
-      return if dumping?
       print "\nGit Repo update utility (v", VERSION, ')',
             " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print "Using Configuration from '#{@config.config_path}'\n"
@@ -150,15 +158,18 @@ EOS
     # print out a brief footer. This will be expanded later.
     # @return [void]
     def footer
-      # no footer if we are dumping the repo information
-      return if dumping?
       duration = Time.now - @metrics[:start_time]
-      print "\nUpdates completed : ", @metrics[:count].to_s.green,
-            ' repositories processed'.green
-      summary(@metrics[:updated], 'cyan', 'updated')
-      summary(@metrics[:skipped], 'yellow', 'skipped')
-      summary(@metrics[:failed], 'red', 'failed')
-      print ' in ', show_time(duration).cyan, "\n\n"
+      print "\nUpdates completed in ", show_time(duration).cyan
+      print_metrics
+      print " |\n\n"
+    end
+
+    def print_metrics
+      @summary.each do |metric, color|
+        metric_value = @metrics[metric]
+        output = "#{metric_value} #{metric.capitalize}"
+        print ' | ', output.send(color.to_sym) unless metric_value.zero?
+      end
     end
 
     def list_exceptions
@@ -188,7 +199,7 @@ EOS
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
         do_update(repo_url)
-        @metrics[:count] += 1
+        @metrics[:processed] += 1
       end
     end
 
@@ -210,7 +221,7 @@ EOS
             else
               print '   ', line.cyan
               # @metrics[:updated] += 1 if line =~ /files?\schanged/
-              @metrics[:updated] += 1 if line =~ /^From\shttps?:\/\//
+              @metrics[:updated] += 1 if line =~ %r{^From\shttps?://}
             end
           end
         end
