@@ -119,8 +119,6 @@ EOS
           next unless gitdir?(dir)
           if dumping?
             dump_repo(File.join(dirname, dir))
-          elsif importing?
-            # placeholder
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
           end
