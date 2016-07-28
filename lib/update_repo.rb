@@ -54,7 +54,7 @@ module UpdateRepo
         end
       end
       # print out an informative footer...
-      footer
+      footer unless dumping?
     end
 
     private
@@ -152,8 +152,6 @@ EOS
     # print out a brief footer. This will be expanded later.
     # @return [void]
     def footer
-      # no footer if we are dumping the repo information
-      return if dumping?
       duration = Time.now - @metrics[:start_time]
       print "\nUpdates completed in ", show_time(duration).cyan
       print_metrics
