@@ -210,7 +210,7 @@ EOS
             else
               print '   ', line.cyan
               # @metrics[:updated] += 1 if line =~ /files?\schanged/
-              @metrics[:updated] += 1 if line =~ /^From\shttps?:\/\//
+              @metrics[:updated] += 1 if line =~ %r{^From\shttps?://}
             end
           end
         end
