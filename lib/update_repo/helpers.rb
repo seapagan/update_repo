@@ -14,9 +14,6 @@ module Helpers
     File.join(path_array)
   end
 
-  # mark these as private simply so that 'reek' wont flag as utility function.
-  private
-
   # true if we are dumping the file structure and git urls instead of updating.
   def dumping?
     param_set('dump')
@@ -26,6 +23,23 @@ module Helpers
   def importing?
     param_set('import')
   end
+
+  # true if we are logging to file.
+  def logging?
+    param_set('log')
+  end
+
+  # this function will simply pass the given string to 'print', and also
+  # log to file if that is specified.
+  def print_log(*string)
+    # log to screen regardless
+    print(*string)
+    # log to file if that has been enabled
+    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if logging?
+  end
+
+  # mark these as private simply so that 'reek' wont flag as utility function.
+  private
 
   def gitdir?(dirpath)
     gitpath = dirpath + '/.git'

@@ -58,6 +58,11 @@ module UpdateRepo
     private
 
     def check_params
+      if logging?
+        @logfile = File.open('updaterepo.log', 'a')
+        @logfile.sync = true
+        @logfile.truncate(0)
+      end
       if dumping? && importing?
         Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
       end
@@ -74,8 +79,8 @@ module UpdateRepo
 
     def config_error
       if @config.status[:errors] == Status::ERR_CANT_LOAD
-        print 'Note that the the default configuration file was '.red,
-              "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n\n".red
+        print_log 'Note that the the default configuration file was '.red,
+                  "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n\n".red
       end
       exit 1
     end
@@ -140,55 +145,57 @@ EOS
     def show_header
       # print an informative header before starting
       # unless we are dumping the repo information
-      print "\nGit Repo update utility (v", VERSION, ')',
-            " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      print "Using Configuration from '#{@config.config_path}'\n"
-      print "Command line is : #{@config['cmd']}\n"
+      print_log "\nGit Repo update utility (v", VERSION, ')',
+                " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
+      print_log "Using Configuration from '#{@config.config_path}'\n"
+      print_log "Command line is : #{@config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
       list_exceptions
       # save the start time for later display in the footer...
       @metrics[:start_time] = Time.now
-      print "\n" # blank line before processing starts
+      print_log "\n" # blank line before processing starts
     end
 
     # print out a brief footer. This will be expanded later.
     # @return [void]
     def footer
       duration = Time.now - @metrics[:start_time]
-      print "\nUpdates completed in ", show_time(duration).cyan
+      print_log "\nUpdates completed in ", show_time(duration).cyan
       print_metrics
-      print " |\n\n"
+      print_log " |\n\n"
+      # close the log file now as we are done, just to be sure ...
+      @logfile.close unless @logfile.nil?
     end
 
     def print_metrics
       @summary.each do |metric, color|
         metric_value = @metrics[metric]
         output = "#{metric_value} #{metric.capitalize}"
-        print ' | ', output.send(color.to_sym) unless metric_value.zero?
+        print_log ' | ', output.send(color.to_sym) unless metric_value.zero?
       end
     end
 
     def list_exceptions
       exceptions = @config['exceptions']
       if exceptions
-        print "\nExclusions:".underline, ' ',
-              exceptions.join(', ').yellow, "\n"
+        print_log "\nExclusions:".underline, ' ',
+                  exceptions.join(', ').yellow, "\n"
       end
     end
 
     def list_locations
-      print "\nRepo location(s):\n".underline
+      print_log "\nRepo location(s):\n".underline
       @config['location'].each do |loc|
-        print '-> ', loc.cyan, "\n"
+        print_log '-> ', loc.cyan, "\n"
       end
     end
 
     def skip_repo(dirpath)
       Dir.chdir(dirpath.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
+        print_log '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
         @metrics[:skipped] += 1
       end
     end
@@ -202,8 +209,9 @@ EOS
     end
 
     def do_update(repo_url)
-      print '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
-      Open3.popen3('git pull') do |_stdin, stdout, stderr, thread|
+      print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
+      Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
+        stdin.close
         do_threads(stdout, stderr)
         thread.join
       end
@@ -214,11 +222,10 @@ EOS
         Thread.new do
           while (line = stream.gets)
             if key == :err && line =~ /^fatal:/
-              print '   ', line.red
+              print_log '   ', line.red
               @metrics[:failed] += 1
             else
-              print '   ', line.cyan
-              # @metrics[:updated] += 1 if line =~ /files?\schanged/
+              print_log '   ', line.cyan
               @metrics[:updated] += 1 if line =~ %r{^From\shttps?://}
             end
           end
@@ -229,7 +236,7 @@ EOS
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print "#{trunc_dir(dir, @config['cmd'][:prune])},#{repo_url}\n"
+        print_log "#{trunc_dir(dir, @config['cmd'][:prune])},#{repo_url}\n"
       end
     end
   end
