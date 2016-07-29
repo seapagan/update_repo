@@ -35,4 +35,4 @@ else
   end
 end
 
-task default: [:rubocop, :inch, :reek, :spec, :build]
+task default: [:rubocop, :reek, :spec, :build]
