@@ -86,7 +86,6 @@ Not in any specific order :
 - Add ability to specify a new directory (containing Git repos) to search from the command line, and optionally save this to the standard configuration.
 - Add new repo from the command line that will be cloned to the default repo directory and then updated as usual. Extra flag added for "add only, clone later" for offline use.
 - Add flag for 'default' repo directory (or another specific directory - if it does not already exist it will be created and added to the standard list) which will be used for new additions.
-- Option to save log file for each run.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them; Similar option to just dump a list of the remote git locations.
 - Add Import & Export functionality :
   * ability to export a text dump of each repo location `[DONE]`
