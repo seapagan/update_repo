@@ -58,17 +58,24 @@ module UpdateRepo
     private
 
     def check_params
-      if logging?
-        @logfile = File.open('updaterepo.log', 'a')
-        @logfile.sync = true
-        @logfile.truncate(0)
-      end
+      setup_logfile if logging?
       if dumping? && importing?
         Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
       end
       if importing?
         Trollop.die "Sorry 'Import' functionality is not implemented yet".red
       end
+    end
+
+    def setup_logfile
+      filename = if param_set('timestamp')
+                   'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
+                 else
+                   'updaterepo.log'
+                 end
+      # filename = 'updaterepo' + prefix + '.log'
+      @logfile = File.open(filename, 'w')
+      @logfile.sync = true
     end
 
     # Determine options from the command line and configuration file. Command
@@ -108,6 +115,7 @@ EOS
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
         opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
+        opt :timestamp, 'Timestamp the logfile instead of overwriting. Requires --log option to be set', default: false
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
@@ -166,7 +174,7 @@ EOS
       print_metrics
       print_log " |\n\n"
       # close the log file now as we are done, just to be sure ...
-      @logfile.close unless @logfile.nil?
+      @logfile.close if @logfile
     end
 
     def print_metrics
