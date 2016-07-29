@@ -10,3 +10,4 @@
 .remote-sync.json
 .token
 .updatereporc
+*.log

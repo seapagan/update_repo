@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'fakefs'
   spec.add_development_dependency 'json', '= 1.8.3'
+  spec.add_development_dependency 'tins', '= 1.6.0'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'inch'
   spec.add_development_dependency 'simplecov', '~> 0.10'
