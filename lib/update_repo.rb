@@ -115,7 +115,7 @@ EOS
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
         opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
-        opt :timestamp, 'Timestamp the logfile instead of overwriting. Requires --log option to be set', default: false
+        opt :timestamp, 'Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.', default: false
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
@@ -156,7 +156,7 @@ EOS
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{@config.config_path}'\n"
-      print_log "Command line is : #{@config['cmd']}\n"
+      # print_log "Command line is : #{@config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
