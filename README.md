@@ -9,6 +9,7 @@
 A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 
 This is the conversion to a Gem of one of my standalone Ruby scripts. Still very much a work in progress but the required basic functionality is there.
+The script will simply run `git pull` on every local clone of a git repository that it finds under the specified directory or directories.
 
 ## Usage
 
@@ -38,7 +39,8 @@ $ update_repo
 
 ## Configuration
 #### Configuration file
-The configuration file defaults to `~/.updaterepo` and is a standard [YAML](http://yaml.org/)-formatted text file. The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
+The configuration file defaults to `~/.updaterepo` and is a standard [YAML](http://yaml.org/)-formatted text file. If this configuration file is not found, the script will terminate with an error.  
+The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
 
 `location:` - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :
 ```yaml
@@ -65,6 +67,12 @@ Options:
   -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
   -p, --prune=<i>            Number of directory levels to remove from the --dump output.
                              Only valid when --dump or -d specified (Default: 0)
+  -i, --import               Import a previous dump of directories and Git repository URL's,
+                             (created using --dump) then proceed to clone them locally.
+  -l, --log                  Create a logfile of all program output to './update_repo.log'.
+                             Any older logs will be overwritten.
+  -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the
+                             --log option is also specified.
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```
@@ -90,6 +98,7 @@ Not in any specific order :
 - Add Import & Export functionality :
   * ability to export a text dump of each repo location `[DONE]`
   * re-import the above dump on a different machine or after reinstall
+- Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Document configuration file format and options.
 - Add testing!
 
