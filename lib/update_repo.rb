@@ -234,7 +234,7 @@ EOS
               @metrics[:failed] += 1
             else
               print_log '   ', line.cyan
-              @metrics[:updated] += 1 if line =~ %r{^From\shttps?://}
+              @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
             end
           end
         end
