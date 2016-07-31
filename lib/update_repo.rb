@@ -28,7 +28,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the logfile if needed
-      setup_logfile if logging?
+      setup_logfile if cmd('log')
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -36,27 +36,32 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      String.disable_colorization = true unless @cmd.param_set('color')
+      String.disable_colorization = true unless cmd('color')
       # make sure we dont have bad cmd-line parameter combinations ...
       @cmd.check_params
-      # print out our header ...
-      show_header unless dumping? || importing?
+      # print out our header unless we are dumping / importing ...
+      no_header = cmd('dump') || cmd('import')
+      show_header unless no_header
       config['location'].each do |loc|
         recurse_dir(loc)
       end
-      # print out an informative footer ...
-      footer unless dumping? || importing?
+      # print out an informative footer unless dump / import ...
+      footer unless no_header
     end
 
-    private
+    # private
 
     # returns the Confoog class which can then be used to access any config var
     def config
       @cmd.getconfig
     end
 
+    def cmd(command)
+      config['cmd'][command.to_sym] || config[command]
+    end
+
     def setup_logfile
-      filename = if @cmd.param_set('timestamp')
+      filename = if cmd('timestamp')
                    'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
                  else
                    'updaterepo.log'
@@ -72,7 +77,7 @@ module UpdateRepo
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
-          if dumping?
+          if cmd('dump')
             dump_repo(File.join(dirname, dir))
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
@@ -94,7 +99,6 @@ module UpdateRepo
     # @return [void]
     def show_header
       # print an informative header before starting
-      # unless we are dumping the repo information
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{config.config_path}'\n"
@@ -188,21 +192,6 @@ module UpdateRepo
         repo_url = `git config remote.origin.url`.chomp
         print_log "#{trunc_dir(dir, config['cmd'][:prune])},#{repo_url}\n"
       end
-    end
-
-    # true if we are dumping the file structure and git urls.
-    def dumping?
-      @cmd.param_set('dump')
-    end
-
-    # true if we are importing a previously dumped list of Git repos.
-    def importing?
-      @cmd.param_set('import')
-    end
-
-    # true if we are logging to file.
-    def logging?
-      @cmd.param_set('log')
     end
   end
 end

@@ -20,7 +20,7 @@ module Helpers
     # log to screen regardless
     print(*string)
     # log to file if that has been enabled
-    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if logging?
+    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if cmd('log')
   end
 
   # mark these as private simply so that 'reek' wont flag as utility function.
