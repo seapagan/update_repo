@@ -78,14 +78,9 @@ Options:
 ```
 
 ## To-Do
-Not in any specific order :
+Add functionality, not in any specific order :
 
-- Improve error-checking and recovery while parsing the configuration file
-  * Ignore and report invalid or missing directories
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
-- Error checking and reporting for the git processes `[IN PROGRESS]`
-  * Add more failure cases, not all git errors fail with "fatal:"
-- retry for connection issues etc (config setting).
 - Improve the stats / info at end-of-job :
   * errors or connection problems `[IN PROGRESS]`
   * _more..._
@@ -100,7 +95,15 @@ Not in any specific order :
   * re-import the above dump on a different machine or after reinstall
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Document configuration file format and options.
+
+Internal Changes and refactoring :
 - Add testing!
+- Refactor all command-line handling into a separate class and file
+- Error checking and reporting for the git processes `[IN PROGRESS]`
+- Improve error-checking and recovery while parsing the configuration file
+  * Ignore and report invalid or missing directories
+  * Add more failure cases, not all git errors fail with "fatal:"
+- retry for connection issues etc (config setting).
 
 [confoog]: http://confoog.seapagan.net
 
