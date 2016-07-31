@@ -24,6 +24,17 @@ body {
   padding: 0 0.3em 0 0.3em;
 }
 
+.icon::before {
+    display: inline-block;
+    margin-right: .25em;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
 /* ABOUT */
 .about {
   padding-top: 45px;
