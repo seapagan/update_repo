@@ -28,7 +28,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the logfile if needed
-      setup_logfile if cmd('log')
+      setup_logfile if cmd(:log)
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -36,11 +36,11 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      String.disable_colorization = true unless cmd('color')
+      String.disable_colorization = true unless cmd(:color)
       # make sure we dont have bad cmd-line parameter combinations ...
       @cmd.check_params
       # print out our header unless we are dumping / importing ...
-      no_header = cmd('dump') || cmd('import')
+      no_header = cmd(:dump) || cmd(:import)
       show_header unless no_header
       config['location'].each do |loc|
         recurse_dir(loc)
@@ -57,11 +57,13 @@ module UpdateRepo
     end
 
     def cmd(command)
-      config['cmd'][command.to_sym] || config[command]
+      str = (command.to_s + '_given').to_sym
+      cmd_given = config['cmd'][command]
+      config['cmd'][str] ? cmd_given : cmd_given || config[command.to_s]
     end
 
     def setup_logfile
-      filename = if cmd('timestamp')
+      filename = if cmd(:timestamp)
                    'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
                  else
                    'updaterepo.log'
@@ -77,7 +79,7 @@ module UpdateRepo
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
-          if cmd('dump')
+          if cmd(:dump)
             dump_repo(File.join(dirname, dir))
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
@@ -102,7 +104,7 @@ module UpdateRepo
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{config.config_path}'\n"
-      # print_log "Command line is : #{config['cmd']}\n"
+      print_log "Command line is : #{config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
