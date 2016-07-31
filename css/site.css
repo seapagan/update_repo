@@ -13,8 +13,9 @@ h1 {
 }
 
 h2 {
-  font-style: italic;
   text-decoration: underline;
+  font-size: 2em;
+  font-family: 'Droid Serif', sans-serif;
 }
 
 .filename {
