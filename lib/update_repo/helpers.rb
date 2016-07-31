@@ -14,21 +14,6 @@ module Helpers
     File.join(path_array)
   end
 
-  # true if we are dumping the file structure and git urls instead of updating.
-  def dumping?
-    param_set('dump')
-  end
-
-  # true if we are importing a previously dumped list of Git repos.
-  def importing?
-    param_set('import')
-  end
-
-  # true if we are logging to file.
-  def logging?
-    param_set('log')
-  end
-
   # this function will simply pass the given string to 'print', and also
   # log to file if that is specified.
   def print_log(*string)
