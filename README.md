@@ -57,6 +57,16 @@ exceptions:
 - update_repo
 ```
 
+`log:` - Log all output to the file `./.updaterepo`, defaults to FALSE (optional)
+```yaml
+log: true
+```
+
+`timestamp:` - timestamp the output files instead of overwriting them, defaults to FALSE (optional)
+```yaml
+timestamp: true
+```
+
 #### Command line switches
 Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories.
 
@@ -103,7 +113,8 @@ Internal Changes and refactoring :
 - Improve error-checking and recovery while parsing the configuration file
   * Ignore and report invalid or missing directories
   * Add more failure cases, not all git errors fail with "fatal:"
-- retry for connection issues etc (config setting).
+- Retry for connection issues etc (config setting).
+- Fix functionality so that command line options will override those in the config file
 
 [confoog]: http://confoog.seapagan.net
 
