@@ -9,6 +9,14 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/site.css">
+    <!-- PRISM syntax hilighter -->
+    <link rel="stylesheet" href="css/prism.css">
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato|Droid+Serif|Raleway" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,10 +26,237 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Placeholder</h1>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <span id="forkongithub"><a href="https://github.com/seapagan/update_repo" target="_blank">Fork me on GitHub</a></span>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Update_Repo</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#contribute">Contribute</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- ABOUT -->
+    <section class="about" id='about'>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+          <h1>About</h1>
+            <p>A Simple Gem to keep multiple locally-cloned Git Repositories up to date.</p>
+            <p>The script will simply run <span class="console-output">git pull</span> on every local clone of a git repository that it finds under the specified directory or directories.</p>
+          </div>
+        </div><!-- row -->
+      </div><!-- container -->
+    </section>
+    <!-- ABOUT END -->
+
+    <!-- INSTALLATION -->
+    <section class="installation" id="installation">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1>Installation</h1>
+            <p>A working copy of both <a href="http://git-scm.com" target="_blank" class="icon fa-external-link">Git</a> and <a href="http://www.ruby-lang.org" target="_blank" class="icon fa-external-link">Ruby</a> need to be installed on your machine. Also, the script has only been tested under Linux, not windows.</p>
+            <p>Simply install from the command prompt as you would any other gem. Note that you may require <b>'sudo'</b> depending how Ruby is installed on your system.</p>
+            <pre><code class="language-bash">gem install update_repo</code></pre>
+          </div>
+        </div><!-- row -->
+      </div><!-- container -->
+    </section>
+    <!-- INSTALLATION END -->
+
+    <!-- USAGE -->
+    <section class="usage" id="usage">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1>Usage</h1>
+            <h2>Quick Start</h2>
+            <p>Create a <a href="http://yaml.org/">YAML</a>-formatted configuration file called <span class="filename">.updaterepo</span> (note the 'dot' at the start!) in your home directory that contains at least a <span class="yaml-tag">location:</span> tag pointing to the directory containing the git repositories you wish to have updated :</p>
+              <pre>
+                <code class="language-yaml">
+                  ---
+                  location:
+                  - /media/myuser/git-repos
+                  - /data/RepoDir
+                </code>
+              </pre>
+            <p>The directory or directories specified (there can be 1 root directory or as many as you wish) must already exist, and can be nested as deep as you wish with many repositories in many subdirectories.</p>
+            <p>This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below.</p>
+            <p>Now, run the script from anywhere :</p>
+            <pre><code class="language-bash">update_repo</code></pre>
+
+          </div>
+        </div><!-- row -->
+      </div><!-- container -->
+    </section>
+    <!-- USAGE END -->
+
+    <!-- CONFIGURATION -->
+    <section class="configuration" id="configuration">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1>Configuration</h1>
+          </div>
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h2>Configuration file</h2>
+            <p>The configuration file defaults to <span class="filename">~/.updaterepo</span> and is a standard <a href="http://yaml.org/" class="icon  fa-external-link">YAML</a> formatted text file. If this configuration file is not found, the script will terminate with an error.</p>
+            <p>The first line <b>must</b> contain only the YAML frontmatter of 3 dashes (<span class="yaml-tag">---</span>). After that, the following sections can follow in any order. Only the <span class="yaml-tag">location:</span> section is compulsory, and that must contain at least one entry.</p>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">location:</span> - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :</p>
+            <pre>
+              <code class="language-yaml">
+                ---
+                location:
+                - /media/myuser/git-repos
+                - /data/RepoDir
+              </code>
+            </pre>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">exceptions:</span> - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the __directory__ holding the repository (has the `.git` directory inside) :</p>
+            <pre>
+              <code class="language-yaml">
+                exceptions:
+                - ubuntu-trusty
+                - update_repo
+              </code>
+            </pre>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">./.updaterepo</span>, defaults to <b>FALSE</b> (optional)</p>
+            <pre>
+              <code class="language-yaml">
+                log: true
+              </code>
+            </pre>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">timestamp:</span> - timestamp the output files instead of overwriting them, defaults to FALSE (optional)</p>
+            <pre>
+              <code class="language-yaml">
+                timestamp: true
+              </code>
+            </pre>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <p>Putting these together, below is an example <span class="filename">.updaterepo</span> file :</p>
+            <pre>
+              <code class="language-yaml">
+                ---
+                location:
+                - /media/myuser/git-repos
+                - /data/RepoDir
+                exceptions:
+                - ubuntu-trusty
+                - update_repo
+                log: true
+                timestamp: true
+              </code>
+            </pre>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h2>Command line switches</h2>
+            <p>Command line switches are not compulsory. If none are specified then the program will read from the standard configuration file <span class="filename">~/.updaterepo</span> and automatically update the specified Repositories.</p>
+            <p>Enter <pre><code class="language-bash">update_repo --help</code></pre> at the command prompt to get a list of available options :</p>
+            <pre>
+              <code class="language-markup">
+                Options:
+                  -c, --color, --no-color    Use colored output (default: true)
+                  -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
+                  -p, --prune=&lt;i>            Number of directory levels to remove from the --dump output. Only valid when --dump or -d specified (Default: 0)
+                  -l, --log                  Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.
+                  -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.
+                  -v, --version              Print version and exit
+                  -h, --help                 Show this message
+              </code>
+            </pre>
+          </div>
+        </div><!-- row -->
+      </div><!-- container -->
+    </section>
+    <!-- CONFIGURATION END -->
+
+    <!-- CONTRIBUTE -->
+    <section class="contribute" id="contribute">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1>Contribute to the Development</h1>
+          </div>
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h2>Contributing</h2>
+            <p>The source code for <span class="console-output">update_repo</span> is freely available on my <a target="_blank" class="icon fa-external-link" href="https://github.com/seapagan/update_repo">Github</a> pages, under the MIT license.</p>
+            <p>If you wish to help in any way then :</p>
+            <ol>
+              <li>Fork it</li>
+              <li>Create your feature branch (<span class="console-output">git checkout -b my-new-feature</span>)</li>
+              <li>Commit your changes (<span class="console-output">git commit -am 'Add some feature'</span)</li>
+              <li>Push to the branch (<span class="console-output">git push origin my-new-feature</span)</li>
+              <li>Create a new Pull Request</li>
+            </ol>
+          </div>
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h2>Development</h2>
+            <p>After checking out the repo, run <span class="console-output">bin/setup</span> to install dependencies. Then, run <span class="console-output">rake spec</span> to run the tests (or simply <span class="console-output">rake</span>). You can also run <span class="console-output">bin/console</span> for an interactive prompt that will allow you to experiment.</p>
+            <p>To install this gem onto your local machine, run <span class="console-output">bundle exec rake install</span>.</p>
+            <p>Run <span class="console-output">rake</span> to run the RSpec tests, which also runs <span class="console-output">RuboCop</span>, <span class="console-output">Reek</span> and <span class="console-output">inch --pedantic</span> too.</p>
+          </div>
+        </div><!-- row -->
+      </div><!-- container -->
+    </section>
+    <!-- CONTRIBUTE END -->
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <col-lg-6 class="col-lg-12 text-right">
+            &copy; Grant Ramsay 2016
+          </col-lg-6>
+        </div>
+      </div>
+    </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include the PRSIM JS -->
+    <script src='js/prism.js'></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
   </body>

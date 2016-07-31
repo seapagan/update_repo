@@ -1,6 +1,20 @@
 /* GENERAL */
 body {
   font-family: 'Raleway', sans-serif;
+  background-color: #ebebe0;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  font-family: 'Droid Serif', sans-serif;
+  padding-bottom: 20px;
+  color: #54542c;
+}
+
+h2 {
+  font-style: italic;
+  text-decoration: underline;
 }
 
 .filename {
@@ -24,6 +38,15 @@ body {
   padding: 0 0.3em 0 0.3em;
 }
 
+.console-output {
+  border-style: solid;
+  border-width: thin;
+  border-color: #CCCCCC;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  padding: 0 0.3em 0 0.3em;
+}
+
 .icon::before {
     display: inline-block;
     margin-right: .25em;
@@ -35,13 +58,86 @@ body {
     transform: translate(0, 0);
 }
 
+/* NAVBAR */
+.navbar {
+  background-color: #404040;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.navbar a {
+  color: #cccccc !important;
+}
+
+.navbar a:hover {
+  color: #ffffff !important;
+  background-color: #646464 !important;
+}
+
+.navbar-header .navbar-brand {
+  color: white !important;
+  font-size: 1.5em;
+}
+
 /* ABOUT */
 .about {
   padding-top: 45px;
-
+  padding-bottom: 30px;
 }
 
+.about .container {
+    border-bottom: solid thin;
+    border-color: #CCCCCC;
+}
 
+/* INSTALLATION */
+
+.installation {
+  padding-bottom: 30px;
+}
+
+.installation .container {
+  border-bottom: solid thin;
+  border-color: #CCCCCC;
+}
+
+/* USAGE */
+
+.usage {
+  padding-bottom: 30px;
+}
+
+.usage .container {
+  border-bottom: solid thin;
+  border-color: #CCCCCC;
+}
+
+/* CONFIGURATION */
+
+.configuration {
+  padding-bottom: 30px;
+}
+
+.configuration .container {
+  border-bottom: solid thin;
+  border-color: #CCCCCC;
+}
+
+/* CONTRIBUTE */
+
+.contribute {
+  padding-bottom: 30px;
+}
+
+.contribute .container {
+  border-bottom: solid thin;
+  border-color: #CCCCCC;
+}
+
+/* FOOTER */
+
+.footer {
+  padding-bottom: 30px;
+}
 
 /* FORK on GITHUB logo */
 #forkongithub a {
