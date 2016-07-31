@@ -7,3 +7,6 @@ UtilityFunction:
 
 RepeatedConditional:
   max_ifs: 3
+
+DuplicateMethodCall:
+ max_calls: 3
