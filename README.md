@@ -11,14 +11,22 @@ A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 This is the conversion to a Gem of one of my standalone Ruby scripts. Still very much a work in progress but the required basic functionality is there.
 The script will simply run `git pull` on every local clone of a git repository that it finds under the specified directory or directories.
 
-## Usage
+## Installation
+
+Install this from the shell prompt as you would any other Ruby Gem
+
+```
+ $ gem install update_repo
+```
 
 #### Pre-requirements
 
-It goes without saying that at the very least a working copy of both [`Git`][git] and [`Ruby`][ruby] need to be installed on your machine. Also, the script has only been tested under Linux, not windows.
+It goes without saying that at the very least a working copy of both [`Git`][git] and [`Ruby`][ruby] need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
 
 [git]: http://git-scm.com
 [ruby]: http://www.ruby-lang.org
+
+## Usage
 
 #### Quick start
 Create a [YAML](http://yaml.org/)-formatted configuration file `.updaterepo` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
