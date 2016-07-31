@@ -50,6 +50,7 @@ module UpdateRepo
 
     private
 
+    # returns the Confoog class which can then be used to access any config var
     def config
       @cmd.getconfig
     end
