@@ -13,18 +13,18 @@ The script will simply run `git pull` on every local clone of a git repository t
 
 ## Installation
 
-Install this from the shell prompt as you would any other Ruby Gem
-
-```
- $ gem install update_repo
-```
-
 #### Pre-requirements
 
 It goes without saying that at the very least a working copy of both [`Git`][git] and [`Ruby`][ruby] need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
 
 [git]: http://git-scm.com
 [ruby]: http://www.ruby-lang.org
+
+Install this from the shell prompt as you would any other Ruby Gem
+
+```
+ $ gem install update_repo
+```
 
 ## Usage
 
