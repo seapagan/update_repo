@@ -14,28 +14,13 @@ module Helpers
     File.join(path_array)
   end
 
-  # true if we are dumping the file structure and git urls instead of updating.
-  def dumping?
-    param_set('dump')
-  end
-
-  # true if we are importing a previously dumped list of Git repos.
-  def importing?
-    param_set('import')
-  end
-
-  # true if we are logging to file.
-  def logging?
-    param_set('log')
-  end
-
   # this function will simply pass the given string to 'print', and also
   # log to file if that is specified.
   def print_log(*string)
     # log to screen regardless
     print(*string)
     # log to file if that has been enabled
-    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if logging?
+    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if cmd('log')
   end
 
   # mark these as private simply so that 'reek' wont flag as utility function.
@@ -49,10 +34,5 @@ module Helpers
   def show_time(duration)
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
-  end
-
-  # we cant use --dump and --import on the same command line
-  def no_import_export
-    Trollop.die 'update_repo : Cannot specify both --dump and --import'
   end
 end
