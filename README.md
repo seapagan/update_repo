@@ -100,7 +100,7 @@ Add functionality, not in any specific order :
 - Improve the stats / info at end-of-job :
   * errors or connection problems `[IN PROGRESS]`
   * _more..._
-- Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file.
+- Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file. `[IN PROGRESS]`
 - Add command line options for verbose or quiet, with same options in config file.
 - Add ability to specify a new directory (containing Git repos) to search from the command line, and optionally save this to the standard configuration.
 - Add new repo from the command line that will be cloned to the default repo directory and then updated as usual. Extra flag added for "add only, clone later" for offline use.
@@ -110,17 +110,15 @@ Add functionality, not in any specific order :
   * ability to export a text dump of each repo location `[DONE]`
   * re-import the above dump on a different machine or after reinstall
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
-- Document configuration file format and options.
+- Document configuration file format and options. `[IN PROGRESS]`
 
 Internal Changes and refactoring :
 - Add testing!
-- Refactor all command-line handling into a separate class and file
 - Error checking and reporting for the git processes `[IN PROGRESS]`
 - Improve error-checking and recovery while parsing the configuration file
   * Ignore and report invalid or missing directories
   * Add more failure cases, not all git errors fail with "fatal:"
 - Retry for connection issues etc (config setting).
-- Fix functionality so that command line options will override those in the config file
 
 [confoog]: http://confoog.seapagan.net
 
