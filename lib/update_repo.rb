@@ -40,7 +40,7 @@ module UpdateRepo
       # make sure we dont have bad cmd-line parameter combinations ...
       @cmd.check_params
       # print out our header unless we are dumping / importing ...
-      no_header = cmd(:dump) || cmd(:import)
+      no_header = cmd(:dump) || cmd(:import) || cmd(:dump_remote)
       show_header unless no_header
       config['location'].each do |loc|
         recurse_dir(loc)
@@ -77,7 +77,7 @@ module UpdateRepo
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
-          if cmd(:dump)
+          if cmd(:dump) || cmd(:dump_remote)
             dump_repo(File.join(dirname, dir))
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
@@ -187,10 +187,13 @@ module UpdateRepo
       end
     end
 
+    # this function will either dump out a CSV with the directory and remote,
+    # or just the remote depending if we called --dump or --dump-remote
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
-        print_log "#{trunc_dir(dir, config['cmd'][:prune])},#{repo_url}\n"
+        print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
+        print_log "#{repo_url}\n"
       end
     end
   end
