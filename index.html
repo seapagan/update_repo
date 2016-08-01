@@ -46,6 +46,7 @@
             <li><a href="#usage">Usage</a></li>
             <li><a href="#configuration">Configuration</a></li>
             <li><a href="#contribute">Contribute</a></li>
+            <li><a href="#license">License</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -56,7 +57,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-          <h1>About</h1>
+          <h1 class="icon fa-info-circle">About</h1>
             <p>A Simple Gem to keep multiple locally-cloned Git Repositories up to date.</p>
             <p>The script will simply run <span class="console-output">git pull</span> on every local clone of a git repository that it finds under the specified directory or directories.</p>
           </div>
@@ -70,7 +71,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h1>Installation</h1>
+            <h1 class="icon fa-download">Installation</h1>
             <p>A working copy of both <a href="http://git-scm.com" target="_blank" class="icon fa-external-link">Git</a> and <a href="http://www.ruby-lang.org" target="_blank" class="icon fa-external-link">Ruby</a> need to be installed on your machine. Also, the script has only been tested under Linux, not windows.</p>
             <p>Simply install from the command prompt as you would any other gem. Note that you may require <b>'sudo'</b> depending how Ruby is installed on your system.</p>
             <pre><code class="language-bash">gem install update_repo</code></pre>
@@ -85,7 +86,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h1>Usage</h1>
+            <h1 class="icon fa-check-square-o">Usage</h1>
             <h2>Quick Start</h2>
             <p>Create a <a href="http://yaml.org/">YAML</a>-formatted configuration file called <span class="filename">.updaterepo</span> (note the 'dot' at the start!) in your home directory that contains at least a <span class="yaml-tag">location:</span> tag pointing to the directory containing the git repositories you wish to have updated :</p>
               <pre>
@@ -112,7 +113,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h1>Configuration</h1>
+            <h1 class="icon fa-cog">Configuration</h1>
           </div>
         </div><!-- row -->
         <div class="row">
@@ -213,7 +214,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <h1>Contribute to the Development</h1>
+            <h1 class="icon fa-code-fork">Contribute to the Development</h1>
           </div>
         </div><!-- row -->
         <div class="row">
@@ -242,15 +243,57 @@
     </section>
     <!-- CONTRIBUTE END -->
 
+    <!-- LICENSE -->
+    <section class="license" id="license">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1 class="icon fa-book">License</h1>
+            <p>The gem is available as open source under the terms of the <a class="icon fa-external-link" target="_blank" href="http://opensource.org/licenses/MIT">MIT</a> License, see the file <span class="filename">LICENSE.txt</span>, also reproduced below :</p>
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <pre>
+              <code class="language-markup">
+                The MIT License (MIT)
+
+                Copyright (c) 2016 Grant Ramsay
+
+                Permission is hereby granted, free of charge, to any person obtaining a copy
+                of this software and associated documentation files (the "Software"), to deal
+                in the Software without restriction, including without limitation the rights
+                to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                copies of the Software, and to permit persons to whom the Software is
+                furnished to do so, subject to the following conditions:
+
+                The above copyright notice and this permission notice shall be included in
+                all copies or substantial portions of the Software.
+
+                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+                THE SOFTWARE.
+              </code>
+            </pre>
+          </div>
+        </div>
+      </div><!-- container -->
+    </section>
+    <!-- LICENSE END -->
+
     <!-- FOOTER -->
     <footer class="footer">
       <div class="container">
         <div class="row">
           <col-lg-6 class="col-lg-12 text-right">
-            &copy; Grant Ramsay 2016
+            &copy; Grant Ramsay 2016 | see my public projects on <a target="_blank" class="icon fa-github"href="https://github.com/seapagan">Github</a>
           </col-lg-6>
-        </div>
-      </div>
+        </div><!-- row -->
+      </div><!-- container -->
     </footer>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
