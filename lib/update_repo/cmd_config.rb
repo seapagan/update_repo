@@ -50,15 +50,9 @@ module UpdateRepo
 
     # make sure the parameter combinations are valid
     def check_params
-      if param_set('dumping') && param_set('importing')
+      if true_cmd(:dump) && true_cmd(:import)
         Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
       end
-    end
-
-    # Determine options from the command line and configuration file. Command
-    # line takes precedence
-    def param_set(option)
-      @conf['cmd'][option.to_sym] || @conf[option]
     end
 
     private
