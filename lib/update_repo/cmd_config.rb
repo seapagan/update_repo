@@ -39,14 +39,12 @@ module UpdateRepo
       if cmd_given
         # if we specify something on the cmd line, that takes precedence
         cmd_line
+      elsif !@conf[command.to_s].nil?
+        # if we have a value in the config file we use that.
+        @conf[command.to_s]
       else
-        if !@conf[command.to_s].nil?
-          # if we have a value in the config file we use that.
-          @conf[command.to_s]
-        else
-          # this will catch any 'default' values in the cmd setup.
-          cmd_line
-        end
+        # this will catch any 'default' values in the cmd setup.
+        cmd_line
       end
     end
 
