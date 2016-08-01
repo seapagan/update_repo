@@ -57,9 +57,7 @@ module UpdateRepo
     end
 
     def cmd(command)
-      str = (command.to_s + '_given').to_sym
-      cmd_given = config['cmd'][command]
-      config['cmd'][str] ? cmd_given : cmd_given || config[command.to_s]
+      @cmd.true_cmd(command)
     end
 
     def setup_logfile

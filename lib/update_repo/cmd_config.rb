@@ -29,6 +29,14 @@ module UpdateRepo
       @conf
     end
 
+    # This will return the 'true' version of a command, taking into account
+    # both command line (given preference) and the configuration file.
+    def true_cmd(command)
+      str = (command.to_s + '_given').to_sym
+      cmd_given = @conf['cmd'][command]
+      @conf['cmd'][str] ? cmd_given : cmd_given || @conf[command.to_s]
+    end
+
     # make sure the parameter combinations are valid
     def check_params
       if param_set('dumping') && param_set('importing')
