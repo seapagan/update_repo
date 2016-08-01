@@ -1,7 +1,8 @@
 /* GENERAL */
 body {
   font-family: 'Raleway', sans-serif;
-  background-color: #ebebe0;
+
+  background-color: #808080;
 }
 
 h1 {
@@ -22,7 +23,7 @@ h2 {
 .row-header {
   border-style: solid;
   border-width: thin;
-  border-color: #CCCCCC;
+  border-color: #0d0d0d;
   -webkit-border-top-left-radius: 10px;
   -webkit-border-top-right-radius: 10px;
   -moz-border-radius-topleft: 10px;
@@ -42,8 +43,9 @@ h2 {
   -moz-border-radius-bottomleft: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  border-color: #CCCCCC;
+  border-color: #0d0d0d;
   padding: 10px 0 10px;
+  background-color: #ebebe0;
 }
 
 .filename {
