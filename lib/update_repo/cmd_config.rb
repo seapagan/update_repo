@@ -21,6 +21,7 @@ module UpdateRepo
                                     prefix: 'update_repo',
                                     autoload: true, autosave: false)
       @conf['cmd'] = temp_opt
+      check_params
       config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
     end
 
@@ -51,7 +52,10 @@ module UpdateRepo
     # make sure the parameter combinations are valid
     def check_params
       if true_cmd(:dump) && true_cmd(:import)
-        Trollop.die 'Sorry, you cannot specify both --dump and --import '.red
+        Trollop.die 'Sorry, you cannot specify --dump AND --import'.red
+      end
+      if true_cmd(:dump) && true_cmd(:dump_remote)
+        Trollop.die 'Sorry, you cannot specify --dump AND --dump-remote'.red
       end
     end
 
@@ -89,6 +93,7 @@ EOS
         # opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
         opt :timestamp, 'Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.', default: false
+        opt :dump_remote, 'Create a dump to screen or log listing all the git remote URLS found in the specified directories.', default: false, short: 'r'
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
