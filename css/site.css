@@ -8,14 +8,42 @@ h1 {
   text-align: center;
   font-size: 2.5em;
   font-family: 'Droid Serif', sans-serif;
-  padding-bottom: 20px;
+  /*padding: 5px 0 5px;*/
   color: #54542c;
+  margin: 10px;
 }
 
 h2 {
   text-decoration: underline;
   font-size: 2em;
   font-family: 'Droid Serif', sans-serif;
+}
+
+.row-header {
+  border-style: solid;
+  border-width: thin;
+  border-color: #CCCCCC;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #d7d7c1;
+}
+
+.row-body {
+  border-style: solid;
+  border-width: thin;
+  border-top: none;
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-color: #CCCCCC;
+  padding: 10px 0 10px;
 }
 
 .filename {
@@ -36,6 +64,17 @@ h2 {
   border-radius: 5px;
   background-color: #F5F2F0;
   color: #0077AA;
+  padding: 0 0.3em 0 0.3em;
+}
+
+.cmdline {
+  font-weight: bold;
+  border-style: solid;
+  border-width: thin;
+  border-color: #CCCCCC;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  color: #ff3333;
   padding: 0 0.3em 0 0.3em;
 }
 
@@ -81,13 +120,12 @@ h2 {
 
 /* ABOUT */
 .about {
-  padding-top: 45px;
+  padding-top: 65px;
   padding-bottom: 30px;
 }
 
 .about .container {
-    border-bottom: solid thin;
-    border-color: #CCCCCC;
+
 }
 
 /* INSTALLATION */
@@ -97,8 +135,7 @@ h2 {
 }
 
 .installation .container {
-  border-bottom: solid thin;
-  border-color: #CCCCCC;
+
 }
 
 /* USAGE */
@@ -108,8 +145,7 @@ h2 {
 }
 
 .usage .container {
-  border-bottom: solid thin;
-  border-color: #CCCCCC;
+
 }
 
 /* CONFIGURATION */
@@ -119,8 +155,7 @@ h2 {
 }
 
 .configuration .container {
-  border-bottom: solid thin;
-  border-color: #CCCCCC;
+
 }
 
 /* CONTRIBUTE */
@@ -130,8 +165,7 @@ h2 {
 }
 
 .contribute .container {
-  border-bottom: solid thin;
-  border-color: #CCCCCC;
+
 }
 
 /* LICENSE */
@@ -141,8 +175,7 @@ h2 {
 }
 
 .license .container {
-  border-bottom: solid thin;
-  border-color: #CCCCCC;
+
 }
 
 /* FOOTER */
