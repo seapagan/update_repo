@@ -31,10 +31,23 @@ module UpdateRepo
 
     # This will return the 'true' version of a command, taking into account
     # both command line (given preference) and the configuration file.
+    # parameter is a :symbol
     def true_cmd(command)
-      str = (command.to_s + '_given').to_sym
-      cmd_given = @conf['cmd'][command]
-      @conf['cmd'][str] ? cmd_given : cmd_given || @conf[command.to_s]
+      cmd_given = @conf['cmd'][(command.to_s + '_given').to_sym]
+      cmd_line = @conf['cmd'][command.to_sym]
+
+      if cmd_given
+        # if we specify something on the cmd line, that takes precedence
+        cmd_line
+      else
+        if !@conf[command.to_s].nil?
+          # if we have a value in the config file we use that.
+          @conf[command.to_s]
+        else
+          # this will catch any 'default' values in the cmd setup.
+          cmd_line
+        end
+      end
     end
 
     # make sure the parameter combinations are valid

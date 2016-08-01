@@ -36,7 +36,7 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      String.disable_colorization = true unless cmd(:color)
+      String.disable_colorization = !cmd(:color)
       # make sure we dont have bad cmd-line parameter combinations ...
       @cmd.check_params
       # print out our header unless we are dumping / importing ...
@@ -57,7 +57,7 @@ module UpdateRepo
     end
 
     def cmd(command)
-      @cmd.true_cmd(command)
+      @cmd.true_cmd(command.to_sym)
     end
 
     def setup_logfile
