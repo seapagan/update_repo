@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['seapagan@gmail.com']
 
   spec.summary       = 'A Simple Gem to keep multiple locally-cloned Git Repositories up to date'
-  spec.homepage      = 'http://opensource.seapagan.net'
+  spec.homepage      = 'http://updaterepo.seapagan.net'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
