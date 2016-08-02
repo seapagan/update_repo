@@ -16,6 +16,8 @@ module Helpers
 
   # this function will simply pass the given string to 'print', and also
   # log to file if that is specified.
+  # @param string [array] Array of strings for print formatting
+  # @return [void]
   def print_log(*string)
     # log to screen regardless
     print(*string)

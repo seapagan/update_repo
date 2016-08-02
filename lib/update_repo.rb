@@ -38,7 +38,7 @@ module UpdateRepo
     def start
       String.disable_colorization = !cmd(:color)
       # make sure we dont have bad cmd-line parameter combinations ...
-      @cmd.check_params
+      @cmd.check_params # TODO - check this since is already called in @cmd init
       # print out our header unless we are dumping / importing ...
       no_header = cmd(:dump) || cmd(:import) || cmd(:dump_remote)
       show_header unless no_header
@@ -52,14 +52,27 @@ module UpdateRepo
     # private
 
     # returns the Confoog class which can then be used to access any config var
+    # @return [void]
+    # @param [none]
     def config
       @cmd.getconfig
     end
 
+    # Return the true value of the specified configuration parameter. This is a
+    # helper function that simply calls the 'true_cmd' function in the @cmd
+    # class
+    # @param command [symbol] The defined command symbol that is to be returned
+    # @return [various] The value of the requested command option
+    # @example
+    #   logging = cmd(:log)
     def cmd(command)
       @cmd.true_cmd(command.to_sym)
     end
 
+    # Set up the log file - determine if we need to timestamp the filename and
+    # then actually open it and set to sync.
+    # @param [none]
+    # @return [void]
     def setup_logfile
       filename = if cmd(:timestamp)
                    'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
@@ -72,7 +85,8 @@ module UpdateRepo
 
     # take each directory contained in the Repo directory, if it is detected as
     # a Git repository then update it (or as directed by command line)
-    # @param dirname [string] Contains the directory to search for Git repos.
+    # @param dirname [string] Contains the directory to search for Git repos.]
+    # @return [void]
     def recurse_dir(dirname)
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
@@ -97,6 +111,7 @@ module UpdateRepo
     # @example
     #   show_header
     # @return [void]
+    # @param [none]
     def show_header
       # print an informative header before starting
       print_log "\nGit Repo update utility (v", VERSION, ')',
@@ -114,6 +129,7 @@ module UpdateRepo
 
     # print out a brief footer. This will be expanded later.
     # @return [void]
+    # @param [none]
     def footer
       duration = Time.now - @metrics[:start_time]
       print_log "\nUpdates completed in ", show_time(duration).cyan
@@ -123,6 +139,9 @@ module UpdateRepo
       @logfile.close if @logfile
     end
 
+    # Print end-of-run metrics to console / log
+    # @return [void]
+    # @param [none]
     def print_metrics
       @summary.each do |metric, color|
         metric_value = @metrics[metric]
@@ -131,6 +150,9 @@ module UpdateRepo
       end
     end
 
+    # Print a list of any defined expections that will not be updated.
+    # @return [void]
+    # @param [none]
     def list_exceptions
       exceptions = config['exceptions']
       if exceptions
@@ -139,6 +161,9 @@ module UpdateRepo
       end
     end
 
+    # Print a list of all top-level directories that will be searched and any
+    # Git repos contained within updated.
+    # @return [void]
     def list_locations
       print_log "\nRepo location(s):\n".underline
       config['location'].each do |loc|
@@ -146,6 +171,12 @@ module UpdateRepo
       end
     end
 
+    # Takes the specified Repo and does not update it, outputing a note to the
+    # console / log to this effect.
+    # @param dirpath [string] The directory with Git repository to be skipped
+    # @return [void]
+    # @example
+    #   skip_repo('/Repo/Personal/work-in-progress')
     def skip_repo(dirpath)
       Dir.chdir(dirpath.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
@@ -154,6 +185,12 @@ module UpdateRepo
       end
     end
 
+    # Takes the specified Repo outputs information and the repo URL then calls
+    # #do_update to actually update it.
+    # @param dirname [string] The directory that will be updated
+    # @return [void]
+    # @example
+    #   update_repo('/Repo/linux/stable')
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp
@@ -162,6 +199,10 @@ module UpdateRepo
       end
     end
 
+    # Actually perform the update of this specific repository, calling the
+    # function #do_threads to handle the output to screen and log.
+    # @param repo_url [string] The remote URL for the specified repo
+    # @return [void]
     def do_update(repo_url)
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
@@ -171,6 +212,11 @@ module UpdateRepo
       end
     end
 
+    # Create 2 individual threads to handle both STDOUT and STDERR streams,
+    # writing to console and log if specified.
+    # @param stdout [stream] STDOUT Stream from the popen3 call
+    # @param stderr [stream] STDERR Stream from the popen3 call
+    # @return [void]
     def do_threads(stdout, stderr)
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
@@ -189,6 +235,8 @@ module UpdateRepo
 
     # this function will either dump out a CSV with the directory and remote,
     # or just the remote depending if we called --dump or --dump-remote
+    # @param dir [string] The local directory for the repository
+    # @return [void]
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
         repo_url = `git config remote.origin.url`.chomp

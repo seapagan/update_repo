@@ -26,13 +26,18 @@ module UpdateRepo
     end
 
     # return the configuration hash variable
+    # @param [none]
+    # @return [Class] Returns the base 'confoog' class to the caller.
+    # @example
+    #   @config = @cmd.getconfig
     def getconfig
       @conf
     end
 
     # This will return the 'true' version of a command, taking into account
     # both command line (given preference) and the configuration file.
-    # parameter is a :symbol
+    # @param command [symbol] The symbol of the defined command
+    # @return [various] Returns the true value of the comamnd symbol
     def true_cmd(command)
       cmd_given = @conf['cmd'][(command.to_s + '_given').to_sym]
       cmd_line = @conf['cmd'][command.to_sym]
@@ -49,7 +54,9 @@ module UpdateRepo
       end
     end
 
-    # make sure the parameter combinations are valid
+    # make sure the parameter combinations are valid, terminating otherwise.
+    # @param [none]
+    # @return [void]
     def check_params
       if true_cmd(:dump) && true_cmd(:import)
         Trollop.die 'Sorry, you cannot specify --dump AND --import'.red
@@ -61,6 +68,9 @@ module UpdateRepo
 
     private
 
+    # terminate if we cannot load the configuration file for any reason.
+    # @param [none]
+    # @return [integer] exit code 1
     def config_error
       if @conf.status[:errors] == Status::ERR_CANT_LOAD
         print_log 'Note that the the default configuration file was '.red,
@@ -69,6 +79,9 @@ module UpdateRepo
       exit 1
     end
 
+    # Set up the Trollop options and banner
+    # @param [none]
+    # @return [void]
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/LineLength
     def set_options
