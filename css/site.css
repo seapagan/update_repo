@@ -166,6 +166,40 @@ h2 {
 
 }
 
+.configuration .cmd-opt {
+  text-align: center;
+}
+
+.configuration .cmd-header {
+  padding: 10px 0 0 10px;
+  margin-top: 20px;
+  font-size: 1.3em;
+}
+
+.configuration .opt-list li {
+  text-align: left;
+  list-style: none;
+}
+
+.configuration .cmd-body {
+
+}
+
+.configuration .cmd-block {
+  border-radius: 10px;
+  border: solid thin;
+  padding: 5px;
+}
+
+.configuration .cmd-opt .desc {
+  font-weight: bold;
+}
+
+.configuration .cmd-text {
+  font-style: italic;
+  padding: 0 20px 0 20px;
+}
+
 /* CONTRIBUTE */
 
 .contribute {
