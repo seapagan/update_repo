@@ -86,14 +86,14 @@ h2 {
 }
 
 .icon::before {
-    display: inline-block;
-    margin-right: .25em;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transform: translate(0, 0);
+  display: inline-block;
+  margin-right: .25em;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
 }
 
 /* NAVBAR */
@@ -245,26 +245,26 @@ h2 {
 
 @media screen and (min-width:800px) {
   #forkongithub {
-      position:fixed;
-      display:block;
-      top:0;
-      right:0;
-      width:300px;
-      overflow:hidden;
-      height:400px;
-      z-index:9999;
+    position:fixed;
+    display:block;
+    top:0;
+    right:0;
+    width:300px;
+    overflow:hidden;
+    height:400px;
+    z-index:9999;
   }
 
   #forkongithub a {
-      width:300px;
-      position:absolute;
-      top:70px;
-      right:-70px;
-      transform:rotate(45deg);
-      -webkit-transform:rotate(45deg);
-      -ms-transform:rotate(45deg);
-      -moz-transform:rotate(45deg);
-      -o-transform:rotate(45deg);
-      box-shadow:4px 4px 10px rgba(0,0,0,0.8);
+    width:300px;
+    position:absolute;
+    top:70px;
+    right:-70px;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+    box-shadow:4px 4px 10px rgba(0,0,0,0.8);
   }
 }
