@@ -1,47 +1,46 @@
+@import "partials/colors";
+@import "partials/fonts";
+@import "partials/variables";
+
 /* GENERAL */
 body {
-  font-family: 'Raleway', sans-serif;
-
-  background-color: #808080;
+  font-family: $body-font;
+  background-color: $body-background-color;
 }
 
 h1 {
   text-align: center;
   font-size: 2.5em;
-  font-family: 'Droid Serif', sans-serif;
-  /*padding: 5px 0 5px;*/
-  color: #54542c;
+  font-family: $headline-font;
+  color: $headline-color;
   margin: 10px;
 }
 
 a:hover {
   text-decoration: none;
-  /*font-weight: bold;*/
-  color: #cc0000;
+  color: $link-hover-color;
 }
 
 h2 {
   text-decoration: underline;
   font-size: 2em;
-  font-family: 'Droid Serif', sans-serif;
+  font-family: $headline-font;
 }
 
 .row-header {
-  border-style: solid;
-  border-width: thin;
-  border-color: #0d0d0d;
+  border: thin solid $row-border-color;
+  background-color: $row-header-color;
   -webkit-border-top-left-radius: 10px;
   -webkit-border-top-right-radius: 10px;
   -moz-border-radius-topleft: 10px;
   -moz-border-radius-topright: 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: #d7d7c1;
 }
 
 .row-body {
-  border-style: solid;
-  border-width: thin;
+  border: thin solid $row-border-color;
+  background-color: $row-body-color;
   border-top: none;
   -webkit-border-bottom-right-radius: 10px;
   -webkit-border-bottom-left-radius: 10px;
@@ -49,49 +48,40 @@ h2 {
   -moz-border-radius-bottomleft: 10px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  border-color: #0d0d0d;
   padding: 10px 0 10px;
-  background-color: #ebebe0;
 }
 
 .filename {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
-  border-radius: 5px;
-  background-color: #F5F2F0;
+  border: thin solid $hilight-border-color;
+  border-radius: $hilight-border-radius;
+  background-color: $hilight-background-color;
   padding: 0 0.3em 0 0.3em;
 }
 
 .yaml-tag {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
-  border-radius: 5px;
-  background-color: #F5F2F0;
+  border: thin solid $hilight-border-color;
+  border-radius: $hilight-border-radius;
+  background-color: $hilight-background-color;
   color: #0077AA;
   padding: 0 0.3em 0 0.3em;
 }
 
 .cmdline {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
-  border-radius: 5px;
-  background-color: #F5F2F0;
+  border: thin solid $hilight-border-color;
+  border-radius: $hilight-border-radius;
+  background-color: $hilight-background-color;
   color: #ff3333;
   padding: 0 0.3em 0 0.3em;
 }
 
 .console-output {
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
-  border-radius: 5px;
-  background-color: #F5F2F0;
+  font-weight: bold;
+  border: thin solid $hilight-border-color;
+  border-radius: $hilight-border-radius;
+  background-color: $hilight-background-color;
   padding: 0 0.3em 0 0.3em;
 }
 
@@ -108,154 +98,136 @@ h2 {
 
 /* NAVBAR */
 .navbar {
-  background-color: #404040;
-  border-bottom: 1px solid #b9b9b9;
+  background-color: $navbar-background-color;
+  border-bottom: 1px solid $navbar-border-color;
 }
 
 .navbar a {
-  color: #cccccc !important;
+  color: $navbar-link-color !important;
 }
 
 .navbar a:hover {
-  color: #ffffff !important;
-  background-color: #646464 !important;
+  color: $navbar-link--hover-color !important;
+  background-color: $navbar-link--hover-background !important;
 }
 
-.navbar-header .navbar-brand {
-  color: white !important;
-  font-size: 1.5em;
+.navbar-header {
+  .navbar-brand {
+    color: $navbar-brand-color !important;
+    font-size: 1.5em;
+  }
 }
 
 /* ABOUT */
 .about {
   padding-top: 65px;
-  padding-bottom: 30px;
+  padding-bottom: $section-padding-bottom;
+  .container {
+
+  }
 }
 
-.about .container {
-
-}
 
 /* INSTALLATION */
-
 .installation {
-  padding-bottom: 30px;
-}
+  padding-bottom: $section-padding-bottom;
+  .container {
 
-.installation .container {
-
+  }
 }
 
 /* USAGE */
-
 .usage {
-  padding-bottom: 30px;
-}
-
-.usage .container {
-
+  padding-bottom: $section-padding-bottom;
+  .container {
+    
+  }
 }
 
 /* CONFIGURATION */
-
 .configuration {
-  padding-bottom: 30px;
+  padding-bottom: $section-padding-bottom;
+  .container {
+
+  }
+  .cmd-opt {
+    text-align: center;
+    .desc {
+      font-weight: bold;
+    }
+  }
+  .cmd-header {
+    padding: 10px 0 0 10px;
+    margin-top: 20px;
+    font-size: 1.3em;
+  }
+  .opt-list li {
+    text-align: left;
+    list-style: none;
+  }
+  .cmd-body {
+
+  }
+  .cmd-block {
+    border-radius: 10px;
+    border: solid thin;
+    padding: 5px;
+  }
+  .cmd-text {
+    font-style: italic;
+    padding: 0 20px 0 20px;
+  }
 }
 
-.configuration .container {
-
-}
-
-.configuration .cmd-opt {
-  text-align: center;
-}
-
-.configuration .cmd-header {
-  padding: 10px 0 0 10px;
-  margin-top: 20px;
-  font-size: 1.3em;
-}
-
-.configuration .opt-list li {
-  text-align: left;
-  list-style: none;
-}
-
-.configuration .cmd-body {
-
-}
-
-.configuration .cmd-block {
-  border-radius: 10px;
-  border: solid thin;
-  padding: 5px;
-}
-
-.configuration .cmd-opt .desc {
-  font-weight: bold;
-}
-
-.configuration .cmd-text {
-  font-style: italic;
-  padding: 0 20px 0 20px;
-}
 
 /* CONTRIBUTE */
-
 .contribute {
-  padding-bottom: 30px;
+  padding-bottom: $section-padding-bottom;
+  .container {
+
+  }
 }
 
-.contribute .container {
-
-}
 
 /* LICENSE */
-
 .license {
-  padding-bottom: 30px;
+  padding-bottom: $section-padding-bottom;
+  .container {
+
+  }
 }
 
-.license .container {
-
-}
 
 /* FOOTER */
-
 .footer {
-  padding-bottom: 30px;
-}
-
-.footer a {
-  color: #ddd;
-}
-
-.footer a:hover {
-  color: #cc0000;
+  padding-bottom: $section-padding-bottom;
+  a {
+    color: #ddd;
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
 }
 
 /* FORK on GITHUB logo */
 #forkongithub a {
-    background:#800;
-    color:#fff;
-    text-decoration:none;
-    white-space: nowrap;
-    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-align:center;
-    font-weight:600;
-    padding:5px 20px;
-    font-size:2rem;
-    line-height:2rem;
-    position:relative;
-    transition:.5s
-}
-
-#forkongithub a:hover {
+  background:#800;
+  color:#fff;
+  text-decoration:none;
+  white-space: nowrap;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align:center;
+  font-weight:600;
+  padding:5px 20px;
+  font-size:2rem;
+  line-height:2rem;
+  position:relative;
+  transition:.5s;
+  &:hover {
     background:#c11;
-    color:#fff
-}
-
-#forkongithub a::before,#forkongithub a::after {
+    color:#fff;
+  }
+  &::before, &::after {
     content:"";
     width:100%;
     display:block;
@@ -263,12 +235,12 @@ h2 {
     top:1px;
     left:0;
     height:1px;
-    background:#fff
-}
-
-#forkongithub a::after {
+    background:#fff;
+  }
+  &::after {
     bottom:1px;
-    top:auto
+    top:auto;
+  }
 }
 
 @media screen and (min-width:800px) {
@@ -280,7 +252,7 @@ h2 {
       width:300px;
       overflow:hidden;
       height:400px;
-      z-index:9999
+      z-index:9999;
   }
 
   #forkongithub a {
@@ -293,6 +265,6 @@ h2 {
       -ms-transform:rotate(45deg);
       -moz-transform:rotate(45deg);
       -o-transform:rotate(45deg);
-      box-shadow:4px 4px 10px rgba(0,0,0,0.8)
+      box-shadow:4px 4px 10px rgba(0,0,0,0.8);
   }
 }
