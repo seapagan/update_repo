@@ -111,7 +111,7 @@ Add functionality, not in any specific order :
 - Add option to only display a (text) tree of the discovered git repositories, not updating them.
 - Add Import & Export functionality :
   * ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
-  * re-import the above dump on a different machine or after reinstall
+  * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Document configuration file format and options. `[IN PROGRESS]`
 
