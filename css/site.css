@@ -1,0 +1,204 @@
+/* GENERAL */
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: #808080; }
+
+h1 {
+  text-align: center;
+  font-size: 2.5em;
+  font-family: "Droid Serif", sans-serif;
+  color: #54542c;
+  margin: 10px; }
+
+a:hover {
+  text-decoration: none;
+  color: #cc0000; }
+
+h2 {
+  text-decoration: underline;
+  font-size: 2em;
+  font-family: "Droid Serif", sans-serif; }
+
+.row-header {
+  border: thin solid #0d0d0d;
+  background-color: #d7d7c1;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; }
+
+.row-body {
+  border: thin solid #0d0d0d;
+  background-color: #ebebe0;
+  border-top: none;
+  -webkit-border-bottom-right-radius: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 10px 0 10px; }
+
+.filename {
+  font-weight: bold;
+  border: thin solid #cccccc;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  padding: 0 0.3em 0 0.3em; }
+
+.yaml-tag {
+  font-weight: bold;
+  border: thin solid #cccccc;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  color: #0077AA;
+  padding: 0 0.3em 0 0.3em; }
+
+.cmdline {
+  font-weight: bold;
+  border: thin solid #cccccc;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  color: #ff3333;
+  padding: 0 0.3em 0 0.3em; }
+
+.console-output {
+  font-weight: bold;
+  border: thin solid #cccccc;
+  border-radius: 5px;
+  background-color: #F5F2F0;
+  padding: 0 0.3em 0 0.3em; }
+
+.icon::before {
+  display: inline-block;
+  margin-right: .25em;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0); }
+
+/* NAVBAR */
+.navbar {
+  background-color: #404040;
+  border-bottom: 1px solid #b9b9b9; }
+
+.navbar a {
+  color: #cccccc !important; }
+
+.navbar a:hover {
+  color: #ffffff !important;
+  background-color: #646464 !important; }
+
+.navbar-header .navbar-brand {
+  color: white !important;
+  font-size: 1.5em; }
+
+/* ABOUT */
+.about {
+  padding-top: 65px;
+  padding-bottom: 30px; }
+
+/* INSTALLATION */
+.installation {
+  padding-bottom: 30px; }
+
+/* USAGE */
+.usage {
+  padding-bottom: 30px; }
+
+/* CONFIGURATION */
+.configuration {
+  padding-bottom: 30px; }
+  .configuration .cmd-opt {
+    text-align: center; }
+    .configuration .cmd-opt .desc {
+      font-weight: bold; }
+  .configuration .cmd-header {
+    padding: 10px 0 0 10px;
+    margin-top: 20px;
+    font-size: 1.3em; }
+  .configuration .opt-list li {
+    text-align: left;
+    list-style: none; }
+  .configuration .cmd-block {
+    border-radius: 10px;
+    border: solid thin;
+    padding: 5px; }
+  .configuration .cmd-text {
+    font-style: italic;
+    padding: 0 20px 0 20px; }
+
+/* CONTRIBUTE */
+.contribute {
+  padding-bottom: 30px; }
+
+/* LICENSE */
+.license {
+  padding-bottom: 30px; }
+
+/* FOOTER */
+.footer {
+  padding-bottom: 30px; }
+  .footer a {
+    color: #ddd; }
+    .footer a:hover {
+      color: #cc0000; }
+
+/* FORK on GITHUB logo */
+#forkongithub a {
+  background: #800;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+  font-weight: 600;
+  padding: 5px 20px;
+  font-size: 2rem;
+  line-height: 2rem;
+  position: relative;
+  transition: .5s; }
+  #forkongithub a:hover {
+    background: #c11;
+    color: #fff; }
+  #forkongithub a::before, #forkongithub a::after {
+    content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 1px;
+    background: #fff; }
+  #forkongithub a::after {
+    bottom: 1px;
+    top: auto; }
+
+@media screen and (min-width: 800px) {
+  #forkongithub {
+    position: fixed;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 300px;
+    overflow: hidden;
+    height: 400px;
+    z-index: 9999; }
+
+  #forkongithub a {
+    width: 300px;
+    position: absolute;
+    top: 70px;
+    right: -70px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); } }
+
+/*# sourceMappingURL=site.css.map */
