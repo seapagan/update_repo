@@ -101,6 +101,7 @@ Add functionality, not in any specific order :
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
 - Improve the stats / info at end-of-job :
   * errors or connection problems `[IN PROGRESS]`
+  * List the skipped / failed repos. Later make this dependant on 'verbose' status.
   * _more..._
 - Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file. `[IN PROGRESS]`
 - Add command line options for verbose or quiet, with same options in config file.
