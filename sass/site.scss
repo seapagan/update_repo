@@ -1,6 +1,7 @@
 @import "partials/colors";
 @import "partials/fonts";
 @import "partials/variables";
+@import "partials/mixins";
 
 /* GENERAL */
 body {
@@ -52,37 +53,19 @@ h2 {
 }
 
 .filename {
-  font-weight: bold;
-  border: thin solid $hilight-border-color;
-  border-radius: $hilight-border-radius;
-  background-color: $hilight-background-color;
-  padding: 0 0.3em 0 0.3em;
+  @include hilight-box($color: #444444);
 }
 
 .yaml-tag {
-  font-weight: bold;
-  border: thin solid $hilight-border-color;
-  border-radius: $hilight-border-radius;
-  background-color: $hilight-background-color;
-  color: #0077AA;
-  padding: 0 0.3em 0 0.3em;
+  @include hilight-box($color: #0077AA);
 }
 
 .cmdline {
-  font-weight: bold;
-  border: thin solid $hilight-border-color;
-  border-radius: $hilight-border-radius;
-  background-color: $hilight-background-color;
-  color: #ff3333;
-  padding: 0 0.3em 0 0.3em;
+  @include hilight-box($color: #ff3333);
 }
 
 .console-output {
-  font-weight: bold;
-  border: thin solid $hilight-border-color;
-  border-radius: $hilight-border-radius;
-  background-color: $hilight-background-color;
-  padding: 0 0.3em 0 0.3em;
+  @include hilight-box($color: #444444);
 }
 
 .icon::before {
@@ -202,7 +185,7 @@ h2 {
 .footer {
   padding-bottom: $section-padding-bottom;
   a {
-    color: #ddd;
+    color: $footer-color;
     &:hover {
       color: $link-hover-color;
     }

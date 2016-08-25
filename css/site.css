@@ -46,6 +46,7 @@ h2 {
   border: thin solid #cccccc;
   border-radius: 5px;
   background-color: #F5F2F0;
+  color: #444444;
   padding: 0 0.3em 0 0.3em; }
 
 .yaml-tag {
@@ -69,6 +70,7 @@ h2 {
   border: thin solid #cccccc;
   border-radius: 5px;
   background-color: #F5F2F0;
+  color: #444444;
   padding: 0 0.3em 0 0.3em; }
 
 .icon::before {
@@ -144,7 +146,7 @@ h2 {
 .footer {
   padding-bottom: 30px; }
   .footer a {
-    color: #ddd; }
+    color: #dddddd; }
     .footer a:hover {
       color: #cc0000; }
 
