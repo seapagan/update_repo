@@ -130,6 +130,8 @@ h2 {
     color: #ddd; }
     .footer a:hover {
       color: #c00; }
+  .footer .site-version {
+    color: #fff; }
 
 .forkongithub a {
   background: #800;
