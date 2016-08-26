@@ -3,7 +3,7 @@
 @import 'partials/variables';
 @import 'partials/mixins';
 
-/* GENERAL*/
+// GENERAL
 body {
   background-color: $body-background-color;
   font-family: $body-font;
@@ -71,7 +71,7 @@ h2 {
   transform: translate(0, 0);
 }
 
-/* NAVBAR*/
+// NAVBAR
 .navbar {
   background-color: $navbar-background-color;
   border-bottom: 1px solid $navbar-border-color;
@@ -93,7 +93,7 @@ h2 {
   }
 }
 
-/* ABOUT*/
+// ABOUT
 .about {
   padding-bottom: $section-padding-bottom;
   padding-top: 65px;
@@ -102,7 +102,7 @@ h2 {
   }
 }
 
-/* INSTALLATION*/
+//INSTALLATION
 .installation {
   padding-bottom: $section-padding-bottom;
 
@@ -110,7 +110,7 @@ h2 {
   }
 }
 
-/* USAGE*/
+// USAGE
 .usage {
   padding-bottom: $section-padding-bottom;
 
@@ -118,7 +118,7 @@ h2 {
   }
 }
 
-/* CONFIGURATION*/
+// CONFIGURATION
 .configuration {
   padding-bottom: $section-padding-bottom;
 
@@ -159,7 +159,7 @@ h2 {
   }
 }
 
-/* CONTRIBUTE*/
+// CONTRIBUTE
 .contribute {
   padding-bottom: $section-padding-bottom;
 
@@ -167,7 +167,7 @@ h2 {
   }
 }
 
-/* LICENSE*/
+// LICENSE
 .license {
   padding-bottom: $section-padding-bottom;
 
@@ -175,7 +175,7 @@ h2 {
   }
 }
 
-/* FOOTER*/
+// FOOTER
 .footer {
   padding-bottom: $section-padding-bottom;
 
@@ -188,7 +188,7 @@ h2 {
   }
 }
 
-/* FORK on GITHUB logo*/
+// FORK on GITHUB logo
 .forkongithub a {
   background: $forking-background-color;
   color: $forking-color;
