@@ -1,3 +1,4 @@
+/* GENERAL*/
 body {
   background-color: #808080;
   font-family: "Raleway", sans-serif; }
@@ -21,22 +22,14 @@ h2 {
 .row-header {
   background-color: #d7d7c1;
   border: thin solid #0d0d0d;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  -webkit-border-top-left-radius: 10px;
   border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
   border-top-right-radius: 10px; }
 
 .row-body {
   background-color: #ebebe0;
   border: thin solid #0d0d0d;
-  -webkit-border-bottom-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  -webkit-border-bottom-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  -moz-border-radius-bottomright: 10px;
   border-top: 0;
   padding: 10px 0; }
 
@@ -82,6 +75,7 @@ h2 {
   text-rendering: auto;
   transform: translate(0, 0); }
 
+/* NAVBAR*/
 .navbar {
   background-color: #404040;
   border-bottom: 1px solid #b9b9b9; }
@@ -95,16 +89,20 @@ h2 {
   color: #fff !important;
   font-size: 1.5em; }
 
+/* ABOUT*/
 .about {
   padding-bottom: 30px;
   padding-top: 65px; }
 
+/* INSTALLATION*/
 .installation {
   padding-bottom: 30px; }
 
+/* USAGE*/
 .usage {
   padding-bottom: 30px; }
 
+/* CONFIGURATION*/
 .configuration {
   padding-bottom: 30px; }
   .configuration .cmd-opt {
@@ -126,12 +124,15 @@ h2 {
     font-style: italic;
     padding: 0 20px; }
 
+/* CONTRIBUTE*/
 .contribute {
   padding-bottom: 30px; }
 
+/* LICENSE*/
 .license {
   padding-bottom: 30px; }
 
+/* FOOTER*/
 .footer {
   padding-bottom: 30px; }
   .footer a {
@@ -139,6 +140,7 @@ h2 {
     .footer a:hover {
       color: #c00; }
 
+/* FORK on GITHUB logo*/
 .forkongithub a {
   background: #800;
   color: #fff;
@@ -184,11 +186,5 @@ h2 {
     position: absolute;
     right: -70px;
     top: 70px;
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 300px; } }
-
-/*# sourceMappingURL=site.css.map */

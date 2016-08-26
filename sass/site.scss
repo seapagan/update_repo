@@ -3,7 +3,7 @@
 @import 'partials/variables';
 @import 'partials/mixins';
 
-// GENERAL
+/* GENERAL*/
 body {
   background-color: $body-background-color;
   font-family: $body-font;
@@ -31,23 +31,15 @@ h2 {
 .row-header {
   background-color: $row-header-color;
   border: thin solid $row-border-color;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  -webkit-border-top-left-radius: 10px;
   border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
   border-top-right-radius: 10px;
 }
 
 .row-body {
   background-color: $row-body-color;
   border: thin solid $row-border-color;
-  -webkit-border-bottom-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  -webkit-border-bottom-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  -moz-border-radius-bottomright: 10px;
   border-top: 0;
   padding: 10px 0;
 }
@@ -79,7 +71,7 @@ h2 {
   transform: translate(0, 0);
 }
 
-// NAVBAR
+/* NAVBAR*/
 .navbar {
   background-color: $navbar-background-color;
   border-bottom: 1px solid $navbar-border-color;
@@ -101,7 +93,7 @@ h2 {
   }
 }
 
-// ABOUT
+/* ABOUT*/
 .about {
   padding-bottom: $section-padding-bottom;
   padding-top: 65px;
@@ -110,7 +102,7 @@ h2 {
   }
 }
 
-// INSTALLATION
+/* INSTALLATION*/
 .installation {
   padding-bottom: $section-padding-bottom;
 
@@ -118,7 +110,7 @@ h2 {
   }
 }
 
-// USAGE
+/* USAGE*/
 .usage {
   padding-bottom: $section-padding-bottom;
 
@@ -126,7 +118,7 @@ h2 {
   }
 }
 
-// CONFIGURATION
+/* CONFIGURATION*/
 .configuration {
   padding-bottom: $section-padding-bottom;
 
@@ -167,7 +159,7 @@ h2 {
   }
 }
 
-// CONTRIBUTE
+/* CONTRIBUTE*/
 .contribute {
   padding-bottom: $section-padding-bottom;
 
@@ -175,7 +167,7 @@ h2 {
   }
 }
 
-// LICENSE
+/* LICENSE*/
 .license {
   padding-bottom: $section-padding-bottom;
 
@@ -183,7 +175,7 @@ h2 {
   }
 }
 
-// FOOTER
+/* FOOTER*/
 .footer {
   padding-bottom: $section-padding-bottom;
 
@@ -196,7 +188,7 @@ h2 {
   }
 }
 
-// FORK on GITHUB logo
+/* FORK on GITHUB logo*/
 .forkongithub a {
   background: $forking-background-color;
   color: $forking-color;
@@ -251,10 +243,6 @@ h2 {
     position: absolute;
     right: -70px;
     top: 70px;
-    -moz-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    -o-transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 300px;
   }
