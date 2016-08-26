@@ -1,0 +1,249 @@
+@import 'partials/colors';
+@import 'partials/fonts';
+@import 'partials/variables';
+@import 'partials/mixins';
+
+// GENERAL
+body {
+  background-color: $body-background-color;
+  font-family: $body-font;
+}
+
+h1 {
+  color: $headline-color;
+  font-family: $headline-font;
+  font-size: 2.5em;
+  margin: 10px;
+  text-align: center;
+}
+
+a:hover {
+  color: $link-hover-color;
+  text-decoration: none;
+}
+
+h2 {
+  font-family: $headline-font;
+  font-size: 2em;
+  text-decoration: underline;
+}
+
+.row-header {
+  background-color: $row-header-color;
+  border: thin solid $row-border-color;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.row-body {
+  background-color: $row-body-color;
+  border: thin solid $row-border-color;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 0;
+  padding: 10px 0;
+}
+
+.filename {
+  @include hilight-box($color: $filename-hilight-color);
+}
+
+.yaml-tag {
+  @include hilight-box($color: $yaml-hilight-color);
+}
+
+.cmdline {
+  @include hilight-box($color: $cmdline-hilight-color);
+}
+
+.console-output {
+  @include hilight-box($color: $console-hilight-color);
+}
+
+.icon::before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .25em;
+  text-rendering: auto;
+  transform: translate(0, 0);
+}
+
+// NAVBAR
+.navbar {
+  background-color: $navbar-background-color;
+  border-bottom: 1px solid $navbar-border-color;
+
+  a {
+    color: $navbar-link-color !important;
+
+    &:hover {
+      background-color: $navbar-link--hover-background !important;
+      color: $navbar-link--hover-color !important;
+    }
+  }
+}
+
+.navbar-header {
+  .navbar-brand {
+    color: $navbar-brand-color !important;
+    font-size: 1.5em;
+  }
+}
+
+// ABOUT
+.about {
+  padding-bottom: $section-padding-bottom;
+  padding-top: 65px;
+
+  .container {
+  }
+}
+
+//INSTALLATION
+.installation {
+  padding-bottom: $section-padding-bottom;
+
+  .container {
+  }
+}
+
+// USAGE
+.usage {
+  padding-bottom: $section-padding-bottom;
+
+  .container {
+  }
+}
+
+// CONFIGURATION
+.configuration {
+  padding-bottom: $section-padding-bottom;
+
+  .container {
+  }
+
+  .cmd-opt {
+    text-align: center;
+
+    .desc {
+      font-weight: bold;
+    }
+  }
+
+  .cmd-header {
+    font-size: 1.3em;
+    margin-top: 20px;
+    padding: 10px 0 0 10px;
+  }
+
+  .opt-list li {
+    list-style: none;
+    text-align: left;
+  }
+
+  .cmd-body {
+  }
+
+  .cmd-block {
+    border: solid thin;
+    border-radius: 10px;
+    padding: 5px;
+  }
+
+  .cmd-text {
+    font-style: italic;
+    padding: 0 20px;
+  }
+}
+
+// CONTRIBUTE
+.contribute {
+  padding-bottom: $section-padding-bottom;
+
+  .container {
+  }
+}
+
+// LICENSE
+.license {
+  padding-bottom: $section-padding-bottom;
+
+  .container {
+  }
+}
+
+// FOOTER
+.footer {
+  padding-bottom: $section-padding-bottom;
+
+  a {
+    color: $footer-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+}
+
+// FORK on GITHUB logo
+.forkongithub a {
+  background: $forking-background-color;
+  color: $forking-color;
+  font-family: $fork-font;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2rem;
+  padding: 5px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: .5s;
+  white-space: nowrap;
+
+  &:hover {
+    background: $forking-hover-color;
+    color: $forking-color;
+  }
+
+  &::before,
+  &::after {
+    background: $forking-color;
+    content: '';
+    display: block;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 100%;
+  }
+
+  &::after {
+    bottom: 1px;
+    top: auto;
+  }
+}
+
+@media screen and (min-width:800px) {
+  .forkongithub {
+    display: block;
+    height: 400px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    z-index: 9999;
+  }
+
+  .forkongithub a {
+    box-shadow: 4px 4px 10px $forking-box-shadow-color;
+    position: absolute;
+    right: -70px;
+    top: 70px;
+    transform: rotate(45deg);
+    width: 300px;
+  }
+}

@@ -1,298 +1,182 @@
-/* GENERAL */
 body {
-  font-family: 'Raleway', sans-serif;
-
   background-color: #808080;
-}
+  font-family: "Raleway", sans-serif; }
 
 h1 {
-  text-align: center;
-  font-size: 2.5em;
-  font-family: 'Droid Serif', sans-serif;
-  /*padding: 5px 0 5px;*/
   color: #54542c;
+  font-family: "Droid Serif", sans-serif;
+  font-size: 2.5em;
   margin: 10px;
-}
+  text-align: center; }
 
 a:hover {
-  text-decoration: none;
-  /*font-weight: bold;*/
-  color: #cc0000;
-}
+  color: #c00;
+  text-decoration: none; }
 
 h2 {
-  text-decoration: underline;
+  font-family: "Droid Serif", sans-serif;
   font-size: 2em;
-  font-family: 'Droid Serif', sans-serif;
-}
+  text-decoration: underline; }
 
 .row-header {
-  border-style: solid;
-  border-width: thin;
-  border-color: #0d0d0d;
-  -webkit-border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   background-color: #d7d7c1;
-}
+  border: thin solid #0d0d0d;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; }
 
 .row-body {
-  border-style: solid;
-  border-width: thin;
-  border-top: none;
-  -webkit-border-bottom-right-radius: 10px;
-  -webkit-border-bottom-left-radius: 10px;
-  -moz-border-radius-bottomright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  border-color: #0d0d0d;
-  padding: 10px 0 10px;
   background-color: #ebebe0;
-}
+  border: thin solid #0d0d0d;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 0;
+  padding: 10px 0; }
 
 .filename {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
+  border: thin solid #ccc;
   border-radius: 5px;
-  background-color: #F5F2F0;
-  padding: 0 0.3em 0 0.3em;
-}
+  background-color: #f5f2f0;
+  color: #444;
+  padding: 0 .3em; }
 
 .yaml-tag {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
+  border: thin solid #ccc;
   border-radius: 5px;
-  background-color: #F5F2F0;
-  color: #0077AA;
-  padding: 0 0.3em 0 0.3em;
-}
+  background-color: #f5f2f0;
+  color: #07a;
+  padding: 0 .3em; }
 
 .cmdline {
   font-weight: bold;
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
+  border: thin solid #ccc;
   border-radius: 5px;
-  background-color: #F5F2F0;
-  color: #ff3333;
-  padding: 0 0.3em 0 0.3em;
-}
+  background-color: #f5f2f0;
+  color: #f33;
+  padding: 0 .3em; }
 
 .console-output {
-  border-style: solid;
-  border-width: thin;
-  border-color: #CCCCCC;
+  font-weight: bold;
+  border: thin solid #ccc;
   border-radius: 5px;
-  background-color: #F5F2F0;
-  padding: 0 0.3em 0 0.3em;
-}
+  background-color: #f5f2f0;
+  color: #444;
+  padding: 0 .3em; }
 
 .icon::before {
-    display: inline-block;
-    margin-right: .25em;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transform: translate(0, 0);
-}
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .25em;
+  text-rendering: auto;
+  transform: translate(0, 0); }
 
-/* NAVBAR */
 .navbar {
   background-color: #404040;
-  border-bottom: 1px solid #b9b9b9;
-}
-
-.navbar a {
-  color: #cccccc !important;
-}
-
-.navbar a:hover {
-  color: #ffffff !important;
-  background-color: #646464 !important;
-}
+  border-bottom: 1px solid #b9b9b9; }
+  .navbar a {
+    color: #ccc !important; }
+    .navbar a:hover {
+      background-color: #646464 !important;
+      color: #fff !important; }
 
 .navbar-header .navbar-brand {
-  color: white !important;
-  font-size: 1.5em;
-}
+  color: #fff !important;
+  font-size: 1.5em; }
 
-/* ABOUT */
 .about {
-  padding-top: 65px;
   padding-bottom: 30px;
-}
-
-.about .container {
-
-}
-
-/* INSTALLATION */
+  padding-top: 65px; }
 
 .installation {
-  padding-bottom: 30px;
-}
-
-.installation .container {
-
-}
-
-/* USAGE */
+  padding-bottom: 30px; }
 
 .usage {
-  padding-bottom: 30px;
-}
-
-.usage .container {
-
-}
-
-/* CONFIGURATION */
+  padding-bottom: 30px; }
 
 .configuration {
-  padding-bottom: 30px;
-}
-
-.configuration .container {
-
-}
-
-.configuration .cmd-opt {
-  text-align: center;
-}
-
-.configuration .cmd-header {
-  padding: 10px 0 0 10px;
-  margin-top: 20px;
-  font-size: 1.3em;
-}
-
-.configuration .opt-list li {
-  text-align: left;
-  list-style: none;
-}
-
-.configuration .cmd-body {
-
-}
-
-.configuration .cmd-block {
-  border-radius: 10px;
-  border: solid thin;
-  padding: 5px;
-}
-
-.configuration .cmd-opt .desc {
-  font-weight: bold;
-}
-
-.configuration .cmd-text {
-  font-style: italic;
-  padding: 0 20px 0 20px;
-}
-
-/* CONTRIBUTE */
+  padding-bottom: 30px; }
+  .configuration .cmd-opt {
+    text-align: center; }
+    .configuration .cmd-opt .desc {
+      font-weight: bold; }
+  .configuration .cmd-header {
+    font-size: 1.3em;
+    margin-top: 20px;
+    padding: 10px 0 0 10px; }
+  .configuration .opt-list li {
+    list-style: none;
+    text-align: left; }
+  .configuration .cmd-block {
+    border: solid thin;
+    border-radius: 10px;
+    padding: 5px; }
+  .configuration .cmd-text {
+    font-style: italic;
+    padding: 0 20px; }
 
 .contribute {
-  padding-bottom: 30px;
-}
-
-.contribute .container {
-
-}
-
-/* LICENSE */
+  padding-bottom: 30px; }
 
 .license {
-  padding-bottom: 30px;
-}
-
-.license .container {
-
-}
-
-/* FOOTER */
+  padding-bottom: 30px; }
 
 .footer {
-  padding-bottom: 30px;
-}
+  padding-bottom: 30px; }
+  .footer a {
+    color: #ddd; }
+    .footer a:hover {
+      color: #c00; }
 
-.footer a {
-  color: #ddd;
-}
+.forkongithub a {
+  background: #800;
+  color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2rem;
+  padding: 5px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: .5s;
+  white-space: nowrap; }
+  .forkongithub a:hover {
+    background: #c11;
+    color: #fff; }
+  .forkongithub a::before, .forkongithub a::after {
+    background: #fff;
+    content: '';
+    display: block;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+    width: 100%; }
+  .forkongithub a::after {
+    bottom: 1px;
+    top: auto; }
 
-.footer a:hover {
-  color: #cc0000;
-}
+@media screen and (min-width: 800px) {
+  .forkongithub {
+    display: block;
+    height: 400px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    z-index: 9999; }
 
-/* FORK on GITHUB logo */
-#forkongithub a {
-    background:#800;
-    color:#fff;
-    text-decoration:none;
-    white-space: nowrap;
-    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-align:center;
-    font-weight:600;
-    padding:5px 20px;
-    font-size:2rem;
-    line-height:2rem;
-    position:relative;
-    transition:.5s
-}
+  .forkongithub a {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+    position: absolute;
+    right: -70px;
+    top: 70px;
+    transform: rotate(45deg);
+    width: 300px; } }
 
-#forkongithub a:hover {
-    background:#c11;
-    color:#fff
-}
-
-#forkongithub a::before,#forkongithub a::after {
-    content:"";
-    width:100%;
-    display:block;
-    position:absolute;
-    top:1px;
-    left:0;
-    height:1px;
-    background:#fff
-}
-
-#forkongithub a::after {
-    bottom:1px;
-    top:auto
-}
-
-@media screen and (min-width:800px) {
-  #forkongithub {
-      position:fixed;
-      display:block;
-      top:0;
-      right:0;
-      width:300px;
-      overflow:hidden;
-      height:400px;
-      z-index:9999
-  }
-
-  #forkongithub a {
-      width:300px;
-      position:absolute;
-      top:70px;
-      right:-70px;
-      transform:rotate(45deg);
-      -webkit-transform:rotate(45deg);
-      -ms-transform:rotate(45deg);
-      -moz-transform:rotate(45deg);
-      -o-transform:rotate(45deg);
-      box-shadow:4px 4px 10px rgba(0,0,0,0.8)
-  }
-}
+/*# sourceMappingURL=site.css.map */
