@@ -1,97 +1,97 @@
-@import "partials/colors";
-@import "partials/fonts";
-@import "partials/variables";
-@import "partials/mixins";
+@import 'partials/colors';
+@import 'partials/fonts';
+@import 'partials/variables';
+@import 'partials/mixins';
 
-/* GENERAL */
+// GENERAL
 body {
-  font-family: $body-font;
   background-color: $body-background-color;
+  font-family: $body-font;
 }
 
 h1 {
-  text-align: center;
-  font-size: 2.5em;
-  font-family: $headline-font;
   color: $headline-color;
+  font-family: $headline-font;
+  font-size: 2.5em;
   margin: 10px;
+  text-align: center;
 }
 
 a:hover {
-  text-decoration: none;
   color: $link-hover-color;
+  text-decoration: none;
 }
 
 h2 {
-  text-decoration: underline;
-  font-size: 2em;
   font-family: $headline-font;
+  font-size: 2em;
+  text-decoration: underline;
 }
 
 .row-header {
-  border: thin solid $row-border-color;
   background-color: $row-header-color;
-  -webkit-border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
+  border: thin solid $row-border-color;
   -moz-border-radius-topleft: 10px;
   -moz-border-radius-topright: 10px;
+  -webkit-border-top-left-radius: 10px;
   border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
   border-top-right-radius: 10px;
 }
 
 .row-body {
-  border: thin solid $row-border-color;
   background-color: $row-body-color;
-  border-top: none;
-  -webkit-border-bottom-right-radius: 10px;
+  border: thin solid $row-border-color;
   -webkit-border-bottom-left-radius: 10px;
-  -moz-border-radius-bottomright: 10px;
-  -moz-border-radius-bottomleft: 10px;
-  border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  padding: 10px 0 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-top: 0;
+  padding: 10px 0;
 }
 
 .filename {
-  @include hilight-box($color: #444444);
+  @include hilight-box($color: $filename-hilight-color);
 }
 
 .yaml-tag {
-  @include hilight-box($color: #0077AA);
+  @include hilight-box($color: $yaml-hilight-color);
 }
 
 .cmdline {
-  @include hilight-box($color: #ff3333);
+  @include hilight-box($color: $cmdline-hilight-color);
 }
 
 .console-output {
-  @include hilight-box($color: #444444);
+  @include hilight-box($color: $console-hilight-color);
 }
 
 .icon::before {
   display: inline-block;
-  margin-right: .25em;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  margin-right: .25em;
+  text-rendering: auto;
   transform: translate(0, 0);
 }
 
-/* NAVBAR */
+// NAVBAR
 .navbar {
   background-color: $navbar-background-color;
   border-bottom: 1px solid $navbar-border-color;
-}
 
-.navbar a {
-  color: $navbar-link-color !important;
-}
+  a {
+    color: $navbar-link-color !important;
 
-.navbar a:hover {
-  color: $navbar-link--hover-color !important;
-  background-color: $navbar-link--hover-background !important;
+    &:hover {
+      background-color: $navbar-link--hover-background !important;
+      color: $navbar-link--hover-color !important;
+    }
+  }
 }
 
 .navbar-header {
@@ -101,153 +101,161 @@ h2 {
   }
 }
 
-/* ABOUT */
+// ABOUT
 .about {
-  padding-top: 65px;
   padding-bottom: $section-padding-bottom;
-  .container {
+  padding-top: 65px;
 
+  .container {
   }
 }
 
-
-/* INSTALLATION */
+// INSTALLATION
 .installation {
   padding-bottom: $section-padding-bottom;
-  .container {
 
+  .container {
   }
 }
 
-/* USAGE */
+// USAGE
 .usage {
   padding-bottom: $section-padding-bottom;
+
   .container {
-    
   }
 }
 
-/* CONFIGURATION */
+// CONFIGURATION
 .configuration {
   padding-bottom: $section-padding-bottom;
-  .container {
 
+  .container {
   }
+
   .cmd-opt {
     text-align: center;
+
     .desc {
       font-weight: bold;
     }
   }
-  .cmd-header {
-    padding: 10px 0 0 10px;
-    margin-top: 20px;
-    font-size: 1.3em;
-  }
-  .opt-list li {
-    text-align: left;
-    list-style: none;
-  }
-  .cmd-body {
 
+  .cmd-header {
+    font-size: 1.3em;
+    margin-top: 20px;
+    padding: 10px 0 0 10px;
   }
+
+  .opt-list li {
+    list-style: none;
+    text-align: left;
+  }
+
+  .cmd-body {
+  }
+
   .cmd-block {
-    border-radius: 10px;
     border: solid thin;
+    border-radius: 10px;
     padding: 5px;
   }
+
   .cmd-text {
     font-style: italic;
-    padding: 0 20px 0 20px;
+    padding: 0 20px;
   }
 }
 
-
-/* CONTRIBUTE */
+// CONTRIBUTE
 .contribute {
   padding-bottom: $section-padding-bottom;
-  .container {
 
+  .container {
   }
 }
 
-
-/* LICENSE */
+// LICENSE
 .license {
   padding-bottom: $section-padding-bottom;
-  .container {
 
+  .container {
   }
 }
 
-
-/* FOOTER */
+// FOOTER
 .footer {
   padding-bottom: $section-padding-bottom;
+
   a {
     color: $footer-color;
+
     &:hover {
       color: $link-hover-color;
     }
   }
 }
 
-/* FORK on GITHUB logo */
-#forkongithub a {
-  background: #800;
-  color: #fff;
-  text-decoration: none;
-  white-space: nowrap;
+// FORK on GITHUB logo
+.forkongithub a {
+  background: $forking-background-color;
+  color: $forking-color;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  text-align: center;
-  font-weight: 600;
-  padding: 5px 20px;
   font-size: 2rem;
+  font-weight: 600;
   line-height: 2rem;
+  padding: 5px 20px;
   position: relative;
+  text-align: center;
+  text-decoration: none;
   transition: .5s;
+  white-space: nowrap;
+
   &:hover {
-    background: #c11;
-    color: #fff;
+    background: $forking-hover-color;
+    color: $forking-color;
   }
-  &::before, &::after {
-    content: "";
-    width: 100%;
+
+  &::before,
+  &::after {
+    background: $forking-color;
+    content: '';
     display: block;
+    height: 1px;
+    left: 0;
     position: absolute;
     top: 1px;
-    left: 0;
-    height: 1px;
-    background: #fff;
+    width: 100%;
   }
+
   &::after {
-    bottom :1px;
+    bottom: 1px;
     top: auto;
   }
 }
 
 @media screen and (min-width:800px) {
-  #forkongithub {
-    position: fixed;
+  .forkongithub {
     display: block;
-    top: 0;
-    right: 0;
-    width: 300px;
-    overflow: hidden;
     height: 400px;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
     z-index: 9999;
   }
 
-  #forkongithub a {
-    width: 300px;
+  .forkongithub a {
+    box-shadow: 4px 4px 10px $forking-box-shadow-color;
     position: absolute;
-    top: 70px;
     right: -70px;
-    transform: rotate(45deg);
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
+    top: 70px;
     -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
     -o-transform: rotate(45deg);
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: 300px;
   }
 }
