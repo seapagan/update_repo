@@ -11,3 +11,4 @@
 .token
 .updatereporc
 *.log
+*.sublime*
