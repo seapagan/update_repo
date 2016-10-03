@@ -155,10 +155,11 @@ module UpdateRepo
     # @param [none]
     def list_exceptions
       exceptions = config['exceptions']
-      if exceptions
-        print_log "\nExclusions:".underline, ' ',
-                  exceptions.join(', ').yellow, "\n"
-      end
+      return unless exceptions
+      # if exceptions
+      print_log "\nExclusions:".underline, ' ',
+                exceptions.join(', ').yellow, "\n"
+      # end
     end
 
     # Print a list of all top-level directories that will be searched and any
