@@ -38,18 +38,21 @@ module UpdateRepo
     def start
       String.disable_colorization = !cmd(:color)
       # make sure we dont have bad cmd-line parameter combinations ...
-      @cmd.check_params # TODO - check this since is already called in @cmd init
+      @cmd.check_params # TODO - check this since is already called in @cmd.init
       # print out our header unless we are dumping / importing ...
-      no_header = cmd(:dump) || cmd(:import) || cmd(:dump_remote)
-      show_header unless no_header
+      show_header unless dumping?
       config['location'].each do |loc|
-        recurse_dir(loc)
+        cmd(:dump_tree) ? dump_tree(File.join(loc)) : recurse_dir(loc)
       end
       # print out an informative footer unless dump / import ...
-      footer unless no_header
+      footer unless dumping?
     end
 
-    # private
+    private
+
+    def dumping?
+      cmd(:dump) || cmd(:dump_remote) || cmd(:dump_tree)
+    end
 
     # returns the Confoog class which can then be used to access any config var
     # @return [void]
@@ -91,7 +94,7 @@ module UpdateRepo
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
-          if cmd(:dump) || cmd(:dump_remote)
+          if dumping?
             dump_repo(File.join(dirname, dir))
           else
             notexception?(dir) ? update_repo(dir) : skip_repo(dir)
@@ -117,7 +120,7 @@ module UpdateRepo
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{config.config_path}'\n"
-      print_log "Command line is : #{config['cmd']}\n"
+      # print_log "Command line is : #{config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
@@ -244,6 +247,12 @@ module UpdateRepo
         print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
         print_log "#{repo_url}\n"
       end
+    end
+
+    # This function will recurse though all the subdirectories of the specified
+    # directory and print only the directory name in a tree format.
+    def dump_tree(dir)
+      print "here for #{dir}\n"
     end
   end
 end
