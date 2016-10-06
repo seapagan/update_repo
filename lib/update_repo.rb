@@ -22,7 +22,7 @@ module UpdateRepo
     # @return [void]
     def initialize
       @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
-                   start_time: 0 }
+                   start_time: 0, failed_list: Array.new }
       @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
                    failed: 'red' }
       # create a new instance of the CmdConfig class then read the config var
@@ -137,7 +137,7 @@ module UpdateRepo
       duration = Time.now - @metrics[:start_time]
       print_log "\nUpdates completed in ", show_time(duration).cyan
       print_metrics
-      print_log " |\n\n"
+      print_log " \n\n"
       # close the log file now as we are done, just to be sure ...
       @logfile.close if @logfile
     end
@@ -150,6 +150,13 @@ module UpdateRepo
         metric_value = @metrics[metric]
         output = "#{metric_value} #{metric.capitalize}"
         print_log ' | ', output.send(color.to_sym) unless metric_value.zero?
+      end
+      print_log ' |'
+      return if @metrics[:failed_list].empty?
+      print_log "\n\n!! Note : The following repositories ",
+                "FAILED".red.underline, " during this run :"
+      @metrics[:failed_list].each do |failed|
+        print_log "\n  [", "x".red, "] #{failed}"
       end
     end
 
@@ -197,8 +204,8 @@ module UpdateRepo
     #   update_repo('/Repo/linux/stable')
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
-        repo_url = `git config remote.origin.url`.chomp
-        do_update(repo_url)
+        # repo_url = `git config remote.origin.url`.chomp
+        do_update(dirname)
         @metrics[:processed] += 1
       end
     end
@@ -207,11 +214,12 @@ module UpdateRepo
     # function #do_threads to handle the output to screen and log.
     # @param repo_url [string] The remote URL for the specified repo
     # @return [void]
-    def do_update(repo_url)
+    def do_update(dirname)
+      repo_url = `git config remote.origin.url`.chomp
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
         stdin.close
-        do_threads(stdout, stderr)
+        do_threads(stdout, stderr, dirname, repo_url)
         thread.join
       end
     end
@@ -220,14 +228,18 @@ module UpdateRepo
     # writing to console and log if specified.
     # @param stdout [stream] STDOUT Stream from the popen3 call
     # @param stderr [stream] STDERR Stream from the popen3 call
+    # @param dirname [string] Name of the directory we are working on
+    # @param repo_url [string] URL of the associated repository 
     # @return [void]
-    def do_threads(stdout, stderr)
+    def do_threads(stdout, stderr, dirname, repo_url)
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
           while (line = stream.gets)
             if key == :err && line =~ /^fatal:/
               print_log '   ', line.red
               @metrics[:failed] += 1
+              fullpath = Dir.pwd.red
+              @metrics[:failed_list].push("#{fullpath} (#{repo_url})")
             else
               print_log '   ', line.cyan
               @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
