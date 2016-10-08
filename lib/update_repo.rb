@@ -22,7 +22,7 @@ module UpdateRepo
     # @return [void]
     def initialize
       @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
-                   start_time: 0, failed_list: Array.new }
+                   start_time: 0, failed_list: [] }
       @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
                    failed: 'red' }
       # create a new instance of the CmdConfig class then read the config var
@@ -154,9 +154,9 @@ module UpdateRepo
       print_log ' |'
       return if @metrics[:failed_list].empty?
       print_log "\n\n!! Note : The following repositories ",
-                "FAILED".red.underline, " during this run :"
+                'FAILED'.red.underline, ' during this run :'
       @metrics[:failed_list].each do |failed|
-        print_log "\n  [", "x".red, "] #{failed}"
+        print_log "\n  [", 'x'.red, "] #{failed}"
       end
     end
 
@@ -205,21 +205,21 @@ module UpdateRepo
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         # repo_url = `git config remote.origin.url`.chomp
-        do_update(dirname)
+        do_update
         @metrics[:processed] += 1
       end
     end
 
     # Actually perform the update of this specific repository, calling the
     # function #do_threads to handle the output to screen and log.
-    # @param repo_url [string] The remote URL for the specified repo
+    # @param none
     # @return [void]
-    def do_update(dirname)
+    def do_update
       repo_url = `git config remote.origin.url`.chomp
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
         stdin.close
-        do_threads(stdout, stderr, dirname, repo_url)
+        do_threads(stdout, stderr, repo_url)
         thread.join
       end
     end
@@ -228,10 +228,9 @@ module UpdateRepo
     # writing to console and log if specified.
     # @param stdout [stream] STDOUT Stream from the popen3 call
     # @param stderr [stream] STDERR Stream from the popen3 call
-    # @param dirname [string] Name of the directory we are working on
-    # @param repo_url [string] URL of the associated repository 
+    # @param repo_url [string] URL of the associated repository
     # @return [void]
-    def do_threads(stdout, stderr, dirname, repo_url)
+    def do_threads(stdout, stderr, repo_url)
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
           while (line = stream.gets)
