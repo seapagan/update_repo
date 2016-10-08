@@ -99,10 +99,6 @@ Options:
 Add functionality, not in any specific order :
 
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
-- Improve the stats / info at end-of-job :
-  * errors or connection problems `[IN PROGRESS]`
-  * List the skipped / failed repos. Later make this dependant on 'verbose' status.
-  * _more..._
 - Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file. `[IN PROGRESS]`
 - Add command line options for verbose or quiet, with same options in config file.
 - Add ability to specify a new directory (containing Git repos) to search from the command line, and optionally save this to the standard configuration.
@@ -120,7 +116,7 @@ Internal Changes and refactoring :
 - Error checking and reporting for the git processes `[IN PROGRESS]`
 - Improve error-checking and recovery while parsing the configuration file
   * Ignore and report invalid or missing directories
-  * Add more failure cases, not all git errors fail with "fatal:"
+  * Add more failure cases, there may be more git errors than "fatal:" or "error:"
 - Retry for connection issues etc (config setting).
 
 [confoog]: http://confoog.seapagan.net

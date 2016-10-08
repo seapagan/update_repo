@@ -156,7 +156,8 @@ module UpdateRepo
       print_log "\n\n!! Note : The following repositories ",
                 'FAILED'.red.underline, ' during this run :'
       @metrics[:failed_list].each do |failed|
-        print_log "\n  [", 'x'.red, "] #{failed}"
+        print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
+        print_log "\n    -> ", "\"#{failed[:line].chomp}\"".red
       end
     end
 
@@ -237,8 +238,8 @@ module UpdateRepo
             if key == :err && line =~ /^fatal:|^error:/
               print_log '   ', line.red
               @metrics[:failed] += 1
-              fullpath = Dir.pwd.red
-              @metrics[:failed_list].push("#{fullpath} (#{repo_url})")
+              err_loc = Dir.pwd + " (#{repo_url})"
+              @metrics[:failed_list].push({loc: err_loc, line: line})
             else
               print_log '   ', line.cyan
               @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
