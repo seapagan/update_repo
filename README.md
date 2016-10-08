@@ -23,7 +23,7 @@ It goes without saying that at the very least a working copy of both [`Git`][git
 Install this from the shell prompt as you would any other Ruby Gem
 
 ```
- $ gem install update_repo
+$ gem install update_repo
 ```
 
 ## Usage
