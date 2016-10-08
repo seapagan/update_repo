@@ -167,10 +167,8 @@ module UpdateRepo
     def list_exceptions
       exceptions = config['exceptions']
       return unless exceptions
-      # if exceptions
       print_log "\nExclusions:".underline, ' ',
                 exceptions.join(', ').yellow, "\n"
-      # end
     end
 
     # Print a list of all top-level directories that will be searched and any
@@ -205,7 +203,6 @@ module UpdateRepo
     #   update_repo('/Repo/linux/stable')
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
-        # repo_url = `git config remote.origin.url`.chomp
         do_update
         @metrics[:processed] += 1
       end
@@ -239,7 +236,7 @@ module UpdateRepo
               print_log '   ', line.red
               @metrics[:failed] += 1
               err_loc = Dir.pwd + " (#{repo_url})"
-              @metrics[:failed_list].push({loc: err_loc, line: line})
+              @metrics[:failed_list].push(loc: err_loc, line: line)
             else
               print_log '   ', line.cyan
               @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
