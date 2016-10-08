@@ -235,7 +235,7 @@ module UpdateRepo
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
           while (line = stream.gets)
-            if key == :err && line =~ /^fatal:/
+            if key == :err && line =~ /^fatal:|^error:/
               print_log '   ', line.red
               @metrics[:failed] += 1
               fullpath = Dir.pwd.red
