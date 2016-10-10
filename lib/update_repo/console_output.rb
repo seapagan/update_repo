@@ -8,9 +8,9 @@ module UpdateRepo
     include Helpers
 
     # Constructor for the ConsoleOutput class.
-    # @param logger [instance] Pointer to the Logger class
-    # @param metrics [hash] Hash of metrics and their output colors
-    # @param config [instance] Pointer to the Confoog class
+    # @param logger [class] Pointer to the Logger class
+    # @param metrics [hash] Hash of metrics and their values
+    # @param config [class] Pointer to the Confoog class
     # @return [void]
     # @example
     #   console = ConsoleOutput.new(@log)

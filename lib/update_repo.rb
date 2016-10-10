@@ -28,6 +28,7 @@ module UpdateRepo
       @cmd = CmdConfig.new
       # set up the logfile if needed
       @log = Logger.new(cmd(:log), cmd(:timestamp))
+      # instantiate the console output class for header, footer etc
       @cons = ConsoleOutput.new(@log, @metrics, @cmd)
     end
 
