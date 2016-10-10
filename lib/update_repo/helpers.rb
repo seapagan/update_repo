@@ -26,4 +26,11 @@ module Helpers
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
   end
+
+  # helper function to call the Logger class output method.
+  # @param *string [Array] Array of strings to be passed to the 'print' fn
+  # @return [*string] Output of the Logger
+  def print_log(*string)
+    @log.output(*string)
+  end
 end
