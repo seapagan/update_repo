@@ -47,11 +47,14 @@ module UpdateRepo
       show_footer unless dumping?
     end
 
-    private
-
+    # helper function to call the Logger class output method.
+    # @param *string [Array] Array of strings to be passed to the 'print' fn
+    # @return [*string] Output of the Logger
     def print_log(*string)
       @log.output(*string)
     end
+
+    private
 
     def dumping?
       cmd(:dump) || cmd(:dump_remote) || cmd(:dump_tree)
