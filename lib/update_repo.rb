@@ -1,6 +1,7 @@
 require 'update_repo/version'
 require 'update_repo/helpers'
 require 'update_repo/cmd_config'
+require 'update_repo/logger'
 require 'yaml'
 require 'colorize'
 require 'confoog'
@@ -28,7 +29,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the logfile if needed
-      setup_logfile if cmd(:log)
+      @log = Logger.new(cmd(:log), cmd(:timestamp))
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -49,6 +50,10 @@ module UpdateRepo
     end
 
     private
+
+    def print_log(*string)
+      @log.output(*string)
+    end
 
     def dumping?
       cmd(:dump) || cmd(:dump_remote) || cmd(:dump_tree)
@@ -106,7 +111,6 @@ module UpdateRepo
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{config.config_path}'\n"
-      # print_log "Command line is : #{config['cmd']}\n"
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
@@ -125,7 +129,7 @@ module UpdateRepo
       print_metrics
       print_log " \n\n"
       # close the log file now as we are done, just to be sure ...
-      @logfile.close if @logfile
+      @log.close
     end
 
     # Print end-of-run metrics to console / log

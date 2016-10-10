@@ -14,17 +14,6 @@ module Helpers
     File.join(path_array)
   end
 
-  # this function will simply pass the given string to 'print', and also
-  # log to file if that is specified.
-  # @param string [array] Array of strings for print formatting
-  # @return [void]
-  def print_log(*string)
-    # log to screen regardless
-    print(*string)
-    # log to file if that has been enabled
-    @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, '')) if cmd('log')
-  end
-
   # mark these as private simply so that 'reek' wont flag as utility function.
   private
 
@@ -36,19 +25,5 @@ module Helpers
   def show_time(duration)
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
-  end
-
-  # Set up the log file - determine if we need to timestamp the filename and
-  # then actually open it and set to sync.
-  # @param [none]
-  # @return [void]
-  def setup_logfile
-    filename = if cmd(:timestamp)
-                 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
-               else
-                 'updaterepo.log'
-               end
-    @logfile = File.open(filename, 'w')
-    @logfile.sync = true
   end
 end
