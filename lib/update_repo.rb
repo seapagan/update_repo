@@ -38,8 +38,6 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = !cmd(:color)
-      # make sure we dont have bad cmd-line parameter combinations ...
-      @cmd.check_params # TODO - check this since is already called in @cmd.init
       # print out our header unless we are dumping / importing ...
       show_header unless dumping?
       config['location'].each do |loc|
