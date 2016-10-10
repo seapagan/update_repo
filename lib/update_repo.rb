@@ -1,6 +1,8 @@
 require 'update_repo/version'
 require 'update_repo/helpers'
 require 'update_repo/cmd_config'
+require 'update_repo/logger'
+require 'update_repo/console_output'
 require 'yaml'
 require 'colorize'
 require 'confoog'
@@ -15,7 +17,6 @@ module UpdateRepo
 
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
-  # rubocop:disable Metrics/ClassLength
   class WalkRepo
     include Helpers
     # Class constructor. No parameters required.
@@ -23,12 +24,12 @@ module UpdateRepo
     def initialize
       @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
                    start_time: 0, failed_list: [] }
-      @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
-                   failed: 'red' }
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the logfile if needed
-      setup_logfile if cmd(:log)
+      @log = Logger.new(cmd(:log), cmd(:timestamp))
+      # instantiate the console output class for header, footer etc
+      @cons = ConsoleOutput.new(@log, @metrics, @cmd)
     end
 
     # This function will perform the required actions to traverse the Repo.
@@ -37,15 +38,13 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = !cmd(:color)
-      # make sure we dont have bad cmd-line parameter combinations ...
-      @cmd.check_params # TODO - check this since is already called in @cmd.init
       # print out our header unless we are dumping / importing ...
-      show_header unless dumping?
+      @cons.show_header unless dumping?
       config['location'].each do |loc|
         cmd(:dump_tree) ? dump_tree(File.join(loc)) : recurse_dir(loc)
       end
       # print out an informative footer unless dump / import ...
-      footer unless dumping?
+      @cons.show_footer unless dumping?
     end
 
     private
@@ -72,20 +71,6 @@ module UpdateRepo
       @cmd.true_cmd(command.to_sym)
     end
 
-    # Set up the log file - determine if we need to timestamp the filename and
-    # then actually open it and set to sync.
-    # @param [none]
-    # @return [void]
-    def setup_logfile
-      filename = if cmd(:timestamp)
-                   'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
-                 else
-                   'updaterepo.log'
-                 end
-      @logfile = File.open(filename, 'w')
-      @logfile.sync = true
-    end
-
     # take each directory contained in the Repo directory, if it is detected as
     # a Git repository then update it (or as directed by command line)
     # @param dirname [string] Contains the directory to search for Git repos.]
@@ -108,77 +93,6 @@ module UpdateRepo
     # @return [boolean] True if this is NOT an exception, False otherwise
     def notexception?(dir)
       !config['exceptions'].include?(File.basename(dir))
-    end
-
-    # Display a simple header to the console
-    # @example
-    #   show_header
-    # @return [void]
-    # @param [none]
-    def show_header
-      # print an informative header before starting
-      print_log "\nGit Repo update utility (v", VERSION, ')',
-                " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      print_log "Using Configuration from '#{config.config_path}'\n"
-      # print_log "Command line is : #{config['cmd']}\n"
-      # list out the locations that will be searched
-      list_locations
-      # list any exceptions that we have from the config file
-      list_exceptions
-      # save the start time for later display in the footer...
-      @metrics[:start_time] = Time.now
-      print_log "\n" # blank line before processing starts
-    end
-
-    # print out a brief footer. This will be expanded later.
-    # @return [void]
-    # @param [none]
-    def footer
-      duration = Time.now - @metrics[:start_time]
-      print_log "\nUpdates completed in ", show_time(duration).cyan
-      print_metrics
-      print_log " \n\n"
-      # close the log file now as we are done, just to be sure ...
-      @logfile.close if @logfile
-    end
-
-    # Print end-of-run metrics to console / log
-    # @return [void]
-    # @param [none]
-    def print_metrics
-      @summary.each do |metric, color|
-        metric_value = @metrics[metric]
-        output = "#{metric_value} #{metric.capitalize}"
-        print_log ' | ', output.send(color.to_sym) unless metric_value.zero?
-      end
-      print_log ' |'
-      return if @metrics[:failed_list].empty?
-      print_log "\n\n!! Note : The following repositories ",
-                'FAILED'.red.underline, ' during this run :'
-      @metrics[:failed_list].each do |failed|
-        print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
-        print_log "\n    -> ", "\"#{failed[:line].chomp}\"".red
-      end
-    end
-
-    # Print a list of any defined expections that will not be updated.
-    # @return [void]
-    # @param [none]
-    def list_exceptions
-      exceptions = config['exceptions']
-      return unless exceptions
-      print_log "\nExclusions:".underline, ' ',
-                exceptions.join(', ').yellow, "\n"
-    end
-
-    # Print a list of all top-level directories that will be searched and any
-    # Git repos contained within updated.
-    # @return [void]
-    def list_locations
-      print_log "\nRepo location(s):\n".underline
-      config['location'].each do |loc|
-        print_log '-> ', loc.cyan, "\n"
-      end
     end
 
     # Takes the specified Repo and does not update it, outputing a note to the

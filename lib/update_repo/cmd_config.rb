@@ -60,12 +60,8 @@ module UpdateRepo
     # @return [void]
     def check_params
       return unless true_cmd(:dump)
-      # if  true_cmd(:import)
       Trollop.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
-      # end
-      # if true_cmd(:dump_remote)
       Trollop.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
-      # end
     end
     # rubocop:enable  Metrics/LineLength
 
