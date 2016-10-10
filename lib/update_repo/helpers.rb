@@ -37,4 +37,18 @@ module Helpers
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
   end
+
+  # Set up the log file - determine if we need to timestamp the filename and
+  # then actually open it and set to sync.
+  # @param [none]
+  # @return [void]
+  def setup_logfile
+    filename = if cmd(:timestamp)
+                 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
+               else
+                 'updaterepo.log'
+               end
+    @logfile = File.open(filename, 'w')
+    @logfile.sync = true
+  end
 end

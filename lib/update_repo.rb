@@ -45,7 +45,7 @@ module UpdateRepo
         cmd(:dump_tree) ? dump_tree(File.join(loc)) : recurse_dir(loc)
       end
       # print out an informative footer unless dump / import ...
-      footer unless dumping?
+      show_footer unless dumping?
     end
 
     private
@@ -70,20 +70,6 @@ module UpdateRepo
     #   logging = cmd(:log)
     def cmd(command)
       @cmd.true_cmd(command.to_sym)
-    end
-
-    # Set up the log file - determine if we need to timestamp the filename and
-    # then actually open it and set to sync.
-    # @param [none]
-    # @return [void]
-    def setup_logfile
-      filename = if cmd(:timestamp)
-                   'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
-                 else
-                   'updaterepo.log'
-                 end
-      @logfile = File.open(filename, 'w')
-      @logfile.sync = true
     end
 
     # take each directory contained in the Repo directory, if it is detected as
@@ -133,7 +119,7 @@ module UpdateRepo
     # print out a brief footer. This will be expanded later.
     # @return [void]
     # @param [none]
-    def footer
+    def show_footer
       duration = Time.now - @metrics[:start_time]
       print_log "\nUpdates completed in ", show_time(duration).cyan
       print_metrics
@@ -152,7 +138,10 @@ module UpdateRepo
         print_log ' | ', output.send(color.to_sym) unless metric_value.zero?
       end
       print_log ' |'
-      return if @metrics[:failed_list].empty?
+      list_failures unless @metrics[:failed_list].empty?
+    end
+
+    def list_failures
       print_log "\n\n!! Note : The following repositories ",
                 'FAILED'.red.underline, ' during this run :'
       @metrics[:failed_list].each do |failed|
