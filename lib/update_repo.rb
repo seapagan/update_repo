@@ -141,7 +141,6 @@ module UpdateRepo
     # writing to console and log if specified.
     # @param stdout [stream] STDOUT Stream from the popen3 call
     # @param stderr [stream] STDERR Stream from the popen3 call
-    # @param repo_url [string] URL of the associated repository
     # @return [void]
     def do_threads(stdout, stderr)
       { out: stdout, err: stderr }.each do |key, stream|
@@ -160,7 +159,6 @@ module UpdateRepo
     # @return [void]
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
-        # repo_url = `git config remote.origin.url`.chomp
         print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
         print_log "#{get_repo_url}\n"
       end

@@ -105,8 +105,8 @@ EOS
         # opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
         opt :timestamp, 'Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.', default: false
-        opt :dump_remote, 'Create a dump to screen or log listing all the git remote URLS found in the specified directories.', default: false, short: 'r'
-        opt :dump_tree, 'Create a dump to screen or log listing all subdirectories found below the specified locations in tree format.', default: false, short: 'u'
+        opt :dump_remote, 'Create a dump to screen or log, listing all the git remote URLS found in the specified directories.', default: false, short: 'r'
+        opt :dump_tree, 'Create a dump to screen or log, listing all subdirectories found below the specified locations in tree format.', default: false, short: 'u'
         # opt :quiet, 'Only minimal output to the terminal', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
