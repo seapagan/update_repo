@@ -3,6 +3,7 @@ require 'update_repo/helpers'
 require 'update_repo/cmd_config'
 require 'update_repo/logger'
 require 'update_repo/console_output'
+require 'update_repo/metrics'
 require 'yaml'
 require 'colorize'
 require 'confoog'
@@ -22,12 +23,12 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
-                   start_time: 0, failed_list: [] }
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
-      # set up the logfile if needed
+      # set up the output and logging class
       @log = Logger.new(cmd(:log), cmd(:timestamp))
+      # create instance of the Metrics class
+      @metrics = Metrics.new(@log)
       # instantiate the console output class for header, footer etc
       @cons = ConsoleOutput.new(@log, @metrics, @cmd)
     end
@@ -127,11 +128,11 @@ module UpdateRepo
     # @param none
     # @return [void]
     def do_update
-      repo_url = `git config remote.origin.url`.chomp
+      # repo_url = `git config remote.origin.url`.chomp
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
         stdin.close
-        do_threads(stdout, stderr, repo_url)
+        do_threads(stdout, stderr)
         thread.join
       end
     end
@@ -142,19 +143,12 @@ module UpdateRepo
     # @param stderr [stream] STDERR Stream from the popen3 call
     # @param repo_url [string] URL of the associated repository
     # @return [void]
-    def do_threads(stdout, stderr, repo_url)
+    def do_threads(stdout, stderr)
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
           while (line = stream.gets)
-            if key == :err && line =~ /^fatal:|^error:/
-              print_log '   ', line.red
-              @metrics[:failed] += 1
-              err_loc = Dir.pwd + " (#{repo_url})"
-              @metrics[:failed_list].push(loc: err_loc, line: line)
-            else
-              print_log '   ', line.cyan
-              @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
-            end
+            @metrics.handle_err(line) if key == :err
+            @metrics.handle_output(line) if key == :out
           end
         end
       end
@@ -166,9 +160,9 @@ module UpdateRepo
     # @return [void]
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
-        repo_url = `git config remote.origin.url`.chomp
+        # repo_url = `git config remote.origin.url`.chomp
         print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
-        print_log "#{repo_url}\n"
+        print_log "#{get_repo_url}\n"
       end
     end
 

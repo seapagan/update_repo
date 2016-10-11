@@ -9,7 +9,7 @@ module UpdateRepo
 
     # Constructor for the ConsoleOutput class.
     # @param logger [class] Pointer to the Logger class
-    # @param metrics [hash] Hash of metrics and their values
+    # @param metrics [class] Pointer to the Metrics class
     # @param config [class] Pointer to the Confoog class
     # @return [void]
     # @example
