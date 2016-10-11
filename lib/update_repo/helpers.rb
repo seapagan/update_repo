@@ -33,4 +33,8 @@ module Helpers
   def print_log(*string)
     @log.output(*string)
   end
+
+  def repo_url
+    `git config remote.origin.url`.chomp
+  end
 end
