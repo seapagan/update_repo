@@ -70,8 +70,8 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     def list_failures
-      print_log "\n\n!! Note : The following repositories ",
-                'FAILED'.red.underline, ' during this run :'
+      print_log "\n\n!! Note : The following #{@metrics[:failed_list].count}",
+                ' repositories ', 'FAILED'.red.underline, ' during this run :'
       @metrics[:failed_list].each do |failed|
         print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
         print_log "\n    -> ", "\"#{failed[:line].chomp}\"".red
