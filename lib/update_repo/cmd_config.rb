@@ -72,8 +72,8 @@ module UpdateRepo
     # @return [integer] exit code 1
     def config_error
       if @conf.status[:errors] == Status::ERR_CANT_LOAD
-        print_log 'Note that the the default configuration file was '.red,
-                  "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n\n".red
+        print 'Note that the the default configuration file was '.red,
+                  "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n".red
       end
       exit 1
     end
