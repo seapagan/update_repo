@@ -10,11 +10,12 @@ module UpdateRepo
     # Constructor for the Logger class.
     # @param enabled [boolean] True if we log to file
     # @param timestamp [boolean] True if we timestamp the filename
+    # @param verbose [boolean] True if verbose flag is set
     # @return [void]
     # @example
     #   log = Logger.new(true, false)
-    def initialize(enabled, timestamp)
-      @settings = { enabled: enabled, timestamp: timestamp }
+    def initialize(enabled, timestamp, verbose)
+      @settings = { enabled: enabled, timestamp: timestamp, verbose: verbose }
       # don't prepare a logfile unless it's been requested.
       return unless @settings[:enabled]
       # generate a filename depending on 'timestamp' setting.
@@ -40,11 +41,45 @@ module UpdateRepo
     # @param string [array] Array of strings for print formatting
     # @return [void]
     def output(*string)
-      # log to screen regardless
-      print(*string)
+      # log header and footer to screen regardless, others only if verbose
+      if @settings[:verbose] || !repo_text?
+        print(*string)
+      else
+        # remove control characters from the string...
+        string = string.join.gsub(/\e\[(\d+)(;\d+)*m/, '').strip
+        case repo_text?
+        when 'skip_repo'
+          print 's'.yellow
+        when 'handle_err'
+          print 'x'.red
+        when 'handle_output'
+          # print string
+          if string =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
+            print '^'.green
+          elsif string =~ /Already up-to-date./
+            print '.'
+          end
+        end
+      end
       # log to file if that has been enabled
       return unless @settings[:enabled]
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
+    end
+
+    # returns non nil if we have been called originally by one of the Repo
+    # update output functions.
+    # @param [none]
+    # @return [boolean] True if we have been called during repo update
+    def repo_text?
+      # get calling function - need to skip first 2, also remove 'block in '
+      # prefix if exists
+      calling_fn = caller_locations[2].label.gsub(/block in /, '')
+
+      # array with the functions we want to skip
+      repo_output = %w(do_update handle_output handle_err skip_repo)
+
+      # return the name in string if DOES match.
+      calling_fn if repo_output.include?(calling_fn)
     end
 
     # close the logfile, if it exists
