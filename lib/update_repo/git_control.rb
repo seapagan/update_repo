@@ -9,8 +9,16 @@ module UpdateRepo
   class GitControl
     include Helpers
 
+    # @return [hash] Return the status hash
     attr_reader :status
 
+    # Constructor for the GitControl class.
+    # @param repo [string] Repo name
+    # @param logger [instance] pointer to the Logger class
+    # @param metrics [instance] pointer to the Metrics class
+    # @return [void]
+    # @example
+    #   git = GitControl.new(repo_url, @logger, @metrics)
     def initialize(repo, logger, metrics)
       @status = { updated: false, failed: false, unchanged: false }
       @repo = repo
@@ -18,6 +26,9 @@ module UpdateRepo
       @metrics = metrics
     end
 
+    # Update the git repo that was specified in the initializer.
+    # @param [none]
+    # @return [void]
     def update
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|

@@ -53,6 +53,11 @@ module UpdateRepo
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
     end
 
+    # function repostat - outputs the passed char at the passed color,
+    # only if we are not in quiet nor verbose mode.
+    # @param char [char] One single chjar to be output
+    # @param color [string] The color to display the char in
+    # @return [void]
     def repostat(char, color)
       # only print if not quiet and not verbose!
       return if @settings[:quiet] || @settings[:verbose]
