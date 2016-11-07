@@ -8,7 +8,7 @@ RSpec::Core::RakeTask.new(:spec)
 if RUBY_VERSION >= '2.0'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new do |task|
-    task.options << 'lib' << 'exe'
+    # task.options << 'lib' << 'exe'
     task.fail_on_error = false
   end
 else
@@ -21,8 +21,8 @@ Inch::Rake::Suggest.new do |suggest|
   suggest.args << '--pedantic'
 end
 
-# reek is not compatible with Ruby < 2.0
-if RUBY_VERSION >= '2.0'
+# reek is not compatible with Ruby < 2.1
+if RUBY_VERSION >= '2.1'
   require 'reek/rake/task'
   Reek::Rake::Task.new do |t|
     t.fail_on_error = false

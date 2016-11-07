@@ -20,9 +20,9 @@ module UpdateRepo
       @conf = Confoog::Settings.new(filename: CONFIG_FILE,
                                     prefix: 'update_repo',
                                     autoload: true, autosave: false)
+      config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
       @conf['cmd'] = temp_opt
       check_params
-      config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
     end
 
     # return the configuration hash variable
@@ -73,8 +73,8 @@ module UpdateRepo
     # @return [integer] exit code 1
     def config_error
       if @conf.status[:errors] == Status::ERR_CANT_LOAD
-        print_log 'Note that the the default configuration file was '.red,
-                  "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n\n".red
+        print 'Note that the the default configuration file was '.red,
+              "changed to ~/#{CONFIG_FILE} from v0.4.0 onwards\n".red
       end
       exit 1
     end
