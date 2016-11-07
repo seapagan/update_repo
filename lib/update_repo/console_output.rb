@@ -16,7 +16,7 @@ module UpdateRepo
     #   console = ConsoleOutput.new(@log)
     def initialize(logger, metrics, config)
       @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
-                   failed: 'red' }
+                   failed: 'red', unchanged: 'white' }
       @metrics = metrics
       @log = logger
       @config = config.getconfig

@@ -4,11 +4,11 @@ require 'update_repo/cmd_config'
 require 'update_repo/logger'
 require 'update_repo/console_output'
 require 'update_repo/metrics'
+require 'update_repo/git_control'
 require 'yaml'
 require 'colorize'
 require 'confoog'
 require 'trollop'
-require 'open3'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -26,7 +26,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the output and logging class
-      @log = Logger.new(cmd(:log), cmd(:timestamp))
+      @log = Logger.new(cmd(:log), cmd(:timestamp), cmd(:verbose), cmd(:quiet))
       # create instance of the Metrics class
       @metrics = Metrics.new(@log)
       # instantiate the console output class for header, footer etc
@@ -107,6 +107,8 @@ module UpdateRepo
         repo_url = `git config remote.origin.url`.chomp
         print_log '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
         @metrics[:skipped] += 1
+        @log.repostat(skipped: true)
+        @metrics[:processed] += 1
       end
     end
 
@@ -118,38 +120,15 @@ module UpdateRepo
     #   update_repo('/Repo/linux/stable')
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
-        do_update
+        # create the git instance and then perform the update
+        git = GitControl.new(repo_url, @log, @metrics)
+        git.update
         @metrics[:processed] += 1
-      end
-    end
-
-    # Actually perform the update of this specific repository, calling the
-    # function #do_threads to handle the output to screen and log.
-    # @param none
-    # @return [void]
-    def do_update
-      # repo_url = `git config remote.origin.url`.chomp
-      print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
-      Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
-        stdin.close
-        do_threads(stdout, stderr)
-        thread.join
-      end
-    end
-
-    # Create 2 individual threads to handle both STDOUT and STDERR streams,
-    # writing to console and log if specified.
-    # @param stdout [stream] STDOUT Stream from the popen3 call
-    # @param stderr [stream] STDERR Stream from the popen3 call
-    # @return [void]
-    def do_threads(stdout, stderr)
-      { out: stdout, err: stderr }.each do |key, stream|
-        Thread.new do
-          while (line = stream.gets)
-            @metrics.handle_err(line) if key == :err
-            @metrics.handle_output(line) if key == :out
-          end
+        # update the metrics
+        [:failed, :updated, :unchanged].each do |metric|
+          @metrics[metric] += 1 if git.status[metric]
         end
+        @log.repostat(git.status)
       end
     end
 
