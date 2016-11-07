@@ -128,7 +128,6 @@ module UpdateRepo
     # @param none
     # @return [void]
     def do_update
-      # repo_url = `git config remote.origin.url`.chomp
       print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
       Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
         stdin.close

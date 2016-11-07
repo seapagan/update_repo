@@ -47,7 +47,6 @@ module UpdateRepo
     # @return [void]
     def handle_output(line)
       print_log '   ', line.cyan
-      # @metrics[:updated] += 1 if line =~ %r{^From\s(?:https?|git)://}
       @metrics[:updated] += 1 if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
     end
   end

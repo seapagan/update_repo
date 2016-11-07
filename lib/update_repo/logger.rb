@@ -43,6 +43,7 @@ module UpdateRepo
     # @param string [array] Array of strings for print formatting
     # @return [void]
     def output(*string)
+      # nothing to screen if we want to be --quiet
       unless @settings[:quiet]
         # log header and footer to screen regardless, others only if verbose
         if @settings[:verbose] || !repo_text?
@@ -56,7 +57,6 @@ module UpdateRepo
           when 'handle_err'
             print 'x'.red
           when 'handle_output'
-            # print string
             if string =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
               print '^'.green
             elsif string =~ /Already up-to-date./
