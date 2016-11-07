@@ -58,10 +58,18 @@ module UpdateRepo
     # @param char [char] One single chjar to be output
     # @param color [string] The color to display the char in
     # @return [void]
-    def repostat(char, color)
+    def repostat(status)
       # only print if not quiet and not verbose!
       return if @settings[:quiet] || @settings[:verbose]
-      print char.send(color.to_sym)
+      if status[:failed]
+        print 'x'.red
+      elsif status[:updated]
+        print '^'.green
+      elsif status[:unchanged]
+        print '.'
+      elsif status[:skipped]
+        print 's'.yellow
+      end
     end
 
     # returns non nil if we have been called originally by one of the Repo
