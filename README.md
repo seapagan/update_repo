@@ -11,6 +11,8 @@ A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 This is the conversion to a Gem of one of my standalone Ruby scripts. Still very much a work in progress but the required basic functionality is there.
 The script will simply run `git pull` on every local clone of a git repository that it finds under the specified directory or directories.
 
+__Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbose. If you wish the same output as previous versions then specify `--verbose` on the command line or `verbose: true` in the configuration file.
+
 ## Installation
 
 #### Pre-requirements
