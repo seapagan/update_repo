@@ -38,6 +38,7 @@ module UpdateRepo
     # both command line (given preference) and the configuration file.
     # @param command [symbol] The symbol of the defined command
     # @return [various] Returns the true value of the comamnd symbol
+    # ignore the :reek:NilCheck for this function
     def true_cmd(command)
       cmd_given = @conf['cmd'][(command.to_s + '_given').to_sym]
       cmd_line = @conf['cmd'][command.to_sym]
