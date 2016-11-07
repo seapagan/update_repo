@@ -8,7 +8,7 @@ RSpec::Core::RakeTask.new(:spec)
 if RUBY_VERSION >= '2.0'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new do |task|
-    task.options << 'lib' << 'exe'
+    # task.options << 'lib' << 'exe'
     task.fail_on_error = false
   end
 else

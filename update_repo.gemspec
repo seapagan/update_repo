@@ -25,7 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'fakefs'
-  
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'inch'
   spec.add_development_dependency 'simplecov', '~> 0.12'
@@ -35,14 +34,11 @@ Gem::Specification.new do |spec|
 
   # The below dependencies require at least Ruby 2 for the latest versions.
   # Below this we fix to the last working versions to keep Ruby 1.9.3 compat or
-  # we ignore completely - Reek and Rupocop working in the latest versions is 
+  # we ignore completely - Reek and Rubocop working in the latest versions is
   # enough since the code base is common.
-  if RUBY_VERSION >= '2.1'
-    spec.add_development_dependency 'reek', '~> 4.4' 
-  end
-  if RUBY_VERSION >= '2.0'
-    spec.add_development_dependency 'rubocop' 
-  end
+  spec.add_development_dependency 'reek', '~> 4.4' if RUBY_VERSION >= '2.1'
+  spec.add_development_dependency 'rubocop' if RUBY_VERSION >= '2.0'
+
   if RUBY_VERSION < '2.0'
     spec.add_development_dependency 'json', '= 1.8.3'
     spec.add_development_dependency 'tins', '= 1.6.0'
@@ -53,6 +49,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'trollop'
   # on Ruby 1.9.3 we lock the 'term-ansicolor' gem to version 1.3.2
   spec.add_dependency 'term-ansicolor', '= 1.3.2' if RUBY_VERSION < '2.0'
-
-
 end
