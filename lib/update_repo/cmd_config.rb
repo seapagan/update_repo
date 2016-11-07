@@ -20,9 +20,9 @@ module UpdateRepo
       @conf = Confoog::Settings.new(filename: CONFIG_FILE,
                                     prefix: 'update_repo',
                                     autoload: true, autosave: false)
+      config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
       @conf['cmd'] = temp_opt
       check_params
-      config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
     end
 
     # return the configuration hash variable
