@@ -119,13 +119,13 @@ module UpdateRepo
     def update_repo(dirname)
       Dir.chdir(dirname.chomp!('/')) do
         # create the git instance and then perform the update
-        @git = GitControl.new(repo_url, @log, @metrics)
-        @git.update
+        git = GitControl.new(repo_url, @log, @metrics)
+        git.update
         @metrics[:processed] += 1
         # update the metrics
-        @metrics[:updated] += 1 if @git.status[:updated]
-        @metrics[:failed] += 1 if @git.status[:failed]
-        @metrics[:unchanged] += 1 if @git.status[:unchanged]
+        [:failed, :updated, :unchanged].each do |metric|
+          @metrics[metric] += 1 if git.status[metric]
+        end
       end
     end
 

@@ -55,7 +55,7 @@ module UpdateRepo
 
     def repostat(char, color)
       # only print if not quiet and not verbose!
-      return if @settings[:quiet] or @settings[:verbose]
+      return if @settings[:quiet] || @settings[:verbose]
       print char.send(color.to_sym)
     end
 
@@ -69,7 +69,7 @@ module UpdateRepo
       calling_fn = caller_locations[2].label.gsub(/block in /, '')
 
       # array with the functions we want to skip
-      repo_output = %w(do_update handle_output handle_err skip_repo)
+      repo_output = %w(do_update handle_output handle_err skip_repo update)
 
       # return the name in string if DOES match.
       calling_fn if repo_output.include?(calling_fn)

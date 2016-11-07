@@ -62,6 +62,7 @@ module UpdateRepo
     # print a git output line and update the metrics if an update has occurred
     # @param line [string] The string containing the git output line
     # @return [void]
+    # rubocop:disable Metrics/LineLength
     def handle_output(line)
       print_log '   ', line.cyan
       @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
