@@ -107,7 +107,7 @@ module UpdateRepo
         repo_url = `git config remote.origin.url`.chomp
         print_log '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
         @metrics[:skipped] += 1
-        @log.repostat({skipped: true})
+        @log.repostat(skipped: true)
         @metrics[:processed] += 1
       end
     end
