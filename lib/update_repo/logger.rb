@@ -11,11 +11,13 @@ module UpdateRepo
     # @param enabled [boolean] True if we log to file
     # @param timestamp [boolean] True if we timestamp the filename
     # @param verbose [boolean] True if verbose flag is set
+    # @param quiet [boolean] True if quiet flag is set
     # @return [void]
     # @example
     #   log = Logger.new(true, false)
-    def initialize(enabled, timestamp, verbose)
-      @settings = { enabled: enabled, timestamp: timestamp, verbose: verbose }
+    def initialize(enabled, timestamp, verbose, quiet)
+      @settings = { enabled: enabled, timestamp: timestamp, verbose: verbose,
+                    quiet: quiet }
       # don't prepare a logfile unless it's been requested.
       return unless @settings[:enabled]
       # generate a filename depending on 'timestamp' setting.
@@ -41,23 +43,25 @@ module UpdateRepo
     # @param string [array] Array of strings for print formatting
     # @return [void]
     def output(*string)
-      # log header and footer to screen regardless, others only if verbose
-      if @settings[:verbose] || !repo_text?
-        print(*string)
-      else
-        # remove control characters from the string...
-        string = string.join.gsub(/\e\[(\d+)(;\d+)*m/, '').strip
-        case repo_text?
-        when 'skip_repo'
-          print 's'.yellow
-        when 'handle_err'
-          print 'x'.red
-        when 'handle_output'
-          # print string
-          if string =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
-            print '^'.green
-          elsif string =~ /Already up-to-date./
-            print '.'
+      unless @settings[:quiet]
+        # log header and footer to screen regardless, others only if verbose
+        if @settings[:verbose] || !repo_text?
+          print(*string)
+        else
+          # remove control characters from the string...
+          string = string.join.gsub(/\e\[(\d+)(;\d+)*m/, '').strip
+          case repo_text?
+          when 'skip_repo'
+            print 's'.yellow
+          when 'handle_err'
+            print 'x'.red
+          when 'handle_output'
+            # print string
+            if string =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
+              print '^'.green
+            elsif string =~ /Already up-to-date./
+              print '.'
+            end
           end
         end
       end

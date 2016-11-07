@@ -26,7 +26,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the output and logging class
-      @log = Logger.new(cmd(:log), cmd(:timestamp), cmd(:verbose))
+      @log = Logger.new(cmd(:log), cmd(:timestamp), cmd(:verbose), cmd(:quiet))
       # create instance of the Metrics class
       @metrics = Metrics.new(@log)
       # instantiate the console output class for header, footer etc

@@ -101,14 +101,14 @@ Options:
 EOS
         opt :color, 'Use colored output', default: true
         opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
-        opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
+        opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified.", default: 0
         # opt :import, "Import a previous dump of directories and Git repository URL's,\n(created using --dump) then proceed to clone them locally.", default: false
         opt :log, "Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.", default: false
         opt :timestamp, 'Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.', default: false
         opt :dump_remote, 'Create a dump to screen or log, listing all the git remote URLS found in the specified directories.', default: false, short: 'r'
         opt :dump_tree, 'Create a dump to screen or log, listing all subdirectories found below the specified locations in tree format.', default: false, short: 'u'
         opt :verbose, 'Display each repository and the git output to screen', default: false, short: 'V'
-        # opt :quiet, 'Only minimal output to the terminal', default: false
+        opt :quiet, 'Run completely silent, with no output to the terminal (except fatal errors).', default: false
         # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
     end
