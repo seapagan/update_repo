@@ -45,29 +45,18 @@ module UpdateRepo
     def output(*string)
       # nothing to screen if we want to be --quiet
       unless @settings[:quiet]
-        # log header and footer to screen regardless, others only if verbose
-        if @settings[:verbose] || !repo_text?
-          print(*string)
-        else
-          # remove control characters from the string...
-          string = string.join.gsub(/\e\[(\d+)(;\d+)*m/, '').strip
-          case repo_text?
-          when 'skip_repo'
-            print 's'.yellow
-          when 'handle_err'
-            print 'x'.red
-          when 'handle_output'
-            if string =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
-              print '^'.green
-            elsif string =~ /Already up-to-date./
-              print '.'
-            end
-          end
-        end
+        # log header and footer to screen regardless
+        print(*string) if @settings[:verbose] || !repo_text?
       end
       # log to file if that has been enabled
       return unless @settings[:enabled]
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
+    end
+
+    def repostat(char, color)
+      # only print if not quiet and not verbose!
+      return if @settings[:quiet] or @settings[:verbose]
+      print char.send(color.to_sym)
     end
 
     # returns non nil if we have been called originally by one of the Repo

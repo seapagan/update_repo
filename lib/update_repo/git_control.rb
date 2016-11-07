@@ -11,10 +11,11 @@ module UpdateRepo
 
     attr_reader :status
 
-    def initialize(repo, logger)
+    def initialize(repo, logger, metrics)
       @status = { updated: false, failed: false, unchanged: false }
       @repo = repo
       @log = logger
+      @metrics = metrics
     end
 
     def update
@@ -40,8 +41,8 @@ module UpdateRepo
       { out: stdout, err: stderr }.each do |key, stream|
         Thread.new do
           while (line = stream.gets)
-            handle_err(line, @status) if key == :err
-            handle_output(line, @status) if key == :out
+            handle_err(line) if key == :err
+            handle_output(line) if key == :out
           end
         end
       end
@@ -50,21 +51,21 @@ module UpdateRepo
     # output an error line and update the metrics
     # @param line [string] The string containing the error message
     # @return [void]
-    def handle_err(line, status)
+    def handle_err(line)
       return unless line =~ /^fatal:|^error:/
       print_log '   ', line.red
-      status[:failed] = true
+      @status[:failed] = true
       err_loc = Dir.pwd + " (#{@repo})"
-      # @metrics[:failed_list].push(loc: err_loc, line: line)
+      @metrics[:failed_list].push(loc: err_loc, line: line)
     end
 
     # print a git output line and update the metrics if an update has occurred
     # @param line [string] The string containing the git output line
     # @return [void]
-    def handle_output(line, status)
+    def handle_output(line)
       print_log '   ', line.cyan
-      status[:updated] = true if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
-      status[:unchanged] = true if line =~ /^Already up-to-date./
+      @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
+      @status[:unchanged] = true if line =~ /^Already up-to-date./
     end
   end
 end
