@@ -110,7 +110,6 @@ EOS
         opt :dump_tree, 'Create a dump to screen or log, listing all subdirectories found below the specified locations in tree format.', default: false, short: 'u'
         opt :verbose, 'Display each repository and the git output to screen', default: false, short: 'V'
         opt :quiet, 'Run completely silent, with no output to the terminal (except fatal errors).', default: false
-        # opt :silent, 'Completely silent, no output to terminal at all.', default: false
       end
     end
     # rubocop:enable Metrics/MethodLength

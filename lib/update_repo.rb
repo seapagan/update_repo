@@ -77,16 +77,27 @@ module UpdateRepo
     # @param dirname [string] Contains the directory to search for Git repos.]
     # @return [void]
     def recurse_dir(dirname)
+      walk_tree(dirname).each do |repo|
+        if dumping?
+          dump_repo(repo[:path])
+        else
+          notexception?(repo[:name]) ? update_repo(repo[:path]) : skip_repo(repo[:path])
+        end
+      end
+    end
+
+    # walk the specified tree, return an array of hashes holding valid repos
+    # @param dirname [string] Directory to use as the base of the search
+    # @return [array] Array of hashes {:path, :name} for discovered Git repos
+    def walk_tree(dirname)
+      repo_list = []
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
-          if dumping?
-            dump_repo(File.join(dirname, dir))
-          else
-            notexception?(dir) ? update_repo(dir) : skip_repo(dir)
-          end
+          repo_list.push(path: File.join(dirname, dir), name: dir)
         end
       end
+      repo_list
     end
 
     # tests to see if the given directory is an exception and should be skipped
@@ -103,13 +114,11 @@ module UpdateRepo
     # @example
     #   skip_repo('/Repo/Personal/work-in-progress')
     def skip_repo(dirpath)
-      Dir.chdir(dirpath.chomp!('/')) do
-        repo_url = `git config remote.origin.url`.chomp
-        print_log '* Skipping ', Dir.pwd.yellow, " (#{repo_url})\n"
-        @metrics[:skipped] += 1
-        @log.repostat(skipped: true)
-        @metrics[:processed] += 1
-      end
+      repo_url = `git -C #{dirpath} config remote.origin.url`.chomp
+      print_log '* Skipping ', dirpath.yellow, " (#{repo_url})\n"
+      @metrics[:skipped] += 1
+      @log.repostat(skipped: true)
+      @metrics[:processed] += 1
     end
 
     # Takes the specified Repo outputs information and the repo URL then calls
@@ -118,18 +127,16 @@ module UpdateRepo
     # @return [void]
     # @example
     #   update_repo('/Repo/linux/stable')
-    def update_repo(dirname)
-      Dir.chdir(dirname.chomp!('/')) do
-        # create the git instance and then perform the update
-        git = GitControl.new(repo_url, @log, @metrics)
-        git.update
-        @metrics[:processed] += 1
-        # update the metrics
-        [:failed, :updated, :unchanged].each do |metric|
-          @metrics[metric] += 1 if git.status[metric]
-        end
-        @log.repostat(git.status)
+    def update_repo(dirpath)
+      # create the git instance and then perform the update
+      git = GitControl.new(dirpath, @log, @metrics)
+      git.update
+      @metrics[:processed] += 1
+      # update the metrics
+      [:failed, :updated, :unchanged].each do |metric|
+        @metrics[metric] += 1 if git.status[metric]
       end
+      @log.repostat(git.status)
     end
 
     # this function will either dump out a CSV with the directory and remote,
@@ -139,7 +146,7 @@ module UpdateRepo
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
         print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
-        print_log "#{get_repo_url}\n"
+        print_log `git -C #{dir} config remote.origin.url`
       end
     end
 

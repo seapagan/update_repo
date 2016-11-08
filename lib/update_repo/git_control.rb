@@ -13,15 +13,15 @@ module UpdateRepo
     attr_reader :status
 
     # Constructor for the GitControl class.
-    # @param repo [string] Repo name
+    # @param dir [string] The directory location of this local repo.
     # @param logger [instance] pointer to the Logger class
     # @param metrics [instance] pointer to the Metrics class
     # @return [void]
     # @example
     #   git = GitControl.new(repo_url, @logger, @metrics)
-    def initialize(repo, logger, metrics)
+    def initialize(dir, logger, metrics)
       @status = { updated: false, failed: false, unchanged: false }
-      @repo = repo
+      @dir = dir
       @log = logger
       @metrics = metrics
     end
@@ -30,8 +30,8 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     def update
-      print_log '* Checking ', Dir.pwd.green, " (#{repo_url})\n"
-      Open3.popen3('git pull') do |stdin, stdout, stderr, thread|
+      print_log '* Checking ', @dir.green, " (#{repo_url})\n"
+      Open3.popen3("git -C #{@dir} pull") do |stdin, stdout, stderr, thread|
         stdin.close
         do_threads(stdout, stderr)
         thread.join
@@ -42,6 +42,13 @@ module UpdateRepo
     end
 
     private
+
+    # Returns the repo remote url for the repo in @dir
+    # @param [none]
+    # @return [string]
+    def repo_url
+      `git -C #{@dir} config remote.origin.url`.chomp
+    end
 
     # Create 2 individual threads to handle both STDOUT and STDERR streams,
     # writing to console and log if specified.
@@ -66,7 +73,7 @@ module UpdateRepo
       return unless line =~ /^fatal:|^error:/
       print_log '   ', line.red
       @status[:failed] = true
-      err_loc = Dir.pwd + " (#{@repo})"
+      err_loc = "#{@dir} (#{repo_url})"
       @metrics[:failed_list].push(loc: err_loc, line: line)
     end
 
@@ -79,5 +86,6 @@ module UpdateRepo
       @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
       @status[:unchanged] = true if line =~ /^Already up-to-date./
     end
+    # rubocop:enable Metrics/LineLength
   end
 end
