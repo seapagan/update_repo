@@ -48,6 +48,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'colorize'
   spec.add_dependency 'confoog'
   spec.add_dependency 'trollop'
+  spec.add_dependency 'versionomy'
   # on Ruby 1.9.3 we lock the 'term-ansicolor' gem to version 1.3.2
   spec.add_dependency 'term-ansicolor', '= 1.3.2' if RUBY_VERSION < '2.0'
 end

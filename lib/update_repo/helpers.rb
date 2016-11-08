@@ -33,4 +33,19 @@ module Helpers
   def print_log(*string)
     @log.output(*string)
   end
+
+  # Cross-platform way of finding an executable in the $PATH.
+  # From : http://stackoverflow.com/a/5471032/6641755
+  #
+  #   which('ruby') #=> /usr/bin/ruby
+  def which(cmd)
+    exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+      exts.each do |ext|
+        exe = File.join(path, "#{cmd}#{ext}")
+        return exe if File.executable?(exe) && !File.directory?(exe)
+      end
+    end
+    # return nil
+  end
 end

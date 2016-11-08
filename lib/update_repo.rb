@@ -9,6 +9,7 @@ require 'yaml'
 require 'colorize'
 require 'confoog'
 require 'trollop'
+require 'versionomy'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -39,6 +40,8 @@ module UpdateRepo
     #   walk_repo.start
     def start
       String.disable_colorization = !cmd(:color)
+      # check for existence of 'Git' and exit otherwise...
+      checkgit
       # print out our header unless we are dumping / importing ...
       @cons.show_header unless dumping?
       config['location'].each do |loc|
@@ -49,6 +52,18 @@ module UpdateRepo
     end
 
     private
+
+    def checkgit
+      unless which('git')
+        puts 'Git is not installed on this machine, script cannot continue.'.red
+        exit 1
+      end
+      gitver = `git --version`.gsub(/git version /, '').chomp
+      return if Versionomy.parse(gitver) >= '1.8.5'
+      print 'Git version 1.8.5 or greater must be installed, you have '.red,
+            "version #{gitver}!\n".red
+      exit 1
+    end
 
     def dumping?
       cmd(:dump) || cmd(:dump_remote) || cmd(:dump_tree)
