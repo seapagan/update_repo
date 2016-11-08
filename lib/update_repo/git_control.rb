@@ -31,7 +31,7 @@ module UpdateRepo
     # @return [void]
     def update
       print_log '* Checking ', @dir.green, " (#{repo_url})\n"
-      Open3.popen2e("git -C #{@dir} pull") do |stdin, stdout_err, thread|
+      Open3.popen2e("git -C #{@dir} pull") do |_stdin, stdout_err, _thread|
         stdout_err.each { |line| handle_output(line) }
       end
       # reset the updated status in the rare case than both update and failed
