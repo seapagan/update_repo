@@ -8,7 +8,7 @@
 
 A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 
-This is the conversion to a Gem of one of my standalone Ruby scripts. Still very much a work in progress but the required basic functionality is there.
+This is the conversion to a Gem of one of my standalone Ruby scripts. Still a work in progress but the required base functionality is there.
 The script will simply run `git pull` on every local clone of a git repository that it finds under the specified directory or directories.
 
 __Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbose. If you wish the same output as previous versions then specify `--verbose` on the command line or `verbose: true` in the configuration file.
@@ -38,7 +38,7 @@ location:
 - /media/myuser/git-repos
 - /data/RepoDir
 ```
-This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below.
+This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below and the [Website](http://updaterepo.seapagan.net) for more information.
 
 This file should be located in the users home directory (`~/.updaterepo`).
 
@@ -48,6 +48,7 @@ $ update_repo
 ```
 
 ## Configuration
+The below is a summary of the most common configuration options, see the [Website](http://updaterepo.seapagan.net) for complete details and usage.
 #### Configuration file
 The configuration file defaults to `~/.updaterepo` and is a standard [YAML](http://yaml.org/)-formatted text file. If this configuration file is not found, the script will terminate with an error.  
 The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
@@ -77,8 +78,18 @@ log: true
 timestamp: true
 ```
 
+`verbose:` - display the output of the git command for each repo, defaults to FALSE (optional)
+```yaml
+verbose: true
+```
+
+`quiet:` - no output at all, not even the header and footer, defaults to FALSE (optional)
+```yaml
+quiet: true
+```
+
 #### Command line switches
-Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories.
+Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories. Command line options will take preference over those specified in the configuration file.
 
 Enter `update_repo --help` at the command prompt to get a list of available options :
 ```
@@ -93,6 +104,8 @@ Options:
                              --log option is also specified.
   -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in
                              the specified directories.
+  -V, --verbose              Display each repository and the git output to screen
+  -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors).
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```
@@ -101,8 +114,7 @@ Options:
 Add functionality, not in any specific order :
 
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
-- Add command line options to override configuration, and even specify an alternate config file. Any options so specified will have precedence over settings specified in the configuration file. `[IN PROGRESS]`
-- Add command line options for verbose or quiet, with same options in config file.
+- Add command line option to specify an alternate config file.
 - Add ability to specify a new directory (containing Git repos) to search from the command line, and optionally save this to the standard configuration.
 - Add new repo from the command line that will be cloned to the default repo directory and then updated as usual. Extra flag added for "add only, clone later" for offline use.
 - Add flag for 'default' repo directory (or another specific directory - if it does not already exist it will be created and added to the standard list) which will be used for new additions.
