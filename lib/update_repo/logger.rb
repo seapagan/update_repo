@@ -25,6 +25,10 @@ module UpdateRepo
       # open the logfile and set sync mode.
       @logfile = File.open(filename, 'w')
       @logfile.sync = true
+      @legend = { failed: { char: 'x', color: 'red' },
+                  updated: { char: '^', color: 'green' },
+                  unchanged: { char: '.', color: 'white' },
+                  skipped: { char: 's', color: 'yellow' } }
     end
 
     # generate a filename for the log, with or without a timestamp
@@ -53,21 +57,15 @@ module UpdateRepo
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
     end
 
-    # function repostat - outputs the passed char at the passed color,
-    # only if we are not in quiet nor verbose mode.
+    # function repostat - outputs a coloured char depending on the status hash,
+    # but not if we are in quiet or verbose mode.
     # @param status [hash] pointer to GitControl.status hash
     # @return [void]
     def repostat(status)
       # only print if not quiet and not verbose!
       return if @settings[:quiet] || @settings[:verbose]
-      if status[:failed]
-        print 'x'.red
-      elsif status[:updated]
-        print '^'.green
-      elsif status[:unchanged]
-        print '.'
-      elsif status[:skipped]
-        print 's'.yellow
+      @legend.each do |key, value|
+        print value[:char].send(value[:color].to_sym) if status[key]
       end
     end
 
@@ -79,10 +77,8 @@ module UpdateRepo
       # get calling function - need to skip first 2, also remove 'block in '
       # prefix if exists
       calling_fn = caller_locations[2].label.gsub(/block in /, '')
-
       # array with the functions we want to skip
-      repo_output = %w(do_update handle_output handle_err skip_repo update)
-
+      repo_output = %w(do_update handle_output skip_repo update)
       # return the name in string if DOES match.
       calling_fn if repo_output.include?(calling_fn)
     end

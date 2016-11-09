@@ -55,7 +55,8 @@ module UpdateRepo
 
     def checkgit
       unless which('git')
-        puts 'Git is not installed on this machine, script cannot continue.'.red
+        print 'Git is not installed on this machine, script cannot '.red,
+              "continue.\n".red
         exit 1
       end
       gitver = `git --version`.gsub(/git version /, '').chomp
@@ -91,6 +92,7 @@ module UpdateRepo
     # a Git repository then update it (or as directed by command line)
     # @param dirname [string] Contains the directory to search for Git repos.]
     # @return [void]
+    # rubocop:disable LineLength
     def recurse_dir(dirname)
       walk_tree(dirname).each do |repo|
         if dumping?
@@ -100,6 +102,7 @@ module UpdateRepo
         end
       end
     end
+    # rubocop:enable LineLength
 
     # walk the specified tree, return an array of hashes holding valid repos
     # @param dirname [string] Directory to use as the base of the search
