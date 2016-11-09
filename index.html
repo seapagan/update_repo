@@ -160,7 +160,7 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">./.updaterepo</span>, defaults to <b>FALSE</b> (optional). Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p>
+            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">updaterepo.log</span> in the current directory, defaults to <b>FALSE</b> (optional). This file would be overwritten on next run unless you also specify the <span class="yaml-tag">timestamp:</span> option. Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p>
             <pre>
               <code class="language-yaml">
                 log: true
@@ -289,7 +289,7 @@
               <p>Log</p>
             </div>
             <div class="cmd-body row-body">
-              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is <span class="filename">.updaterepo</span> in the current directory. The previous log will be overwritten, but see the next option.</p>
+              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is <span class="filename">updaterepo.log</span> in the current directory. The previous log will be overwritten, but see the next option.</p>
               <p class="cmd-text">Equates to the <span class="yaml-tag">log:</span> YAML configuration file tag.</p>
               <ul class="opt-list">
                 <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log</span></li>
