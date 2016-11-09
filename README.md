@@ -17,7 +17,7 @@ __Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbo
 
 #### Pre-requirements
 
-It goes without saying that at the very least a working copy of both [`Git`][git] and [`Ruby`][ruby] need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
+It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
 
 [git]: http://git-scm.com
 [ruby]: http://www.ruby-lang.org
@@ -152,7 +152,7 @@ Run `rake` to run the RSpec tests, which also runs `RuboCop`, `Reek` and `inch -
 5. Create new Pull Request
 
 Please note - This Gem currently aims to pass 100% on [RuboCop][rubocop], [Reek][reek] and [Inch-CI][inch] (on pedantic mode), so all pull requests should do likewise. Ask for guidance if needed.
-Running `rake` will automatically test all 3 of those along with the RSpec tests. Note that Failures of Rubocop will cause the CI (Travis) to fail, however 'Reek' failures will not.
+Running `rake` will automatically test all 3 of those along with the RSpec tests.
 
 [rubocop]: https://github.com/bbatsov/rubocop
 [reek]: https://github.com/troessner/reek
