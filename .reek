@@ -12,3 +12,6 @@ RepeatedConditional:
 
 DuplicateMethodCall:
  max_calls: 3
+
+NestedIterators:
+  max_allowed_nesting: 2

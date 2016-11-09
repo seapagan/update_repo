@@ -70,12 +70,23 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     def list_failures
+      # ensure we don't have duplicate errors from the same repo
+      remove_dups
       print_log "\n\n!! Note : The following #{@metrics[:failed_list].count}",
                 ' repositories ', 'FAILED'.red.underline, ' during this run :'
+      # print out any and all errors into a nice list
       @metrics[:failed_list].each do |failed|
         print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
         print_log "\n    -> ", "\"#{failed[:line].chomp}\"".red
       end
+    end
+
+    # removes any duplications in the list of failed repos.
+    # @param [none]
+    # @return [void] modifies the @metrics[:failed_list] in place
+    def remove_dups
+      # removes duplicate ':loc' values from the Failed list.
+      @metrics[:failed_list].uniq! { |error| error[:loc] }
     end
 
     # Print a list of any defined expections that will not be updated.
