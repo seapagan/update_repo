@@ -36,10 +36,11 @@ module UpdateRepo
     # @return [string] Filename for the logfile.
     def generate_filename
       if @settings[:timestamp]
-        'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
+        name = 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
       else
-        'updaterepo.log'
+        name = 'updaterepo.log'
       end
+      File.expand_path(File.join('~/', name))
     end
 
     # this function will simply pass the given string to 'print', and also
