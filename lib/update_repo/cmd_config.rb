@@ -12,12 +12,18 @@ module UpdateRepo
   class CmdConfig
     include Helpers
 
+    # This constant holds the path to the config file, default to home dir.
+    CONFIG_PATH = '~/'.freeze
+    # This constant holds the filename of the config file.
+    CONFIG_FILE = '.updaterepo'.freeze
+
     def initialize
       # read the options from Trollop and store in temp variable.
       # we do it this way around otherwise if configuration file is missing it
       # gives the error messages even on '--help' and '--version'
       temp_opt = set_options
       @conf = Confoog::Settings.new(filename: CONFIG_FILE,
+                                    location: CONFIG_PATH,
                                     prefix: 'update_repo',
                                     autoload: true, autosave: false)
       config_error unless @conf.status[:errors] == Status::INFO_FILE_LOADED
