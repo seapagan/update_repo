@@ -18,6 +18,10 @@ module UpdateRepo
     def initialize(enabled, timestamp, verbose, quiet)
       @settings = { enabled: enabled, timestamp: timestamp, verbose: verbose,
                     quiet: quiet }
+      @legend = { failed: { char: 'x', color: 'red' },
+                  updated: { char: '^', color: 'green' },
+                  unchanged: { char: '.', color: 'white' },
+                  skipped: { char: 's', color: 'yellow' } }
       # don't prepare a logfile unless it's been requested.
       return unless @settings[:enabled]
       # generate a filename depending on 'timestamp' setting.
@@ -25,10 +29,6 @@ module UpdateRepo
       # open the logfile and set sync mode.
       @logfile = File.open(filename, 'w')
       @logfile.sync = true
-      @legend = { failed: { char: 'x', color: 'red' },
-                  updated: { char: '^', color: 'green' },
-                  unchanged: { char: '.', color: 'white' },
-                  skipped: { char: 's', color: 'yellow' } }
     end
 
     # generate a filename for the log, with or without a timestamp
