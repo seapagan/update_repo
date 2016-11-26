@@ -80,8 +80,8 @@ module UpdateRepo
       calling_fn = caller_locations[2].label.gsub(/block in /, '')
       # array with the functions we want to skip
       repo_output = %w(do_update handle_output skip_repo update)
-      # return the name in string if DOES match.
-      calling_fn if repo_output.include?(calling_fn)
+      # return TRUE if DOES match, FALSE otherwise.
+      repo_output.include?(calling_fn) ? true : false
     end
 
     # close the logfile, if it exists
