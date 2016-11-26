@@ -17,7 +17,7 @@ __Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbo
 
 #### Pre-requirements
 
-It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
+It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] (version 1.9.3 and newer) need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
 
 [git]: http://git-scm.com
 [ruby]: http://www.ruby-lang.org
