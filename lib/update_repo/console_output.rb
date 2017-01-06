@@ -10,16 +10,16 @@ module UpdateRepo
     # Constructor for the ConsoleOutput class.
     # @param logger [class] Pointer to the Logger class
     # @param metrics [class] Pointer to the Metrics class
-    # @param config [class] Pointer to the Confoog class
+    # @param cmd [class] Pointer to the CmdConfig class
     # @return [void]
     # @example
     #   console = ConsoleOutput.new(@log)
-    def initialize(logger, metrics, config)
+    def initialize(logger, metrics, cmd)
       @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
                    failed: 'red', unchanged: 'white' }
       @metrics = metrics
       @log = logger
-      @config = config.getconfig
+      @cmd = cmd
     end
 
     # Display a simple header to the console
@@ -31,7 +31,9 @@ module UpdateRepo
       # print an informative header before starting
       print_log "\nGit Repo update utility (v", VERSION, ')',
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      print_log "Using Configuration from '#{@config.config_path}'\n"
+      print_log "Using Configuration from '#{@cmd.getconfig.config_path}'\n"
+      # show the logfile location, but only if it is enabled
+      show_logfile
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
@@ -93,7 +95,7 @@ module UpdateRepo
     # @return [void]
     # @param [none]
     def list_exceptions
-      exceptions = @config['exceptions']
+      exceptions = @cmd['exceptions']
       return unless exceptions
       print_log "\nExclusions:".underline, ' ',
                 exceptions.join(', ').yellow, "\n"
@@ -104,9 +106,16 @@ module UpdateRepo
     # @return [void]
     def list_locations
       print_log "\nRepo location(s):\n".underline
-      @config['location'].each do |loc|
+      @cmd['location'].each do |loc|
         print_log '-> ', loc.cyan, "\n"
       end
+    end
+
+    # print out the logfile name and location, if we are logging to file
+    # @return [void]
+    def show_logfile
+      return unless @cmd[:log]
+      print_log "\nLogging to file:".underline, " #{@log.logfile}\n".cyan
     end
   end
 end
