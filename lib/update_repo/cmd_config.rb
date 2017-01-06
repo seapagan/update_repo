@@ -40,6 +40,15 @@ module UpdateRepo
       @conf
     end
 
+    # return the specified TRUE configuration variable, using '[]' notation
+    # @param key [string] Which cmd variable to return
+    # @return [various] The value of the specified cmd variable
+    # @example
+    #   quiet = @cmd[quiet]
+    def [](key)
+      true_cmd(key.to_sym)
+    end
+
     # This will return the 'true' version of a command, taking into account
     # both command line (given preference) and the configuration file.
     # @param command [symbol] The symbol of the defined command

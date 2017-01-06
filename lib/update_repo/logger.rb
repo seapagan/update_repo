@@ -8,22 +8,18 @@ module UpdateRepo
     include Helpers
 
     # Constructor for the Logger class.
-    # @param enabled [boolean] True if we log to file
-    # @param timestamp [boolean] True if we timestamp the filename
-    # @param verbose [boolean] True if verbose flag is set
-    # @param quiet [boolean] True if quiet flag is set
+    # @param cmd [instance] - pointer to the CmdConfig class
     # @return [void]
     # @example
-    #   log = Logger.new(true, false)
-    def initialize(enabled, timestamp, verbose, quiet)
-      @settings = { enabled: enabled, timestamp: timestamp, verbose: verbose,
-                    quiet: quiet }
+    #   log = Logger.new(@cmd)
+    def initialize(cmd)
+      @cmd = cmd
       @legend = { failed: { char: 'x', color: 'red' },
                   updated: { char: '^', color: 'green' },
                   unchanged: { char: '.', color: 'white' },
                   skipped: { char: 's', color: 'yellow' } }
       # don't prepare a logfile unless it's been requested.
-      return unless @settings[:enabled]
+      return unless @cmd[:log]
       # generate a filename depending on 'timestamp' setting.
       filename = generate_filename
       # open the logfile and set sync mode.
@@ -35,7 +31,7 @@ module UpdateRepo
     # @param [none]
     # @return [string] Filename for the logfile.
     def generate_filename
-      if @settings[:timestamp]
+      if @cmd[:timestamp]
         name = 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
       else
         name = 'updaterepo.log'
@@ -49,12 +45,12 @@ module UpdateRepo
     # @return [void]
     def output(*string)
       # nothing to screen if we want to be --quiet
-      unless @settings[:quiet]
+      unless @cmd[:quiet]
         # log header and footer to screen regardless
-        print(*string) if @settings[:verbose] || !repo_text?
+        print(*string) if @cmd[:verbose] || !repo_text?
       end
       # log to file if that has been enabled
-      return unless @settings[:enabled]
+      return unless @cmd[:log]
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
     end
 
@@ -64,7 +60,7 @@ module UpdateRepo
     # @return [void]
     def repostat(status)
       # only print if not quiet and not verbose!
-      return if @settings[:quiet] || @settings[:verbose]
+      return if @cmd[:quiet] || @cmd[:verbose]
       @legend.each do |key, value|
         print value[:char].send(value[:color].to_sym) if status[key]
       end

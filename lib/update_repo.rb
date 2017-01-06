@@ -24,7 +24,7 @@ module UpdateRepo
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the output and logging class
-      @log = Logger.new(cmd(:log), cmd(:timestamp), cmd(:verbose), cmd(:quiet))
+      @log = Logger.new(@cmd)
       # create instance of the Metrics class
       @metrics = Metrics.new(@log)
       # instantiate the console output class for header, footer etc
@@ -36,13 +36,13 @@ module UpdateRepo
     #   walk_repo = UpdateRepo::WalkRepo.new
     #   walk_repo.start
     def start
-      String.disable_colorization = !cmd(:color)
+      String.disable_colorization = !@cmd[:color]
       # check for existence of 'Git' and exit otherwise...
       checkgit
       # print out our header unless we are dumping / importing ...
       @cons.show_header unless dumping?
       config['location'].each do |loc|
-        cmd(:dump_tree) ? dump_tree(File.join(loc)) : recurse_dir(loc)
+        @cmd[:dump_tree] ? dump_tree(File.join(loc)) : recurse_dir(loc)
       end
       # print out an informative footer unless dump / import ...
       @cons.show_footer unless dumping?
@@ -64,7 +64,7 @@ module UpdateRepo
     end
 
     def dumping?
-      cmd(:dump) || cmd(:dump_remote) || cmd(:dump_tree)
+      @cmd[:dump] || @cmd[:dump_remote] || @cmd[:dump_tree]
     end
 
     # returns the Confoog class which can then be used to access any config var
@@ -72,17 +72,6 @@ module UpdateRepo
     # @param [none]
     def config
       @cmd.getconfig
-    end
-
-    # Return the true value of the specified configuration parameter. This is a
-    # helper function that simply calls the 'true_cmd' function in the @cmd
-    # class
-    # @param command [symbol] The defined command symbol that is to be returned
-    # @return [various] The value of the requested command option
-    # @example
-    #   logging = cmd(:log)
-    def cmd(command)
-      @cmd.true_cmd(command.to_sym)
     end
 
     # take each directory contained in the Repo directory, if it is detected as
@@ -160,7 +149,7 @@ module UpdateRepo
     # @return [void]
     def dump_repo(dir)
       Dir.chdir(dir.chomp!('/')) do
-        print_log "#{trunc_dir(dir, config['cmd'][:prune])}," if cmd(:dump)
+        print_log "#{trunc_dir(dir, @cmd[:prune])}," if @cmd[:dump]
         print_log `git -C #{dir} config remote.origin.url`
       end
     end
