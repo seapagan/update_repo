@@ -33,7 +33,7 @@ module UpdateRepo
                 " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
       print_log "Using Configuration from '#{@cmd.getconfig.config_path}'\n"
       # show the logfile location, but only if it is enabled
-      show_logfile if @cmd[:log]
+      show_logfile
       # list out the locations that will be searched
       list_locations
       # list any exceptions that we have from the config file
@@ -111,7 +111,9 @@ module UpdateRepo
       end
     end
 
+    # print out the logfile name and location, if we are logging to file
     def show_logfile
+      return unless @cmd[:log]
       print_log "\nLogging to file:".underline, " #{@log.logfile}\n".cyan
     end
   end
