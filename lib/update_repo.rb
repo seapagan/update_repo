@@ -14,9 +14,6 @@ require 'versionomy'
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
 module UpdateRepo
-  # This constant holds the name to the config file, located in ~/
-  CONFIG_FILE = '.updaterepo'.freeze
-
   # An encapsulated class to walk the repo directories and update all Git
   # repositories found therein.
   class WalkRepo

@@ -19,9 +19,6 @@ __Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbo
 
 It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] (version 1.9.3 and newer) need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
 
-[git]: http://git-scm.com
-[ruby]: http://www.ruby-lang.org
-
 Install this from the shell prompt as you would any other Ruby Gem
 
 ```
@@ -31,14 +28,14 @@ $ gem install update_repo
 ## Usage
 
 #### Quick start
-Create a [YAML](http://yaml.org/)-formatted configuration file `.updaterepo` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
+Create a [YAML][yaml]-formatted configuration file `.updaterepo` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
 ```yaml
 ---
 location:
 - /media/myuser/git-repos
 - /data/RepoDir
 ```
-This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below and the [Website](http://updaterepo.seapagan.net) for more information.
+This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below and the [Website][website] for more information.
 
 This file should be located in the users home directory (`~/.updaterepo`).
 
@@ -48,9 +45,9 @@ $ update_repo
 ```
 
 ## Configuration
-The below is a summary of the most common configuration options, see the [Website](http://updaterepo.seapagan.net) for complete details and usage.
+The below is a summary of the most common configuration options, see the [Website][website] for complete details and usage.
 #### Configuration file
-The configuration file defaults to `~/.updaterepo` and is a standard [YAML](http://yaml.org/)-formatted text file. If this configuration file is not found, the script will terminate with an error.  
+The configuration file defaults to `~/.updaterepo` and is a standard [YAML][yaml]-formatted text file. If this configuration file is not found, the script will terminate with an error.
 The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
 
 `location:` - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :
@@ -89,7 +86,7 @@ quiet: true
 ```
 
 #### Command line switches
-Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories. Command line options will take preference over those specified in the configuration file.
+Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories. Command line options will take preference over those specified in the configuration file. Again, see the [Website][website] for complete details and usage.
 
 Enter `update_repo --help` at the command prompt to get a list of available options :
 ```
@@ -123,6 +120,8 @@ Add functionality, not in any specific order :
   * ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
   * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
+- Implement the option `--log-local` to put log file into the local directory.
+- Add option to specify a completely different directory for the log file other than the 2 current (planned, local not yet implemented) options (home dir and local)
 - Document configuration file format and options. `[IN PROGRESS]`
 
 Internal Changes and refactoring :
@@ -132,8 +131,6 @@ Internal Changes and refactoring :
   * Ignore and report invalid or missing directories
   * Add more failure cases, there may be more git errors than "fatal:" or "error:"
 - Retry for connection issues etc (config setting).
-
-[confoog]: http://confoog.seapagan.net
 
 ## Development
 
@@ -154,10 +151,6 @@ Run `rake` to run the RSpec tests, which also runs `RuboCop`, `Reek` and `inch -
 Please note - This Gem currently aims to pass 100% on [RuboCop][rubocop], [Reek][reek] and [Inch-CI][inch] (on pedantic mode), so all pull requests should do likewise. Ask for guidance if needed.
 Running `rake` will automatically test all 3 of those along with the RSpec tests.
 
-[rubocop]: https://github.com/bbatsov/rubocop
-[reek]: https://github.com/troessner/reek
-[inch]: https://inch-ci.org
-
 ## Versioning
 
 This Gem aims to adhere to [Semantic Versioning 2.0.0][semver]. Violations
@@ -169,9 +162,19 @@ introduced with new major versions.
 
 Of course, currently we have not even reached version 1, so leave off the version requirement completely. Expect any and all of the API and interface to change!
 
-[semver]: http://semver.org/
-[pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
-
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License][mit].
+
+[website]: http://updaterepo.seapagan.net
+[git]: http://git-scm.com
+[ruby]: http://www.ruby-lang.org
+[yaml]:  http://yaml.org
+[rubocop]: https://github.com/bbatsov/rubocop
+[reek]: https://github.com/troessner/reek
+[inch]: https://inch-ci.org
+[semver]: http://semver.org/
+[pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
+[confoog]: http://confoog.seapagan.net
+[mit]: http://opensource.org/licenses/MIT
+
