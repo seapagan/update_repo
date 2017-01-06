@@ -10,7 +10,7 @@ module UpdateRepo
     # Constructor for the ConsoleOutput class.
     # @param logger [class] Pointer to the Logger class
     # @param metrics [class] Pointer to the Metrics class
-    # @param config [class] Pointer to the Confoog class
+    # @param cmd [class] Pointer to the CmdConfig class
     # @return [void]
     # @example
     #   console = ConsoleOutput.new(@log)
@@ -112,6 +112,7 @@ module UpdateRepo
     end
 
     # print out the logfile name and location, if we are logging to file
+    # @return [void]
     def show_logfile
       return unless @cmd[:log]
       print_log "\nLogging to file:".underline, " #{@log.logfile}\n".cyan

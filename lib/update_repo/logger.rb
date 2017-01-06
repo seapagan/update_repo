@@ -66,6 +66,8 @@ module UpdateRepo
       end
     end
 
+    # Return a string containing the logfile name and full path.
+    # @return [string]
     def logfile
       @logfile.path
     end
