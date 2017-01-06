@@ -66,6 +66,10 @@ module UpdateRepo
       end
     end
 
+    def logfile
+      @logfile.path
+    end
+
     # returns non nil if we have been called originally by one of the Repo
     # update output functions.
     # @param [none]
