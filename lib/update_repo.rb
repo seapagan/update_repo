@@ -10,6 +10,7 @@ require 'colorize'
 require 'confoog'
 require 'trollop'
 require 'versionomy'
+require 'pp'
 
 # Overall module with classes performing the functionality
 # Contains Class UpdateRepo::WalkRepo
@@ -107,7 +108,9 @@ module UpdateRepo
     # tests to see if the given directory is an exception and should be skipped
     # @param dir [string] Directory to be checked
     # @return [boolean] True if this is NOT an exception, False otherwise
+    # ignore the :reek:NilCheck for this function, may refactor later
     def notexception?(dir)
+      return true if @cmd.true_cmd(:exceptions).nil?
       !config['exceptions'].include?(File.basename(dir))
     end
 
