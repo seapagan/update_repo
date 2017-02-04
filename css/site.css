@@ -8,7 +8,7 @@ h1 {
   font-size: 2.5em;
   margin: 10px;
   text-align: center;
-  text-shadow: #AAAAAA 2px 1px 3px; }
+  text-shadow: #aaa 2px 1px 3px; }
 
 a:hover {
   color: #c00;
@@ -17,7 +17,8 @@ a:hover {
 h2 {
   font-family: "Droid Serif", sans-serif;
   font-size: 2em;
-  text-decoration: underline; }
+  text-decoration: underline;
+  text-shadow: #aaa 2px 1px 3px; }
 
 .row-header {
   background-color: #d7d7c1;
@@ -64,6 +65,18 @@ h2 {
   background-color: #f5f2f0;
   color: #444;
   padding: 0 .3em; }
+
+.important {
+  font-weight: bold;
+  border: thin solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f2f0;
+  color: #f33;
+  padding: 0 .3em;
+  font-size: 1.3em;
+  padding: 5px;
+  text-align: justify;
+  text-shadow: #aaa 2px 1px 3px; }
 
 .icon::before {
   display: inline-block;

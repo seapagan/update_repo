@@ -15,7 +15,7 @@ h1 {
   font-size: 2.5em;
   margin: 10px;
   text-align: center;
-  text-shadow: #AAAAAA 2px 1px 3px;
+  text-shadow: $text-shadow-color 2px 1px 3px;
 }
 
 a:hover {
@@ -27,6 +27,7 @@ h2 {
   font-family: $headline-font;
   font-size: 2em;
   text-decoration: underline;
+  text-shadow: $text-shadow-color 2px 1px 3px;
 }
 
 .row-header {
@@ -59,6 +60,14 @@ h2 {
 
 .console-output {
   @include hilight-box($color: $console-hilight-color);
+}
+
+.important {
+  @include hilight-box($color: $important-hilight-color);
+  font-size: 1.3em;
+  padding: 5px;
+  text-align: justify;
+  text-shadow: $text-shadow-color 2px 1px 3px;
 }
 
 .icon::before {
