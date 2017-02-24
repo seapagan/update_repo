@@ -31,12 +31,18 @@ module UpdateRepo
     # @param [none]
     # @return [string] Filename for the logfile.
     def generate_filename
+      # add a timestamp if requested
       if @cmd[:timestamp]
         name = 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
       else
         name = 'updaterepo.log'
       end
-      File.expand_path(File.join('~/', name))
+      # log to local directory instead of home directory if requested
+      if @cmd[:log_local]
+        File.expand_path(File.join('./', name))
+      else
+        File.expand_path(File.join('~/', name))
+      end
     end
 
     # this function will simply pass the given string to 'print', and also
