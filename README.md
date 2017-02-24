@@ -98,7 +98,8 @@ Options:
                              Any older logs will be overwritten.
   -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the
                              --log option is also specified.
-  -g, --log-local            Create the logfile in the current directory instead of in the users home directory.
+  -g, --log-local            Create the logfile in the current directory instead of in the users home
+                             directory.
   -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in
                              the specified directories.
   -V, --verbose              Display each repository and the git output to screen
