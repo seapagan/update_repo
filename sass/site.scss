@@ -62,7 +62,7 @@ h2 {
   @include hilight-box($color: $console-hilight-color);
 }
 
-.important {
+.important-note {
   @include hilight-box($color: $important-hilight-color);
   font-size: 1.3em;
   padding: 5px;

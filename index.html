@@ -64,7 +64,7 @@
           <div class="col-lg-12 col-md-12">
             <p>A Simple Gem to keep multiple locally-cloned Git Repositories up to date.</p>
             <p>The script will simply run <span class="console-output">git pull</span> on every local clone of a git repository that it finds under the specified directory or directories.</p>
-            <p class="important">Note: Versions prior to 0.9.4 had a serious bug where the script would crash on startup unless there was an <span class="yaml-tag">exception:</span> defined in the configuration file. This has been fixed from version 0.9.4 onwards.</p>
+            <p class="important-note">Note: Versions prior to 0.9.4 had a serious bug where the script would crash on startup unless there was an <span class="yaml-tag">exception:</span> defined in the configuration file. This has been fixed from version 0.9.4 onwards.</p>
             <div class="text-center">
               <a href="https://badge.fury.io/rb/update_repo"><img src="https://badge.fury.io/rb/update_repo.svg" alt="Gem Version" height="18"></a>
               <a href="https://travis-ci.org/seapagan/update_repo"><img src="https://travis-ci.org/seapagan/update_repo.svg?branch=master"></a>
@@ -165,7 +165,16 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">updaterepo.log</span> in the current directory, defaults to <b>FALSE</b> (optional). This file would be overwritten on next run unless you also specify the <span class="yaml-tag">timestamp:</span> option. Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p>
+            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">updaterepo.log</span> in the user's Home directory, defaults to <b>FALSE</b> (optional). This file would be overwritten on next run unless you also specify the <span class="yaml-tag">timestamp:</span> option. Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p>
+            <pre>
+              <code class="language-yaml">
+                log: true
+              </code>
+            </pre>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">log_local:</span> - Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory. Defaults to <b>FALSE</b> (optional). Equivalent to <span class="cmdline">--log-local</span> on the command line.</p>
             <pre>
               <code class="language-yaml">
                 log: true
@@ -241,6 +250,7 @@
                   -p, --prune=&lt;i&gt;            Number of directory levels to remove from the --dump output. Only valid when --dump or -d specified (Default: 0)
                   -l, --log                  Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.
                   -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.
+                  -g, --log-local            Create the logfile in the current directory instead of in the users home directory
                   -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in the specified directories.
                   -V, --verbose              Display each repository and the git output to screen
                   -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors).
@@ -300,6 +310,19 @@
                 <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log</span></li>
                 <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-l</span></li>
                 <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log</span></li>
+                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
+              </ul>
+            </div>
+            <div class="cmd-header row-header"><!-- log-local tag -->
+              <p>Log-local</p>
+            </div>
+            <div class="cmd-body row-body">
+              <p class="cmd-text">Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory</p>
+              <p class="cmd-text">Equates to the <span class="yaml-tag">log_local:</span> YAML configuration file tag.</p>
+              <ul class="opt-list">
+                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log-local</span></li>
+                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-g</span></li>
+                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log-local</span></li>
                 <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
               </ul>
             </div>
@@ -472,7 +495,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-right">
-            &copy; Grant Ramsay 2016 | <span class="site-version">Website v1.0</span> | See my public projects on <a target="_blank" class="icon fa-github" href="https://github.com/seapagan">Github</a>
+            &copy; Grant Ramsay 2017 | <span class="site-version">Website v1.0</span> | See my public projects on <a target="_blank" class="icon fa-github" href="https://github.com/seapagan">Github</a>
           </div>
         </div><!-- row -->
       </div><!-- container -->
