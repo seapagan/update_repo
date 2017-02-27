@@ -97,6 +97,7 @@ h2 {
   -webkit-font-smoothing: antialiased;
   margin-right: .25em;
   text-rendering: auto;
+  -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
@@ -201,6 +202,7 @@ h2 {
   position: relative;
   text-align: center;
   text-decoration: none;
+  -webkit-transition: .5s;
   transition: .5s;
   white-space: nowrap;
 }
@@ -242,6 +244,7 @@ h2 {
     position: absolute;
     right: -70px;
     top: 70px;
+    -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
     width: 300px;
   }

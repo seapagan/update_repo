@@ -2,19 +2,22 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync =  require('browser-sync');
 var reload = browserSync.reload;
+var autoprefixer = require('gulp-autoprefixer');
 
 var SOURCEPATHS = {
-  sassSource : 'sass/*.scss'
-}
+  sassSource : 'sass/*.scss',
+  htmlSource : './*.html'
+};
 
 var APPPATH = {
   root : '.',
   css  : 'css',
   js   : 'js'
-}
+};
 
 gulp.task('sass', function() {
   return gulp.src(SOURCEPATHS.sassSource)
+    .pipe(autoprefixer())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(gulp.dest(APPPATH.css));
 });
