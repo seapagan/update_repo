@@ -1,0 +1,24 @@
+{
+  "name": "update_repo-website",
+  "version": "1.0.0",
+  "description": "Website for the 'update_repo' Ruby gem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seapagan/update_repo.git"
+  },
+  "keywords": [
+    "update_repo",
+    "Ruby",
+    "Git"
+  ],
+  "author": "Grant Ramsay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seapagan/update_repo/issues"
+  },
+  "homepage": "https://github.com/seapagan/update_repo#readme"
+}
