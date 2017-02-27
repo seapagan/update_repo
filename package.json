@@ -22,10 +22,15 @@
   },
   "homepage": "https://github.com/seapagan/update_repo#readme",
   "devDependencies": {
+    "bootstrap": "^3.3.7",
     "browser-sync": "^2.18.8",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
+    "gulp-browserify": "^0.5.1",
     "gulp-clean": "^0.3.2",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "jquery": "^3.1.1",
+    "merge-stream": "^1.0.1",
+    "mustache": "^2.3.0"
   }
 }
