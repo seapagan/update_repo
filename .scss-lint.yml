@@ -1,5 +1,5 @@
 ---
-scss_files: 'sass/'
+scss_files: 'websource/sass/'
 
 linters:
   BorderZero:
