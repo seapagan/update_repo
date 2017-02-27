@@ -1,3 +1,4 @@
 css/*.map
 *.log
 *.sublime-*
+node_modules
