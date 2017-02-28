@@ -1,0 +1,8 @@
+@mixin hilight-box($color) {
+  font-weight: bold;
+  border: thin solid $hilight-border-color;
+  border-radius: $hilight-border-radius;
+  background-color: $hilight-background-color;
+  color: $color;
+  padding: 0 .3em;
+}

@@ -12,3 +12,5 @@
 .updatereporc
 *.log
 *.sublime*
+node_modules
+

@@ -1,0 +1,45 @@
+---
+scss_files: 'web/sass/'
+
+linters:
+  BorderZero:
+    enabled: true
+  ColorKeyword:
+    enabled: true
+  ColorVariable:
+    enabled: true
+  Comment:
+    enabled: true
+  EmptyLineBetweenBlocks:
+    enabled: true
+  EmptyRule:
+    enabled: false
+  FinalNewline:
+    enabled: true
+  HexLength:
+    enabled: true
+  HexNotation:
+    enabled: true
+  IdSelector:
+    enabled: true
+  ImportantRule:
+    enabled: false
+  Indentation:
+    enabled: true
+  LeadingZero:
+    enabled: true
+  MergeableSelector:
+    enabled: true
+  PropertySortOrder:
+    enabled: true
+  Shorthand:
+    enabled: true
+  SingleLinePerSelector:
+    enabled: true
+  StringQuotes:
+    enabled: true
+  TrailingWhitespace:
+    enabled: true
+  VendorPrefix:
+    enabled: true
+

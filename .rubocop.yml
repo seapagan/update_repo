@@ -2,3 +2,6 @@ AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
+  Exclude:
+    - 'node_modules/**/*'
+    
