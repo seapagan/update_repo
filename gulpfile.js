@@ -10,10 +10,9 @@ var merge = require('merge-stream');
 
 var SOURCEPATHS = {
   sassSource : 'web/sass/*.scss',
-  cssSource  : 'web/css/*.css',
   htmlSource : 'web/*.html',
   jsSource   : 'web/js/**',
-  fontsource : 'web/fonts/**'
+  cssSource  : 'web/css/**'
 };
 
 var APPPATH = {
@@ -41,12 +40,12 @@ gulp.task('clean-fonts', function() {
 gulp.task('sass', function() {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
-  var cssFiles = gulp.src(SOURCEPATHS.cssSource);
+  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css']);
 
   sassFiles = gulp.src(SOURCEPATHS.sassSource)
     .pipe(autoprefixer())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError));
-    return merge(sassFiles, cssFiles, bootstrapCSS)
+    return merge(cssFiles, bootstrapCSS, sassFiles)
       .pipe(concat('site.css'))
       .pipe(gulp.dest(APPPATH.css));
 });
@@ -63,8 +62,8 @@ gulp.task('copy', ['clean-html'], function() {
     .pipe(gulp.dest(APPPATH.root));
 });
 
-gulp.task('fonts', ['clean-fonts'], function() {
-  gulp.src(SOURCEPATHS.fontsource)
+gulp.task('moveFonts', function() {
+  gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/font-awesome/fonts/**'])
     .pipe(gulp.dest(APPPATH.fonts));
 });
 
@@ -76,11 +75,10 @@ gulp.task('serve', ['sass'], function() {
   })
 });
 
-gulp.task('watch', ['serve', 'sass', 'copy', 'clean-html', 'clean-scripts', 'scripts', 'fonts', 'clean-fonts'], function() {
+gulp.task('watch', ['serve', 'sass', 'copy', 'clean-html', 'clean-scripts', 'scripts', 'moveFonts'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
-  gulp.watch([SOURCEPATHS.fontsource], ['fonts']);
 });
 
 gulp.task('default', ['watch']);
