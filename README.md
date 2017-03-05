@@ -154,7 +154,7 @@ There are also a few support files to configure Node and Gulp which are used for
 
 For full details on how to update the website properly, please see the [WEBSITE.md](WEBSITE.md) file in the root of this repository.
 
-Any modifications that implement new functionality of user-facing API should also come with the relevant update to the website documenting the new options or modified functionality. Generally a Pull Request will not be accepted without the related additions to the website, however help can be given on that side if the process is unclear.
+Any modifications that implement new functionality or user-facing API should also come with the relevant update to the website documenting the new options or modified functionality. Generally a Pull Request will not be accepted without the related additions to the website, however help can be given on that side if the process is unclear.
 
 ## Contributing
 
