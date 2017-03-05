@@ -35,7 +35,7 @@ gulp.task('clean-scripts', function() {
 gulp.task('sass', function() {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
-  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css']);
+  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css', './node_modules/prismjs/themes/prism.css']);
 
   sassFiles = gulp.src(SOURCEPATHS.sassSource)
     .pipe(autoprefixer())
@@ -46,7 +46,11 @@ gulp.task('sass', function() {
 });
 
 gulp.task('scripts', ['clean-scripts'], function() {
-  gulp.src(SOURCEPATHS.jsSource)
+  var prismJS = './node_modules/prismjs/prism.js';
+  var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
+  var prismWS =  './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
+
+  gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
     .pipe(gulp.dest(APPPATH.js));
