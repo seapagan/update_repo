@@ -32,11 +32,6 @@ gulp.task('clean-scripts', function() {
     .pipe(clean());
 });
 
-gulp.task('clean-fonts', function() {
-  return gulp.src(APPPATH.fonts + '/**', {read: false, force: true})
-    .pipe(clean());
-});
-
 gulp.task('sass', function() {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
