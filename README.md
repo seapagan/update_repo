@@ -135,11 +135,26 @@ Internal Changes and refactoring :
 
 ## Development
 
+### Developing for the Gem
+
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests (or simply `rake`). You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`.
 
 Run `rake` to run the RSpec tests, which also runs `RuboCop`, `Reek` and `inch --pedantic` too.
+
+### Developing for the Website
+
+The source for the Gem’s website is also included in this repository. In fact, there are 2 main folders related to the website :
+
+- [/web/](web/) folder - this is the SOURCE of the website, and all modifications should be performed here.
+- [/docs/](docs/) folder - this is the GENERATED OUTPUT for the website, and this folder is served up directly and live to the web using GitHub Pages. Do not make any modifications to the files in this folder directly, your changes will be overwritten when the website is generated. Alway make changes in the /web/folder.
+
+There are also a few support files to configure Node and Gulp which are used for the build process.
+
+For full details on how to update the website properly, please see the [WEBSITE.md](WEBSITE.md) file in the root of this repository.
+
+Any modifications that implement new functionality of user-facing API should also come with the relevant update to the website documenting the new options or modified functionality. Generally a Pull Request will not be accepted without the related additions to the website, however help can be given on that side if the process is unclear.
 
 ## Contributing
 
