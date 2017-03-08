@@ -82,8 +82,8 @@ gulp.task('html', function() {
     .pipe(injectPartials({
       removeTags : true
     }))
-    .pipe(isProduction ? htmlmin({collapseWhitespace: true}) : gutil.noop())
     .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
+    .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
 });
 
