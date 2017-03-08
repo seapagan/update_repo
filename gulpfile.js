@@ -14,6 +14,7 @@ var minify = require('gulp-minify');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
+var gutil = require('gulp-util');
 
 var SOURCEPATHS = {
   sassSource   : 'web/sass/*.scss',
@@ -32,6 +33,12 @@ var APPPATH = {
   img   : 'docs/img'
 };
 
+// determine if we want production mode (minified js/css/html) or not
+var isProduction = false;
+if(gutil.env.prod === true) {
+  isProduction = true;
+}
+
 gulp.task('clean-html', function() {
   return gulp.src(APPPATH.root + '/*.html', {read: false, force: true})
     .pipe(clean());
@@ -47,6 +54,8 @@ gulp.task('sass', function() {
     .pipe(autoprefixer());
     return merge(cssFiles, bootstrapCSS, sassFiles)
       .pipe(concat('site.css'))
+      .pipe(isProduction ? cssmin() : gutil.noop())
+      .pipe(isProduction ? rename({suffix: '.min'}) : gutil.noop())
       .pipe(gulp.dest(APPPATH.css));
 });
 
@@ -58,6 +67,7 @@ gulp.task('scripts', function() {
   gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
+    .pipe(isProduction ? minify() : gutil.noop())
     .pipe(gulp.dest(APPPATH.js));
 });
 
@@ -66,6 +76,7 @@ gulp.task('html', function() {
     .pipe(injectPartials({
       removeTags : true
     }))
+    .pipe(isProduction ? htmlmin({collapseWhitespace: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
 });
 
@@ -90,45 +101,6 @@ gulp.task('serve', ['sass', 'scripts'], function() {
   })
 });
 
-// Production Tasks
-gulp.task('compress-js', function() {
-  var prismJS = './node_modules/prismjs/prism.js';
-  var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
-  var prismWS =  './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
-
-  gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
-    .pipe(concat('main.js'))
-    .pipe(browserify())
-    .pipe(minify())
-    .pipe(gulp.dest(APPPATH.js));
-});
-
-gulp.task('compress-css', function() {
-  var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
-  var sassFiles;
-  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css', './node_modules/prismjs/themes/prism.css']);
-
-  sassFiles = gulp.src(SOURCEPATHS.sassSource)
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    .pipe(autoprefixer());
-    return merge(cssFiles, bootstrapCSS, sassFiles)
-      .pipe(concat('site.css'))
-      .pipe(cssmin())
-      .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest(APPPATH.css));
-});
-
-gulp.task('compress-html', function() {
-  return gulp.src(SOURCEPATHS.htmlSource)
-    .pipe(injectPartials({
-      removeTags : true
-    }))
-    .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest(APPPATH.root));
-});
-
-// End of Production Tasks.
-
 gulp.task('watch', ['serve', 'clean-html', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
@@ -137,5 +109,3 @@ gulp.task('watch', ['serve', 'clean-html', 'moveFonts', 'images', 'html'], funct
 });
 
 gulp.task('default', ['watch']);
-
-gulp.task('production', ['compress-html', 'compress-css', 'compress-js']);
