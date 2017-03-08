@@ -15,6 +15,7 @@ var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
 var gutil = require('gulp-util');
+var htmlreplace = require('gulp-html-replace');
 
 var SOURCEPATHS = {
   sassSource   : 'web/sass/*.scss',
@@ -42,6 +43,11 @@ if(gutil.env.prod === true) {
 gulp.task('clean-html', function() {
   return gulp.src(APPPATH.root + '/*.html', {read: false, force: true})
     .pipe(clean());
+});
+
+gulp.task('clean-scripts', function() {
+  return gulp.src(APPPATH.js + '/*.js', {read: false, force: true })
+      .pipe(clean());
 });
 
 gulp.task('sass', function() {
@@ -77,6 +83,7 @@ gulp.task('html', function() {
       removeTags : true
     }))
     .pipe(isProduction ? htmlmin({collapseWhitespace: true}) : gutil.noop())
+    .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
 });
 
@@ -101,7 +108,7 @@ gulp.task('serve', ['sass', 'scripts'], function() {
   })
 });
 
-gulp.task('watch', ['serve', 'clean-html', 'moveFonts', 'images', 'html'], function() {
+gulp.task('watch', ['serve', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
