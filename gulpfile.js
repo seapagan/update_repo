@@ -10,6 +10,9 @@ var merge = require('merge-stream');
 var newer = require('gulp-newer');
 var imagemin = require('gulp-imagemin');
 var injectPartials = require('gulp-inject-partials');
+var minify = require('gulp-minify');
+var cssmin = require('gulp-cssmin');
+var rename = require('gulp-rename');
 
 var SOURCEPATHS = {
   sassSource   : 'web/sass/*.scss',
@@ -33,11 +36,6 @@ gulp.task('clean-html', function() {
     .pipe(clean());
 });
 
-gulp.task('clean-scripts', function() {
-  return gulp.src(APPPATH.js + '/*.js', {read: false, force: true})
-    .pipe(clean());
-});
-
 gulp.task('sass', function() {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
@@ -51,7 +49,7 @@ gulp.task('sass', function() {
       .pipe(gulp.dest(APPPATH.css));
 });
 
-gulp.task('scripts', ['clean-scripts'], function() {
+gulp.task('scripts', function() {
   var prismJS = './node_modules/prismjs/prism.js';
   var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
   var prismWS =  './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
@@ -70,11 +68,6 @@ gulp.task('html', function() {
     .pipe(gulp.dest(APPPATH.root));
 });
 
-// gulp.task('copy', ['clean-html'], function() {
-//   gulp.src(SOURCEPATHS.htmlSource)
-//     .pipe(gulp.dest(APPPATH.root));
-// });
-
 gulp.task('images', function() {
   return gulp.src(SOURCEPATHS.imgSource)
     .pipe(newer(APPPATH.img))
@@ -87,7 +80,7 @@ gulp.task('moveFonts', function() {
     .pipe(gulp.dest(APPPATH.fonts));
 });
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['sass', 'scripts'], function() {
   browserSync.init([APPPATH.css + '/*.css', APPPATH.root + '/*.html', APPPATH.js + '/*.js'], {
     server: {
       baseDir : APPPATH.root
@@ -96,9 +89,37 @@ gulp.task('serve', ['sass'], function() {
   })
 });
 
-gulp.task('watch', ['serve', 'sass', 'clean-html', 'clean-scripts', 'scripts', 'moveFonts', 'images', 'html'], function() {
+// Production Tasks
+gulp.task('compress-js', function() {
+  var prismJS = './node_modules/prismjs/prism.js';
+  var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
+  var prismWS =  './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
+
+  gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
+    .pipe(concat('main.js'))
+    .pipe(browserify())
+    .pipe(minify())
+    .pipe(gulp.dest(APPPATH.js));
+});
+
+gulp.task('compress-css', function() {
+  var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
+  var sassFiles;
+  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css', './node_modules/prismjs/themes/prism.css']);
+
+  sassFiles = gulp.src(SOURCEPATHS.sassSource)
+    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(autoprefixer());
+    return merge(cssFiles, bootstrapCSS, sassFiles)
+      .pipe(concat('site.css'))
+      .pipe(cssmin())
+      .pipe(rename({suffix: '.min'}))
+      .pipe(gulp.dest(APPPATH.css));
+});
+// End of Production Tasks.
+
+gulp.task('watch', ['serve', 'clean-html', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
-  //gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
   gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartials], ['html']);
