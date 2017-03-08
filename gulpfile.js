@@ -108,7 +108,11 @@ gulp.task('serve', ['sass', 'scripts'], function() {
   })
 });
 
-gulp.task('watch', ['serve', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html'], function() {
+gulp.task('output-env', function() {
+  isProduction ? gutil.log(gutil.colors.red.bold.underline("Running PRODUCTION environment")) : gutil.log(gutil.colors.green.bold.underline("Running DEVELOPMENT environment"))
+});
+
+gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
