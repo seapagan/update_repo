@@ -16,6 +16,7 @@ var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
 var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
+var mustache = require('gulp-mustache');
 
 var SOURCEPATHS = {
   sassSource   : 'web/sass/*.scss',
@@ -82,6 +83,7 @@ gulp.task('html', function() {
     .pipe(injectPartials({
       removeTags : true
     }))
+    .pipe(mustache('webdata.json'))
     .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
     .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
@@ -120,3 +122,5 @@ gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveF
 });
 
 gulp.task('default', ['watch']);
+
+gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html']);
