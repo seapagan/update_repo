@@ -12,7 +12,7 @@ We are using [NodeJS][node] and [Gulp][gulp] to streamline the build process for
 - [Font Awesome][fontawesome] provides excellent scalable icons and glyphs.
 - [PrismJS][prism] is an excellent code hilighter, used when describing code and configuration file layout.
 
-All the above dependencies are automatically pulled in using the Gulp task and updated using `npm`, apart from Prism as that does not play nice with Browserify and is manually copied to the `docs/js` and `docs/css` folders.
+All the above dependencies are automatically pulled in using the Gulp task and updated using `npm`.
 
 Primary development is carried out on a Linux machine, but all the above can be succesfully installed and used on Windows or Mac systems too.
 
