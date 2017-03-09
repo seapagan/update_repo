@@ -212,29 +212,24 @@
             </pre>
           </div><!-- col -->
 
-          <div id="switches"></div>
-          <script id="template" type="x-tmpl-mustache">
-            {{#switches}}
-            <div class="col-lg-12 col-md-12">
-              <div class="cmd-header row-header">
-                <p>{{title}}</p>
-              </div>
-              <div class="cmd-body row-body">
-                <p class="cmd-text">{{text}}</p>
-                <p class="cmd-text">
-                  {{#equivalent}}Equivalent to the <span class="yaml-tag">{{equivalent}}</span> YAML configuration file tag.{{/equivalent}}
-                  {{^equivalent}}No equivalent in the YAML configuration file.{{/equivalent}}
-                </p>
-                <ul class="opt-list">
-                  <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">{{long-form}}</span></li>
-                  <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">{{short-form}}</span></li>
-                  <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">{{negative}}{{^negative}}None.{{/negative}}</span></li>
-                  <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">{{default}}</span></li>
-                </ul>
-              </div>
+          {{#switches}}
+          <div class="col-lg-12 col-md-12">
+            <div class="cmd-header row-header">
+              <p>{{title}}</p>
             </div>
-            {{/switches}}
-          </script>
+            <div class="cmd-body row-body">
+              <p class="cmd-text">{{text}}</p>
+              <p class="cmd-text">{{#equivalent}}Equivalent to the <span class="yaml-tag">{{equivalent}}</span> YAML configuration file tag.{{/equivalent}}{{^equivalent}}No equivalent in the YAML Configuration file.{{/equivalent}}
+              </p>
+              <ul class="opt-list">
+                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">{{long-form}}</span></li>
+                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">{{short-form}}</span></li>
+                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">{{negative}}{{^negative}}None.{{/negative}}</span></li>
+                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">{{default}}</span></li>
+              </ul>
+            </div>
+          </div>
+          {{/switches}}
         </div><!-- row -->
       </div><!-- container -->
     </section>

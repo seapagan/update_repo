@@ -16,6 +16,7 @@ var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
 var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
+var mustache = require('gulp-mustache');
 
 var SOURCEPATHS = {
   sassSource   : 'web/sass/*.scss',
@@ -45,6 +46,11 @@ gulp.task('clean-html', function() {
     .pipe(clean());
 });
 
+gulp.task('clean-css', function() {
+  return gulp.src(APPPATH.css + '/*.css', {read: false, force: true})
+    .pipe(clean());
+});
+
 gulp.task('clean-scripts', function() {
   return gulp.src(APPPATH.js + '/*.js', {read: false, force: true })
       .pipe(clean());
@@ -60,7 +66,7 @@ gulp.task('sass', function() {
     .pipe(autoprefixer());
     return merge(cssFiles, bootstrapCSS, sassFiles)
       .pipe(concat('site.css'))
-      .pipe(isProduction ? cssmin() : gutil.noop())
+      .pipe(isProduction ? cssmin({keepSpecialComments : 0}) : gutil.noop())
       .pipe(isProduction ? rename({suffix: '.min'}) : gutil.noop())
       .pipe(gulp.dest(APPPATH.css));
 });
@@ -73,7 +79,7 @@ gulp.task('scripts', function() {
   gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
-    .pipe(isProduction ? minify() : gutil.noop())
+    .pipe(isProduction ? minify({noSource: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.js));
 });
 
@@ -82,6 +88,7 @@ gulp.task('html', function() {
     .pipe(injectPartials({
       removeTags : true
     }))
+    .pipe(mustache('webdata.json'))
     .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
     .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
@@ -112,7 +119,7 @@ gulp.task('output-env', function() {
   isProduction ? gutil.log(gutil.colors.red.bold.underline("Running PRODUCTION environment")) : gutil.log(gutil.colors.green.bold.underline("Running DEVELOPMENT environment"))
 });
 
-gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html'], function() {
+gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'clean-css', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
@@ -120,3 +127,5 @@ gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveF
 });
 
 gulp.task('default', ['watch']);
+
+gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-html', 'clean-scripts', 'clean-css', 'moveFonts', 'images', 'html']);
