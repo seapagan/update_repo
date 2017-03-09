@@ -46,6 +46,11 @@ gulp.task('clean-html', function() {
     .pipe(clean());
 });
 
+gulp.task('clean-css', function() {
+  return gulp.src(APPPATH.css + '/*.css', {read: false, force: true})
+    .pipe(clean());
+});
+
 gulp.task('clean-scripts', function() {
   return gulp.src(APPPATH.js + '/*.js', {read: false, force: true })
       .pipe(clean());
@@ -74,7 +79,7 @@ gulp.task('scripts', function() {
   gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
-    .pipe(isProduction ? minify() : gutil.noop())
+    .pipe(isProduction ? minify({noSource: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.js));
 });
 
@@ -114,7 +119,7 @@ gulp.task('output-env', function() {
   isProduction ? gutil.log(gutil.colors.red.bold.underline("Running PRODUCTION environment")) : gutil.log(gutil.colors.green.bold.underline("Running DEVELOPMENT environment"))
 });
 
-gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html'], function() {
+gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'clean-css', 'moveFonts', 'images', 'html'], function() {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
@@ -123,4 +128,4 @@ gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'moveF
 
 gulp.task('default', ['watch']);
 
-gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-html', 'clean-scripts', 'moveFonts', 'images', 'html']);
+gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-html', 'clean-scripts', 'clean-css', 'moveFonts', 'images', 'html']);
