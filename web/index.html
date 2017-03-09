@@ -212,153 +212,30 @@
             </pre>
           </div><!-- col -->
 
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header"><!-- color tag -->
-              <p>Color</p>
+          <div id="switches"></div>
+          <script id="template" type="x-tmpl-mustache">
+            {{#switches}}
+            <div class="col-lg-12 col-md-12">
+              <div class="cmd-header row-header">
+                <p>{{title}}</p>
+              </div>
+              <div class="cmd-body row-body">
+                <p class="cmd-text">{{text}}</p>
+                <p class="cmd-text">
+                  {{#equivalent}}Equivalent to the <span class="yaml-tag">{{equivalent}}</span> YAML configuration file tag.{{/equivalent}}
+                  {{^equivalent}}No equivalent in the YAML configuration file.{{/equivalent}}
+                </p>
+                <ul class="opt-list">
+                  <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">{{long-form}}</span></li>
+                  <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">{{short-form}}</span></li>
+                  <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">{{negative}}{{^negative}}None.{{/negative}}</span></li>
+                  <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">{{default}}</span></li>
+                </ul>
+              </div>
             </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when <span class="cmdline">--log</span> is specified or <span class="cmdline">--dump...</span>, the color is stripped.</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">color:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--color</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-c</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-color</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">true</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- dump tag -->
-              <p>Dump</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Dumps a CSV file of each directory and its associated git remote URL to the console, and to the logfile if that is enabled.</p>
-              <p class="cmd-text">No equivalent in the YAML configuration file.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-d</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">N/A</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- prune tag -->
-              <p>Prune</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Used in conjunction with the <span class="cmdline">--dump</span> option to remove the first &lt;integer> directory levels from the output. This will enable it to be imported back into a different directory structure.</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">prune:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--prune=&lt;integer></span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-p &lt;integer></span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">N/A</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">0</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- log tag -->
-              <p>Log</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is <span class="filename">updaterepo.log</span> in the current directory. The previous log will be overwritten, but see the next option.</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">log:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-l</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- log-local tag -->
-              <p>Log-local</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">log_local:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log-local</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-g</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log-local</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- timestamp tag -->
-              <p>Timestamp</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Used in conjunction with the <span class="cmdline">--log</span> option to rename the logfile with an added timestamp, thus not overwriting older logs</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">timestamp:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--timestamp</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-t</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-timestamp</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- verbose tag -->
-              <p>Verbose</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Display all raw Git output plus repository URL and location instead of the reduced output in the default mode. Note that the short-form command is the UPERCASE 'V' not lower!</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">verbose:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-V</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- quiet tag -->
-              <p>Quiet</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">No output will be displayed to screen during the running of script, except for any fatal errors.</p>
-              <p class="cmd-text">Equates to the <span class="yaml-tag">quiet:</span> YAML configuration file tag.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--quiet</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-q</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-quiet</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- dump-remote tag -->
-              <p>Dump Remotes</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Dumps a bare list to the console of all the Git remote URL's found in the specified directories. This can be saved by redirecting to file or using the <span class="cmdline">--log</span> option.</p>
-              <p class="cmd-text">No equivalent in the YAML configuration file.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump-remote</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-r</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">N/A</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- version tag -->
-              <p>Version</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Displays the current version number then terminates. All other options will be ignored.</p>
-              <p class="cmd-text">No equivalent in the YAML configuration file.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump-remote</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-r</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">N/A</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-            <div class="cmd-header row-header"><!-- help tag -->
-              <p>Help</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Displays a brief help text listing syntax and availiable switches then terminates. All other options will be ignored.</p>
-              <p class="cmd-text">No equivalent in the YAML configuration file.</p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump-remote</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-r</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">N/A</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div><!-- col -->
+            {{/switches}}
+          </script>
         </div><!-- row -->
-
       </div><!-- container -->
     </section>
     <!-- CONFIGURATION END -->
