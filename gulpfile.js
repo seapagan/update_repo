@@ -66,7 +66,7 @@ gulp.task('sass', function() {
     .pipe(autoprefixer());
     return merge(cssFiles, bootstrapCSS, sassFiles)
       .pipe(concat('site.css'))
-      .pipe(isProduction ? cssmin() : gutil.noop())
+      .pipe(isProduction ? cssmin({keepSpecialComments : 0}) : gutil.noop())
       .pipe(isProduction ? rename({suffix: '.min'}) : gutil.noop())
       .pipe(gulp.dest(APPPATH.css));
 });
