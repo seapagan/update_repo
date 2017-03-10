@@ -43,8 +43,7 @@ This will download and install all the required project dependencies and cache t
 #### Run the Gulp watcher.
 The Gulp task will take care of generating the website in the [/docs/](docs/) folder. Before starting, run the following from the [/web/](web/) folder, in a DIFFERENT console to that you will work in. This runs a continuous watch process:
 ```
-$ 
-gulp
+$ gulp
 ```
 Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. SCSS will be compiled into CSS and partials inserted into the HTML code.
 
