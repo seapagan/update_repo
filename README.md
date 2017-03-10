@@ -121,8 +121,7 @@ Add functionality, not in any specific order :
   * ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
   * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
-- Implement the option `--log-local` to put log file into the local directory.
-- Add option to specify a completely different directory for the log file other than the 2 current (planned, local not yet implemented) options (home dir and local)
+- Add option to specify a completely different directory for the log file other than the 2 current options of home dir and local dir
 - Document configuration file format and options. `[IN PROGRESS]`
 
 Internal Changes and refactoring :
