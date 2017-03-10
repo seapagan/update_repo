@@ -19,20 +19,20 @@ var htmlreplace = require('gulp-html-replace');
 var mustache = require('gulp-mustache');
 
 var SOURCEPATHS = {
-  sassSource   : 'web/sass/*.scss',
-  htmlSource   : 'web/*.html',
-  htmlPartials : 'web/partials/*.html',
-  jsSource     : 'web/js/**',
-  cssSource    : 'web/css/**',
-  imgSource    : 'web/img/**'
+  sassSource   : 'sass/*.scss',
+  htmlSource   : '*.html',
+  htmlPartials : 'partials/*.html',
+  jsSource     : 'js/**',
+  cssSource    : 'css/**',
+  imgSource    : 'img/**'
 };
 
 var APPPATH = {
-  root  : 'docs/',
-  css   : 'docs/css',
-  js    : 'docs/js',
-  fonts : 'docs/fonts',
-  img   : 'docs/img'
+  root  : '../docs/',
+  css   : '../docs/css',
+  js    : '../docs/js',
+  fonts : '../docs/fonts',
+  img   : '../docs/img'
 };
 
 // determine if we want production mode (minified js/css/html) or not
@@ -43,17 +43,17 @@ if(gutil.env.prod === true) {
 
 gulp.task('clean-html', function() {
   return gulp.src(APPPATH.root + '/*.html', {read: false, force: true})
-    .pipe(clean());
+    .pipe(clean({force: true}));
 });
 
 gulp.task('clean-css', function() {
   return gulp.src(APPPATH.css + '/*.css', {read: false, force: true})
-    .pipe(clean());
+    .pipe(clean({force: true}));
 });
 
 gulp.task('clean-scripts', function() {
   return gulp.src(APPPATH.js + '/*.js', {read: false, force: true })
-      .pipe(clean());
+      .pipe(clean({force: true}));
 });
 
 gulp.task('sass', function() {
