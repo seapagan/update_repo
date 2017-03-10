@@ -19,7 +19,7 @@ All the above dependencies are automatically pulled in using the Gulp task and u
 Primary development is carried out on a Linux machine, but all the above can be succesfully installed and used on Windows or Mac systems too.
 
 #### Install Node and Gulp.
-Install the latest 6.x.x LTS version of [Node][node] by following the instructions on their website depending on your operating system. Note that Node version 7.x will not work properly with some of Gulp's dependencies so please use the LTS Version 6. I recommend that use use a Node Version Manager if you want multiple node versions installed - [NVM][nvm] is good for Linux and Mac while [NVM-Windows][nvm-windows] is great for those on windows.
+Install the latest 6.x.x LTS version of [Node][node] by following the instructions on their website depending on your operating system. Note that Node version 7.x will not work properly with some of Gulp's dependencies so please use the LTS Version 6. I recommend that you use a Node Version Manager if you want multiple node versions installed - [NVM][nvm] is good for Linux and Mac while [NVM-Windows][nvm-windows] is great for those on windows.
 Development is currently carried out using Node version 6.10.0 so it may be worth installing that version.
 When you have NVM installed under linux and the above version of Node, you can then change to the /web/ directory and simply type:
 ```
@@ -43,7 +43,8 @@ This will download and install all the required project dependencies and cache t
 #### Run the Gulp watcher.
 The Gulp task will take care of generating the website in the [/docs/](docs/) folder. Before starting, run the following from the [/web/](web/) folder, in a DIFFERENT console to that you will work in. This runs a continuous watch process:
 ```
-$ gulp
+$ 
+gulp
 ```
 Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. SCSS will be compiled into CSS and partials inserted into the HTML code.
 
