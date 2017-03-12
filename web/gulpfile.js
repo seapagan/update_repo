@@ -20,11 +20,13 @@ var mustache = require('gulp-mustache');
 
 var SOURCEPATHS = {
   sassSource   : 'sass/*.scss',
+  sassPartials : 'sass/partials/*.scss',
   htmlSource   : '*.html',
   htmlPartials : 'partials/*.html',
   jsSource     : 'js/**',
   cssSource    : 'css/**',
-  imgSource    : 'img/**'
+  imgSource    : 'img/**',
+  jsonSource   : 'webdata.json'
 };
 
 var APPPATH = {
@@ -88,7 +90,7 @@ gulp.task('html', function() {
     .pipe(injectPartials({
       removeTags : true
     }))
-    .pipe(mustache('webdata.json'))
+    .pipe(mustache(SOURCEPATHS.jsonSource))
     .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
     .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
     .pipe(gulp.dest(APPPATH.root));
@@ -120,10 +122,10 @@ gulp.task('output-env', function() {
 });
 
 gulp.task('watch', ['output-env', 'serve', 'clean-html', 'clean-scripts', 'clean-css', 'moveFonts', 'images', 'html'], function() {
-  gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.cssSource], ['sass']);
+  gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.sassPartials, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
-  gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartials], ['html']);
+  gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartials, SOURCEPATHS.jsonSource], ['html']);
 });
 
 gulp.task('default', ['watch']);
