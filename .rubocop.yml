@@ -4,4 +4,5 @@ AllCops:
   ExtraDetails: true
   Exclude:
     - 'web/node_modules/**/*'
-    
+    - 'Vagrantfile'
+
