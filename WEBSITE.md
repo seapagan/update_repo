@@ -41,11 +41,24 @@ $ npm install
 This will download and install all the required project dependencies and cache them locally, it may take some time.
 
 #### Run the Gulp watcher.
-The Gulp task will take care of generating the website in the [/docs/](docs/) folder. Before starting, run the following from the [/web/](web/) folder, in a DIFFERENT console to that you will work in. This runs a continuous watch process:
+The Gulp task will take care of generating the website in the [/docs/](docs/) folder. Before starting, run the following from the [/web/](web/) folder, in a DIFFERENT console to that you will work in. This runs a continuous watch process and uses BrowserSync to automatically refresh your browser after each change:
 ```
 $ gulp
 ```
-Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. SCSS will be compiled into CSS and partials inserted into the HTML code.
+Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. SCSS will be compiled into CSS and partials inserted into the HTML code. There is also a `build` task that will do the same but without running the watch process or browser sync.
+```
+$ gulp build
+```
+
+#### Production Code.
+When the code is all good and production ready, we will minify the JavaScript, CSS and HTML. This is achived by using the `--prod` switch to gulp:
+```
+$ gulp --prod
+```
+It is good to test that your modifications still work well under prod settings, **but please make sure that all your commits and PR are using the uncompressed code (no `--prod` switch). Production minimization will be done on the master branch after any PR has been merged in.** You can also use the `build` task with `--prod` to avoid running a watcher loop:
+```
+$ gulp build --prod
+```
 
 [website]: http://updaterepo.seapagan.net
 [node]: http://nodejs.org
