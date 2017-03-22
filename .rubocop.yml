@@ -3,5 +3,6 @@ AllCops:
   DisplayStyleGuide: true
   ExtraDetails: true
   Exclude:
-    - 'node_modules/**/*'
-    
+    - 'web/node_modules/**/*'
+    - 'Vagrantfile'
+

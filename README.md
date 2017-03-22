@@ -147,7 +147,7 @@ Run `rake` to run the RSpec tests, which also runs `RuboCop`, `Reek` and `inch -
 The source for the Gem’s website is also included in this repository. In fact, there are 2 main folders related to the website :
 
 - [/web/](web/) folder - this is the SOURCE of the website, and all modifications should be performed here.
-- [/docs/](docs/) folder - this is the GENERATED OUTPUT for the website, and this folder is served up directly and live to the web using GitHub Pages. Do not make any modifications to the files in this folder directly, your changes will be overwritten when the website is generated. Alway make changes in the /web/folder.
+- [/docs/](docs/) folder - this is the GENERATED OUTPUT for the website, and this folder is served up directly and live to the web using GitHub Pages. Do not make any modifications to the files in this folder directly, your changes will be overwritten when the website is generated. Alway make changes in the `/web/` folder.
 
 There are also a few support files to configure Node and Gulp which are used for the build process.
 
@@ -155,9 +155,30 @@ For full details on how to update the website properly, please see the [WEBSITE.
 
 Any modifications that implement new functionality or user-facing API should also come with the relevant update to the website documenting the new options or modified functionality. Generally a Pull Request will not be accepted without the related additions to the website, however help can be given on that side if the process is unclear.
 
+### Using the provided Vagrant Box
+
+To ease the setup of a consistent development environment under both Linux and Windows, we have provided a [Vagrantfile](Vagrantfile) with the project. This will provide a virtual machine (running Ubuntu 16.04) that is already set up with the required version of [Ruby][ruby], [Node.js][node] and the associated development deps. It will already have all the needed node packages and Ruby gems installed locally. The root of this project repository will be available under the `/vagrant/` directory on this VM for ease of development. This means that all the editing can be carried out on your normal system be it Windows, Linux or OSX, while the git control, testing, Gem building and Website generation (with Gulp) happens on the VM.
+
+#### Setting up Vagrant and VirtalBox
+
+The easiest VM to use for both Windows, Linux and Mac is [VirtualBox][virtualbox] which is Free and Open Source.
+- Download and install Vagrant from their download pages [here][vagrantdl]. Follow the installation instructions depending on your operating system.
+- Download and install VirtualBox from their download pages [here][virtualboxdl]. Follow the installation instructions depending on your operating system.
+- Open a terminal (or Command Prompt in Windows) in the root directory of your checked-out copy of this project, the one containing the [Vagrantfile](Vagrantfile).
+- We need to install one Vagrant plugin, otherwise the VM Guest Additions will be out of date and the `/vagrant/` share will not work. for this we install the `vagrant-vbguest` plugin. To do this run the following at the terminal prompt : `vagrant plugin install vagrant-vbguest`
+- Run `vagrant up` at the terminal prompt. This will proceed to download, install and then provision an Ubuntu 16.04 Virtual Machine. For the first run, this will take some time but thereafter it will be quicker.
+- Run `vagrant ssh` at the terminal prompt to ssh into the VM. Note that for the first time, it will probably say that a reboot is required, simply type `sudo reboot` at the prompt - the VM will reboot and you will be disconnected. Wait a few minutes and then run `vagrant ssh` again.
+- Change to the `/vagrant` subdirectory which will contain the source for this project and then develop away as normal.
+- For the first use only, if you change to `/vargrant` and there are no files listed, this is generally because the VM Guest Additions have been updated when bringing the VM up, but have not properly activated. In this case simply `exit` the VM, run `vagrant halt` then `vagrant up` again which should fix it.
+
+#### Special comments for Windows users
+
+There is no default ssh client installed in any version of windows, so `vagrant ssh` will fail, giving you the settings required to use a third-party ssh client (for example my preferred windows SSH client is [MobaXterm][mobaxterm]). If you prefer that `vagrant ssh` actually works from the command line, it is possible to install the ssh command line programs if you also install the [Git for Windows][git4windows] software. Install this, ensuring that you choose the option 'Use Git and optional Unix tools from the Windows Command Prompt'. After this, the ssh executable will be available from any windows Command Shell and so `vagrant ssh` will work as expected. *Please note the warning given by the installer related to this option though!*
+
 ## Contributing
 
 1. Fork it
+
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -192,4 +213,11 @@ The gem is available as open source under the terms of the [MIT License][mit].
 [pvc]: http://guides.rubygems.org/patterns/#pessimistic-version-constraint
 [confoog]: http://confoog.seapagan.net
 [mit]: http://opensource.org/licenses/MIT
+[vagrant]: https://www.vagrantup.com/
+[vagrantdl]: https://www.vagrantup.com/downloads.html
+[virtualbox]: https://www.virtualbox.org
+[virtualboxdl]: https://www.virtualbox.org/wiki/Downloads
+[node]: http://nodejs.org
+[mobaxterm]: http://mobaxterm.mobatek.net/
+[git4windows]: https://git-scm.com/download/win
 
