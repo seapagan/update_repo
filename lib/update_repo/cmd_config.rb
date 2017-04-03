@@ -104,17 +104,18 @@ module UpdateRepo
         version "update_repo version #{VERSION} (C)2016 G. Ramsay\n"
         banner <<-EOS
 
-Keep multiple local Git-Cloned Repositories up to date with one command.
+  Keep multiple local Git-Cloned Repositories up to date with one command.
 
-Usage:
-      update_repo [options]
+  Usage:
+        update_repo [options]
 
-Options are not required. If none are specified then the program will read from
-the standard configuration file (~/#{CONFIG_FILE}) and automatically update the
-specified Repositories.
+  Options are not required. If none are specified then the program will read from
+  the standard configuration file (~/#{CONFIG_FILE}) and automatically update the
+  specified Repositories.
 
-Options:
-EOS
+  Options:
+
+        EOS
         opt :color, 'Use colored output', default: true
         opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified.", default: 0

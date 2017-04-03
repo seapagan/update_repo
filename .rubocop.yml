@@ -5,4 +5,7 @@ AllCops:
   Exclude:
     - 'web/node_modules/**/*'
     - 'Vagrantfile'
+    - 'update_repo.gemspec'
 
+Style/SymbolArray:
+  Enabled: false

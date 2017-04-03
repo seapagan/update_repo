@@ -1,6 +1,7 @@
 # coding: utf-8
 # rubocop:disable LineLength
 # rubocop:disable Metrics/BlockLength
+
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'update_repo/version'
