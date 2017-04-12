@@ -122,6 +122,7 @@ Add functionality, not in any specific order :
   * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Add option to specify a completely different directory for the log file other than the 2 current options of home dir and local dir
+- Add command line and config file option to be more verbose in the git error summary at the end, listing all the error output not just the first line.
 - Document configuration file format and options. `[IN PROGRESS]`
 
 Internal Changes and refactoring :
@@ -131,6 +132,7 @@ Internal Changes and refactoring :
   * Ignore and report invalid or missing directories
   * Add more failure cases, there may be more git errors than "fatal:" or "error:"
 - Retry for connection issues etc (config setting).
+- Fail gracefully with warning and useful information if there are no `location:` entries or that tag is missing completely
 
 ## Development
 
