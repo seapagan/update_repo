@@ -2,7 +2,7 @@
   "switches": [
     {
       "title"      : "Color",
-      "text"       : "Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when --log is specified or --dump, the color is stripped.",
+      "text"       : "Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when one of the '--dump-*' options is specified output will not be in color. No color codes will be saved to the logfile either.",
       "equivalent" : "color:",
       "long-form"  : "--color",
       "short-form" : "-c",
@@ -29,7 +29,7 @@
     },
     {
       "title"      : "Log",
-      "text"       : "Copies all script output to a logfile as well as STDOUT. The default logfile name is 'updaterepo.log' in the current directory. The previous log will be overwritten, but see the next option.",
+      "text"       : "Copies all script output to a logfile as well as STDOUT. The default logfile name is 'updaterepo.log' in the current users home directory. The previous log will be overwritten, but see the next option.",
       "equivalent" : "log:",
       "long-form"  : "--log",
       "short-form" : "-l",
