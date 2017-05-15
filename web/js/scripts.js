@@ -1,2 +1,2 @@
-global.jQuery = require('jquery');
-bootstrap = require('bootstrap');
+global.jQuery = require('jquery')
+var bootstrap = require('bootstrap')
