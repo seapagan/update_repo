@@ -157,10 +157,15 @@ module UpdateRepo
       end
     end
 
-    # This function will recurse though all the subdirectories of the specified
+    # This function will recurse through all the subdirectories of the specified
     # directory and print only the directory name in a tree format.
     def dump_tree(dir)
-      print "here for #{dir}\n"
+      print "#{dir}\n"
+      walk_tree(dir).sort_by { |hsh| hsh[:name] }.each do |repo|
+        # remove the trailing forward slash
+        repopath = repo[:name].gsub(%r{\/$}, '')
+        print "  #{repopath}\n"
+      end
     end
   end
 end
