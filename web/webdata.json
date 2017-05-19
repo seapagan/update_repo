@@ -64,6 +64,15 @@
       "default"    : "false"
     },
     {
+      "title"      : "Verbose Errors",
+      "text"       : "List all the error output from a failing command in the summary, not just the first line",
+      "equivalent" : "verbose_errors:",
+      "long-form"  : "--verbose-errors",
+      "short-form" : "-E",
+      "negative"   : "--no-verbose-errors",
+      "default"    : "false"
+    },
+    {
       "title"      : "Quiet",
       "text"       : "No output will be displayed to screen during the running of script, except for any fatal errors.",
       "equivalent" : "quiet:",

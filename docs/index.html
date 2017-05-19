@@ -209,6 +209,15 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">verbose_errors:</span> - Enable or disable Verbose error reporting in the summary, defaults to FALSE (optional). If this is set to TRUE, the end-of-job summary will list all the error output lines from any failing Git processes, not just the first line. Equivalent to <span class="cmdline">--verbose-errors</span> and <span class="cmdline">--no-verbose-errors</span> on the command line.</p>
+            <pre>
+              <code class="language-yaml">
+                verbose_errors: true
+              </code>
+            </pre>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-md-12">
             <p><span class="yaml-tag">quiet:</span> - Enable or disable Quiet mode, defaults to FALSE (optional). If this is specified then there will be nothing printed to the terminal except for fatal errors. Overrules the <span class="cmdline">--verbose</span> mode if also specified. Equivalent to <span class="cmdline">--quiet</span> and <span class="cmdline">--no-quiet</span> on the command line.</p>
             <pre>
               <code class="language-yaml">
@@ -232,6 +241,7 @@
                 timestamp: true
                 color: false
                 verbose: true
+                verbose_errors: true
                 quiet: false
               </code>
             </pre>
@@ -264,7 +274,7 @@
               <p>Color</p>
             </div>
             <div class="cmd-body row-body">
-              <p class="cmd-text">Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when --log is specified or --dump, the color is stripped.</p>
+              <p class="cmd-text">Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when one of the &#39;--dump-*&#39; options is specified output will not be in color. No color codes will be saved to the logfile either.</p>
               <p class="cmd-text">Equivalent to the <span class="yaml-tag">color:</span> YAML configuration file tag.
               </p>
               <ul class="opt-list">
@@ -312,7 +322,7 @@
               <p>Log</p>
             </div>
             <div class="cmd-body row-body">
-              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is &#39;updaterepo.log&#39; in the current directory. The previous log will be overwritten, but see the next option.</p>
+              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is &#39;updaterepo.log&#39; in the current users home directory. The previous log will be overwritten, but see the next option.</p>
               <p class="cmd-text">Equivalent to the <span class="yaml-tag">log:</span> YAML configuration file tag.
               </p>
               <ul class="opt-list">
@@ -367,6 +377,22 @@
                 <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose</span></li>
                 <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-V</span></li>
                 <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose</span></li>
+                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="cmd-header row-header">
+              <p>Verbose Errors</p>
+            </div>
+            <div class="cmd-body row-body">
+              <p class="cmd-text">List all the error output from a failing command in the summary, not just the first line</p>
+              <p class="cmd-text">Equivalent to the <span class="yaml-tag">verbose_errors:</span> YAML configuration file tag.
+              </p>
+              <ul class="opt-list">
+                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose-errors</span></li>
+                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-E</span></li>
+                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose-errors</span></li>
                 <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
               </ul>
             </div>
