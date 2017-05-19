@@ -15,3 +15,6 @@ DuplicateMethodCall:
 
 NestedIterators:
   max_allowed_nesting: 2
+
+TooManyInstanceVariables:
+  max_instance_variables: 5

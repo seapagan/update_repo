@@ -16,14 +16,16 @@ module UpdateRepo
     # @param dir [string] The directory location of this local repo.
     # @param logger [instance] pointer to the Logger class
     # @param metrics [instance] pointer to the Metrics class
+    # @param cmd [instance] pointer to the command options class
     # @return [void]
     # @example
     #   git = GitControl.new(repo_url, @logger, @metrics)
-    def initialize(dir, logger, metrics)
+    def initialize(dir, logger, metrics, cmd)
       @status = { updated: false, failed: false, unchanged: false }
       @dir = dir
       @log = logger
       @metrics = metrics
+      @cmd = cmd
     end
 
     # Update the git repo that was specified in the initializer.
@@ -58,7 +60,7 @@ module UpdateRepo
       # see if this error already has some text (metric exists)
       err = @metrics[:failed_list].find { |fail| fail[:loc] == err_loc }
       # if so we append this new line to it otherwise create the metric
-      if err
+      if err && @cmd[:verbose_errors]
         err[:line] = err[:line] + ' ' * 7 + line
       else
         @metrics[:failed_list].push(loc: err_loc, line: line)
