@@ -79,6 +79,11 @@ timestamp: true
 verbose: true
 ```
 
+`verbose_errors:` - List all the error output from a failing command in the summary, not just the first line, defaults to FALSE (optional)
+```yaml
+verbose_errors: true
+```
+
 `quiet:` - no output at all, not even the header and footer, defaults to FALSE (optional)
 ```yaml
 quiet: true
