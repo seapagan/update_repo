@@ -136,7 +136,7 @@ module UpdateRepo
     #   update_repo('/Repo/linux/stable')
     def update_repo(dirpath)
       # create the git instance and then perform the update
-      git = GitControl.new(dirpath, @log, @metrics)
+      git = GitControl.new(dirpath, @log, @metrics, @cmd)
       git.update
       @metrics[:processed] += 1
       # update the metrics
