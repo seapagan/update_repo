@@ -79,7 +79,7 @@ module UpdateRepo
       # print out any and all errors into a nice list
       @metrics[:failed_list].each do |failed|
         print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
-        print_log "\n    -> ", "\"#{failed[:line].chomp}\"".red
+        print_log "\n    -> ", failed[:line].chomp.red
       end
     end
 
@@ -91,7 +91,7 @@ module UpdateRepo
       @metrics[:failed_list].uniq! { |error| error[:loc] }
     end
 
-    # Print a list of any defined expections that will not be updated.
+    # Print a list of any defined exceptions that will not be updated.
     # @return [void]
     # @param [none]
     def list_exceptions
