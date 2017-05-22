@@ -8,10 +8,9 @@ module UpdateRepo
     include Helpers
 
     # Constructor for the Metrics class.
-    # @param logger [instance] Pointer to the Logger class
     # @return [instance] Instance of the Metrics class
-    def initialize(logger)
-      @log = logger
+    # def initialize(logger)
+    def initialize
       @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
                    unchanged: 0, start_time: 0, failed_list: [],
                    warning: 0 }

@@ -27,7 +27,7 @@ module UpdateRepo
       # set up the output and logging class
       @log = Logger.new(@cmd)
       # create instance of the Metrics class
-      @metrics = Metrics.new(@log)
+      @metrics = Metrics.new
       # instantiate the console output class for header, footer etc
       @cons = ConsoleOutput.new(@log, @metrics, @cmd)
     end
