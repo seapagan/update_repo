@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe UpdateRepo::Logger do
+RSpec.describe UpdateRepo::Logger do
   subject { UpdateRepo::Logger }
 end
