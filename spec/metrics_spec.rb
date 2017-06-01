@@ -14,7 +14,6 @@ RSpec.describe UpdateRepo::Metrics, '(A Class to store & return run metrics)' do
       end
     end
     it 'sets failed_list to a blank array' do
-      expect(metrics[:failed_list]).to be_an(Array)
       expect(metrics[:failed_list]).to eq([])
     end
   end
@@ -25,7 +24,6 @@ RSpec.describe UpdateRepo::Metrics, '(A Class to store & return run metrics)' do
         next unless value.instance_of? Integer
         metrics[key] = 1
         expect(metrics[key]).to eq 1
-        expect(metrics[key]).not_to eq 6
       end
     end
     it 'correctly sets and reads the array metric variables' do
@@ -34,7 +32,6 @@ RSpec.describe UpdateRepo::Metrics, '(A Class to store & return run metrics)' do
         metrics[key] = %w[one two]
         expect(metrics[key]).to eq %w[one two]
         expect(metrics[key].length).to eq 2
-        expect(metrics[key]).not_to eq %w[one two extra]
       end
     end
   end
