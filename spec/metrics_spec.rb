@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe UpdateRepo::Metrics, '(A Class to store & return run metrics)' do
+RSpec.describe UpdateRepo::Metrics, '- Class to store & return run metrics' do
   subject { UpdateRepo::Metrics }
 
   context 'when created' do
