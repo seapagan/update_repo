@@ -80,9 +80,13 @@ module UpdateRepo
         update_fail_matrix(line)
       else
         print_log ' ' * 3, line.cyan
-        @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{7}\.\.[0-9a-f]{7}/
+        @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{6,}\.\.[0-9a-f]{6,}/
         @status[:unchanged] = true if line =~ /^Already up-to-date./
       end
+      # need to adjust metrics if both updated and unchanged are true
+      # this happens in rare cases when both the regex are matched. In future,
+      # the regex needs to be made more robust
+      status[:unchanged] = false if (@status[:updated] && status[:unchanged])
     end
     # rubocop:enable Metrics/LineLength
   end
