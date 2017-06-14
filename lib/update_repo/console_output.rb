@@ -16,7 +16,7 @@ module UpdateRepo
     #   console = ConsoleOutput.new(@log)
     def initialize(logger, metrics, cmd)
       @summary = { processed: 'green', updated: 'cyan', skipped: 'yellow',
-                   failed: 'red', unchanged: 'white' }
+                   failed: 'red', unchanged: 'white', warning: 'light_magenta' }
       @metrics = metrics
       @log = logger
       @cmd = cmd
@@ -61,7 +61,7 @@ module UpdateRepo
     def print_metrics
       @summary.each do |metric, color|
         metric_value = @metrics[metric]
-        output = "#{metric_value} #{metric.capitalize}"
+        output = pluralize(metric_value, metric)
         print_log ' | ', output.send(color.to_sym) unless metric_value.zero?
       end
       print_log ' |'

@@ -48,4 +48,17 @@ module Helpers
     end
     # return nil
   end
+
+  # only one of our metrics requires pluralization, the :warning metric.
+  # Take care of this in the function below.
+  # @param num [integer] The number of items
+  # @param item [string] The metric to be pluralized if needed
+  # @return [string] Pluralized count and string
+  def pluralize(num, item)
+    if item == :warning && num != 1
+      "#{num} Warnings"
+    else
+      "#{num} #{item.capitalize}"
+    end
+  end
 end

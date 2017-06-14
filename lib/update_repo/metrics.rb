@@ -13,7 +13,8 @@ module UpdateRepo
     def initialize(logger)
       @log = logger
       @metrics = { processed: 0, skipped: 0, failed: 0, updated: 0,
-                   unchanged: 0, start_time: 0, failed_list: [] }
+                   unchanged: 0, start_time: 0, failed_list: [],
+                   warning: 0 }
     end
 
     # Read the metric 'key'

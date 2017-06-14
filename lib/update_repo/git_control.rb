@@ -70,24 +70,34 @@ module UpdateRepo
     # print a git output line and update the metrics if an update has occurred
     # @param line [string] The string containing the git output line
     # @return [void]
-    # rubocop:disable Metrics/LineLength
     def handle_output(line)
-      @status[:failed] = true if line.chomp =~ /^fatal:|^error:/
-      # @status[:failed] will persist throughout this entire git call.
-      if @status[:failed]
-        print_log ' ' * 3, line.red
-        # add new or update the fail matrix with another line
-        update_fail_matrix(line)
-      else
-        print_log ' ' * 3, line.cyan
-        @status[:updated] = true if line =~ /^Updating\s[0-9a-f]{6,}\.\.[0-9a-f]{6,}/
-        @status[:unchanged] = true if line =~ /^Already up-to-date./
+      detect_strings = { failed: '^fatal:|^error:',
+                         warning: '^warning:',
+                         updated: '^Updating\s[0-9a-f]{6,}\.\.[0-9a-f]{6,}',
+                         unchanged: '^Already up-to-date.' }
+
+      detect_strings.each do |status, regex|
+        @status[status] = true if line.chomp =~ /#{regex}/
       end
+
+      print_line(line, @status)
+
       # need to adjust metrics if both updated and unchanged are true
       # this happens in rare cases when both the regex are matched. In future,
       # the regex needs to be made more robust
-      status[:unchanged] = false if (@status[:updated] && status[:unchanged])
+      status[:unchanged] = false if @status[:updated] && status[:unchanged]
     end
-    # rubocop:enable Metrics/LineLength
+
+    def print_line(line, status)
+      if status[:failed]
+        print_log ' ' * 3, line.red
+        # add new or update the fail matrix with another line
+        update_fail_matrix(line)
+      elsif status[:warning]
+        print_log ' ' * 3, line.light_magenta
+      else
+        print_log ' ' * 3, line.cyan
+      end
+    end
   end
 end

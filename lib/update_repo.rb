@@ -140,7 +140,7 @@ module UpdateRepo
       git.update
       @metrics[:processed] += 1
       # update the metrics
-      [:failed, :updated, :unchanged].each do |metric|
+      [:failed, :updated, :unchanged, :warning].each do |metric|
         @metrics[metric] += 1 if git.status[metric]
       end
       @log.repostat(git.status)
