@@ -123,6 +123,7 @@ Add functionality, not in any specific order :
 - Add new repo from the command line that will be cloned to the default repo directory and then updated as usual. Extra flag added for "add only, clone later" for offline use.
 - Add flag for 'default' repo directory (or another specific directory - if it does not already exist it will be created and added to the standard list) which will be used for new additions.
 - Add option to only display a (text) tree of the discovered git repositories, not updating them.
+- Add ability to specify the colors used for each repository result (failure, warning, skipped, updated, default etc). This should only be done from the configuration file. The default settings will probably look pretty bad on a white background for example. Specify from the safe defined list used by the `colorize` gem.
 - Add Import & Export functionality :
   * ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
   * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
