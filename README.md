@@ -84,6 +84,11 @@ verbose: true
 verbose_errors: true
 ```
 
+`brief:` - Do not print the header, footer or summary, defaults to FALSE (optional)
+```yaml
+brief: true
+```
+
 `quiet:` - no output at all, not even the header and footer, defaults to FALSE (optional)
 ```yaml
 quiet: true
@@ -97,19 +102,20 @@ Enter `update_repo --help` at the command prompt to get a list of available opti
 Options:
   -c, --color, --no-color    Use colored output (default: true)
   -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
-  -p, --prune=<i>            Number of directory levels to remove from the --dump output.
+  -p, --prune=<i>            Number of directory levels to remove from the --dump output
                              Only valid when --dump or -d specified (Default: 0)
   -l, --log                  Create a logfile of all program output to './update_repo.log'.
-                             Any older logs will be overwritten.
+                             Any older logs will be overwritten
   -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the
-                             --log option is also specified.
+                             --log option is also specified
   -g, --log-local            Create the logfile in the current directory instead of in the users home
-                             directory.
+                             directory
   -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in
-                             the specified directories.
+                             the specified directories
   -V, --verbose              Display each repository and the git output to screen
   -E, --verbose-errors       List all the error output from a failing command in the summary, not just the first line
-  -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors).
+  -b, --brief                Do not print the header, footer or summary
+  -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```

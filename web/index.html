@@ -170,6 +170,15 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">brief:</span> - Do not print the header, footer or summary, defaults to FALSE (optional). If this is set to TRUE, there will be no extra output except that from each git operation or the non-verbose legend. Equivalent to <span class="cmdline">--brief</span> and <span class="cmdline">--no-brief</span> on the command line.</p>
+            <pre>
+              <code class="language-yaml">
+                brief: true
+              </code>
+            </pre>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-md-12">
             <p><span class="yaml-tag">quiet:</span> - Enable or disable Quiet mode, defaults to FALSE (optional). If this is specified then there will be nothing printed to the terminal except for fatal errors. Overrules the <span class="cmdline">--verbose</span> mode if also specified. Equivalent to <span class="cmdline">--quiet</span> and <span class="cmdline">--no-quiet</span> on the command line.</p>
             <pre>
               <code class="language-yaml">
@@ -194,6 +203,7 @@
                 color: false
                 verbose: true
                 verbose_errors: true
+                brief: false
                 quiet: false
               </code>
             </pre>
@@ -209,13 +219,14 @@
                   -c, --color, --no-color    Use colored output (default: true)
                   -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
                   -p, --prune=&lt;i&gt;            Number of directory levels to remove from the --dump output. Only valid when --dump or -d specified (Default: 0)
-                  -l, --log                  Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten.
-                  -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified.
+                  -l, --log                  Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten
+                  -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified
                   -g, --log-local            Create the logfile in the current directory instead of in the users home directory
-                  -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in the specified directories.
+                  -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in the specified directories
                   -V, --verbose              Display each repository and the git output to screen
                   -E, --verbose-errors       List all the error output from a failing command in the summary, not just the first line
-                  -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors).
+                  -b, --brief                Do not print the header, footer or summary
+                  -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
                   -v, --version              Print version and exit
                   -h, --help                 Show this message
               </code>
