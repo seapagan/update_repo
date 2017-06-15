@@ -9179,10 +9179,19 @@ h2 {
   background-color: #f5f2f0;
   color: #f33;
   padding: 0 .3em;
-  font-size: 1.3em;
+  font-size: 1.2em;
   padding: 5px;
   text-align: justify;
   text-shadow: #aaa 2px 1px 3px;
+}
+
+.version {
+  font-weight: bold;
+  border: thin solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f2f0;
+  color: #444;
+  padding: 0 .3em;
 }
 
 .icon::before {
@@ -9219,6 +9228,10 @@ h2 {
 .about {
   padding-bottom: 30px;
   padding-top: 65px;
+}
+
+.about p {
+  font-size: 120%;
 }
 
 .installation {

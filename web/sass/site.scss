@@ -64,10 +64,14 @@ h2 {
 
 .important-note {
   @include hilight-box($color: $important-hilight-color);
-  font-size: 1.3em;
+  font-size: 1.2em;
   padding: 5px;
   text-align: justify;
   text-shadow: $text-shadow-color 2px 1px 3px;
+}
+
+.version {
+  @include hilight-box($color: $filename-hilight-color);
 }
 
 .icon::before {
@@ -109,6 +113,10 @@ h2 {
   padding-top: 65px;
 
   .container {
+  }
+
+  p {
+    font-size: 120%;
   }
 }
 
