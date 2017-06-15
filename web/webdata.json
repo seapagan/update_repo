@@ -73,6 +73,15 @@
       "default"    : "false"
     },
     {
+      "title"      : "Brief Output",
+      "text"       : "Do not print the Header, Footer or Summary.",
+      "equivalent" : "brief:",
+      "long-form"  : "--brief",
+      "short-form" : "-b",
+      "negative"   : "--no-brief",
+      "default"    : "false"
+    },
+    {
       "title"      : "Quiet",
       "text"       : "No output will be displayed to screen during the running of script, except for any fatal errors.",
       "equivalent" : "quiet:",
