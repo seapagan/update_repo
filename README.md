@@ -84,6 +84,11 @@ verbose: true
 verbose_errors: true
 ```
 
+`brief:` - Do not print the header, footer or summary, defaults to FALSE (optional)
+```yaml
+brief: true
+```
+
 `quiet:` - no output at all, not even the header and footer, defaults to FALSE (optional)
 ```yaml
 quiet: true
