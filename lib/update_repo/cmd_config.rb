@@ -127,6 +127,7 @@ module UpdateRepo
         opt :dump_tree, 'Create a dump to screen or log, listing all subdirectories found below the specified locations in tree format.', default: false, short: 'u'
         opt :verbose, 'Display each repository and the git output to screen', default: false, short: 'V'
         opt :verbose_errors, 'List all the error output from a failing command in the summary, not just the first line', default: false, short: 'E'
+        opt :brief, 'Do not print the header and footer / summary.', default: false, short: 'b'
         opt :quiet, 'Run completely silent, with no output to the terminal (except fatal errors).', default: false
       end
     end

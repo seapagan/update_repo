@@ -28,18 +28,20 @@ module UpdateRepo
     # @return [void]
     # @param [none]
     def show_header
-      # print an informative header before starting
-      print_log "\nGit Repo update utility (v", VERSION, ')',
-                " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
-      print_log "Using Configuration from '#{@cmd.getconfig.config_path}'\n"
-      # show the logfile location, but only if it is enabled
-      show_logfile
-      # list out the locations that will be searched
-      list_locations
-      # list any exceptions that we have from the config file
-      list_exceptions
-      # save the start time for later display in the footer...
-      @metrics[:start_time] = Time.now
+      unless @cmd[:brief]
+        # print an informative header before starting
+        print_log "\nGit Repo update utility (v", VERSION, ')',
+                  " \u00A9 Grant Ramsay <seapagan@gmail.com>\n"
+        print_log "Using Configuration from '#{@cmd.getconfig.config_path}'\n"
+        # show the logfile location, but only if it is enabled
+        show_logfile
+        # list out the locations that will be searched
+        list_locations
+        # list any exceptions that we have from the config file
+        list_exceptions
+        # save the start time for later display in the footer...
+        @metrics[:start_time] = Time.now
+      end
       print_log "\n" # blank line before processing starts
     end
 
@@ -47,9 +49,11 @@ module UpdateRepo
     # @return [void]
     # @param [none]
     def show_footer
-      duration = Time.now - @metrics[:start_time]
-      print_log "\nUpdates completed in ", show_time(duration).cyan
-      print_metrics
+      unless @cmd[:brief]
+        duration = Time.now - @metrics[:start_time]
+        print_log "\n\nUpdates completed in ", show_time(duration).cyan
+        print_metrics
+      end
       print_log " \n\n"
       # close the log file now as we are done, just to be sure ...
       @log.close
