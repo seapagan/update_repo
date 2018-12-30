@@ -7,6 +7,7 @@ module Helpers
   def trunc_dir(dir, how_many)
     # make sure we don't lose any root slash if '--prune' is NOT specified
     return dir if how_many.zero?
+
     # convert to array then lose the first 'how_many' parts
     path_array = Pathname(dir).each_filename.to_a
     path_array = path_array.drop(how_many)

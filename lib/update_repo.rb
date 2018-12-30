@@ -59,6 +59,7 @@ module UpdateRepo
       end
       gitver = `git --version`.gsub(/git version /, '').chomp
       return if Versionomy.parse(gitver) >= '1.8.5'
+
       print 'Git version 1.8.5 or greater must be installed, you have '.red,
             "version #{gitver}!\n".red
       exit 1
@@ -99,6 +100,7 @@ module UpdateRepo
       Dir.chdir(dirname) do
         Dir['**/'].each do |dir|
           next unless gitdir?(dir)
+
           repo_list.push(path: File.join(dirname, dir), name: dir)
         end
       end
@@ -111,6 +113,7 @@ module UpdateRepo
     # ignore the :reek:NilCheck for this function, may refactor later
     def notexception?(dir)
       return true if @cmd.true_cmd(:exceptions).nil?
+
       !config['exceptions'].include?(File.basename(dir))
     end
 
