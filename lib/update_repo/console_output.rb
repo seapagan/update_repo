@@ -101,6 +101,7 @@ module UpdateRepo
     def list_exceptions
       exceptions = @cmd['exceptions']
       return unless exceptions
+
       print_log "\nExclusions:".underline, ' ',
                 exceptions.join(', ').yellow, "\n"
     end
@@ -119,6 +120,7 @@ module UpdateRepo
     # @return [void]
     def show_logfile
       return unless @cmd[:log]
+
       print_log "\nLogging to file:".underline, " #{@log.logfile}\n".cyan
     end
   end

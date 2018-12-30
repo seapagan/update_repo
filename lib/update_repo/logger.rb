@@ -20,6 +20,7 @@ module UpdateRepo
                   skipped: { char: 's', color: 'yellow' } }
       # don't prepare a logfile unless it's been requested.
       return unless @cmd[:log]
+
       # generate a filename depending on 'timestamp' setting.
       filename = generate_filename
       # open the logfile and set sync mode.
@@ -32,11 +33,11 @@ module UpdateRepo
     # @return [string] Filename for the logfile.
     def generate_filename
       # add a timestamp if requested
-      if @cmd[:timestamp]
-        name = 'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
-      else
-        name = 'updaterepo.log'
-      end
+      name = if @cmd[:timestamp]
+               'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
+             else
+               'updaterepo.log'
+             end
       # log to local directory instead of home directory if requested
       if @cmd[:log_local]
         File.expand_path(File.join('./', name))
@@ -57,6 +58,7 @@ module UpdateRepo
       end
       # log to file if that has been enabled
       return unless @cmd[:log]
+
       @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
     end
 
@@ -67,6 +69,7 @@ module UpdateRepo
     def repostat(status)
       # only print if not quiet and not verbose!
       return if @cmd[:quiet] || @cmd[:verbose]
+
       @legend.each do |key, value|
         print value[:char].send(value[:color].to_sym) if status[key]
       end
@@ -85,7 +88,7 @@ module UpdateRepo
     def repo_text?
       # get calling function - need to skip first 2, also remove 'block in '
       # prefix if exists
-      calling_fn = caller_locations[2].label.gsub(/block in /, '')
+      calling_fn = caller_locations(3..3).first.label.gsub(/block in /, '')
       # array with the functions we want to skip
       repo_output = %w[do_update print_line handle_output skip_repo update]
       # return TRUE if DOES match, FALSE otherwise.

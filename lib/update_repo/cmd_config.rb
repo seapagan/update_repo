@@ -76,6 +76,7 @@ module UpdateRepo
     # @return [void]
     def check_params
       return unless true_cmd(:dump)
+
       Trollop.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
       Trollop.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
     end
