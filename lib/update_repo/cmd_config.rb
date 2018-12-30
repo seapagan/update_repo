@@ -102,7 +102,7 @@ module UpdateRepo
     def set_options
       Trollop.options do
         version "update_repo version #{VERSION} (C)2017 G. Ramsay\n"
-        banner <<-EOS
+        banner <<-OPTION_TEXT
 
   Keep multiple local Git-Cloned Repositories up to date with one command.
 
@@ -115,7 +115,7 @@ module UpdateRepo
 
   Options:
 
-        EOS
+        OPTION_TEXT
         opt :color, 'Use colored output', default: true
         opt :dump, 'Dump a list of Directories and Git URL\'s to STDOUT in CSV format', default: false
         opt :prune, "Number of directory levels to remove from the --dump output.\nOnly valid when --dump or -d specified", default: 0
