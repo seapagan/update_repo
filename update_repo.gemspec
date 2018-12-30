@@ -49,6 +49,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'colorize'
   spec.add_dependency 'confoog'
-  spec.add_dependency 'trollop'
+  spec.add_dependency 'optimist'
   spec.add_dependency 'versionomy'
 end

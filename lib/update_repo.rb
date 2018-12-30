@@ -8,7 +8,7 @@ require 'update_repo/git_control'
 require 'yaml'
 require 'colorize'
 require 'confoog'
-require 'trollop'
+require 'optimist'
 require 'versionomy'
 require 'pp'
 
