@@ -17,6 +17,9 @@ var htmlmin = require('gulp-htmlmin');
 var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
 var mustache = require('gulp-mustache');
+var log = require('fancy-log');
+var c = require('ansi-colors');
+var minimist = require('minimist');
 
 var SOURCEPATHS = {
   sassSource: 'sass/*.scss',
@@ -108,7 +111,7 @@ gulp.task('serve', ['sass', 'scripts'], function () {
 });
 
 gulp.task('output-env', function () {
-  return isProduction ? gutil.log(gutil.colors.red.bold.underline('Running PRODUCTION environment')) : gutil.log(gutil.colors.green.bold.underline('Running DEVELOPMENT environment'));
+  return isProduction ? log(c.red.bold.underline('Running PRODUCTION environment')) : log(c.green.bold.underline('Running DEVELOPMENT environment'));
 });
 
 gulp.task('watch', ['output-env', 'serve', 'clean-all', 'moveFonts', 'images', 'html'], function () {
