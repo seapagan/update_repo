@@ -1,7 +1,7 @@
 require 'update_repo/version'
 require 'update_repo/helpers'
 require 'confoog'
-require 'trollop'
+require 'optimist'
 require 'yaml'
 
 # this class will encapsulate the command line fucntionality and processing
@@ -77,8 +77,8 @@ module UpdateRepo
     def check_params
       return unless true_cmd(:dump)
 
-      Trollop.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
-      Trollop.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
+      Optimist.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
+      Optimist.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
     end
     # rubocop:enable  Metrics/LineLength
 
@@ -101,7 +101,7 @@ module UpdateRepo
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/LineLength
     def set_options
-      Trollop.options do
+      Optimist.options do
         version "update_repo version #{VERSION} (C)2017 G. Ramsay\n"
         banner <<-OPTION_TEXT
 
