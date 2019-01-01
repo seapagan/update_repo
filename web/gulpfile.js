@@ -100,26 +100,26 @@ gulp.task('moveFonts', function () {
     .pipe(gulp.dest(APPPATH.fonts));
 });
 
-gulp.task('serve', ['sass', 'scripts'], function () {
+gulp.task('serve', gulp.series(['sass', 'scripts'], function () {
   browserSync.init([APPPATH.css + '/*.css', APPPATH.root + '/*.html', APPPATH.js + '/*.js'], {
     server: {
       baseDir: APPPATH.root
     },
     open: false
   });
-});
+}));
 
 gulp.task('output-env', function () {
   return isProduction ? log(c.red.bold.underline('Running PRODUCTION environment')) : log(c.green.bold.underline('Running DEVELOPMENT environment'));
 });
 
-gulp.task('watch', ['output-env', 'serve', 'clean-all', 'moveFonts', 'images', 'html'], function () {
+gulp.task('watch', gulp.series(['output-env', 'serve', 'clean-all', 'moveFonts', 'images', 'html'], function () {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.sassPartials, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
   gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartials, SOURCEPATHS.jsonSource], ['html']);
-});
+}));
 
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.series(['watch']));
 
-gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-all', 'moveFonts', 'images', 'html']);
+gulp.task('build', gulp.series(['output-env', 'sass', 'scripts', 'clean-all', 'moveFonts', 'images', 'html']));
