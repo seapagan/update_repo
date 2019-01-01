@@ -9,3 +9,8 @@ AllCops:
 
 Style/SymbolArray:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
