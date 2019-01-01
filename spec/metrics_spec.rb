@@ -22,6 +22,7 @@ RSpec.describe UpdateRepo::Metrics, '- Class to store & return run metrics' do
     it 'correctly sets and reads the numeric metric variables' do
       metrics.instance_variable_get('@metrics').each do |key, value|
         next unless value.instance_of? Integer
+
         metrics[key] = 1
         expect(metrics[key]).to eq 1
       end
@@ -29,6 +30,7 @@ RSpec.describe UpdateRepo::Metrics, '- Class to store & return run metrics' do
     it 'correctly sets and reads the array metric variables' do
       metrics.instance_variable_get('@metrics').each do |key, value|
         next unless value.instance_of? Array
+
         metrics[key] = %w[one two]
         expect(metrics[key]).to eq %w[one two]
         expect(metrics[key].length).to eq 2
