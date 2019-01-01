@@ -1,242 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>update_repo | Automate the update of multiple local Git repository clones</title>
-
-    <!-- build:css -->
-    <link rel="stylesheet" href="css/site.css">
-    <!-- endbuild -->
-
-    <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato|Droid+Serif|Raleway" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>update_repo | Automate the update of multiple local Git repository clones</title><link rel="stylesheet" href="css/site.min.css"><link href="https://fonts.googleapis.com/css?family=Lato|Droid+Serif|Raleway" rel="stylesheet"><!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-  
-
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <span class="forkongithub"><a href="https://github.com/seapagan/update_repo" target="_blank">Fork me on GitHub</a></span>
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Update_Repo</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="#about">About</a></li>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#usage">Usage</a></li>
-        <li><a href="#configuration">Configuration</a></li>
-        <li><a href="#contribute">Contribute</a></li>
-        <li><a href="#license">License</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div>
-</nav>
-
-
-    <!-- ABOUT -->
-    <section class="about" id='about'>
-      <div class="container">
-        <div class="row row-header">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="icon fa-info-circle">About</h1>
-          </div>
-        </div><!-- row -->
-        <div class="row row-body">
-          <div class="col-lg-12 col-md-12">
-            <p>A Simple Gem to keep multiple locally-cloned Git Repositories up to date. Current release version is <span id="version" class="version"></span></p>
-            <p>The script will simply run <span class="console-output">git pull</span> on every local clone of a git repository that it finds under the specified directory or directories.</p>
-            <p class="important-note">Note: Versions prior to 0.9.4 had a serious bug where the script would crash on startup unless there was an <span class="yaml-tag">exception:</span> defined in the configuration file. This has been fixed from version 0.9.4 onwards.</p>
-            <div class="text-center">
-              <a href="https://travis-ci.org/seapagan/update_repo"><img src="https://travis-ci.org/seapagan/update_repo.svg?branch=master"></a>
-            </div>
-          </div>
-        </div><!-- row -->
-      </div><!-- container -->
-    </section>
-    <!-- ABOUT END -->
-
-    <!-- INSTALLATION -->
-    <section class="installation" id="installation">
-      <div class="container">
-        <div class="row row-header">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="icon fa-download">Installation</h1>
-          </div>
-        </div><!-- row -->
-        <div class="row row-body">
-          <div class="col-lg-12 col-md-12">
-            <p>A working copy of both <a href="http://www.ruby-lang.org" target="_blank" class="icon fa-external-link">Ruby</a> and <a href="http://git-scm.com" target="_blank" class="icon fa-external-link">Git</a> need to be installed on your machine. <b>Git version 1.8.5 or greater is required</b>, the script will not run with an older version or indeed without Git installed. Ruby version 1.9.3 and newer are supported.</p>
-            <p>Currently the script has only been tested under Linux, not Windows however Windows testing is next in the grand plan!</p>
-            <p>Simply install from the command prompt as you would any other gem. Note that you may require <b>'sudo'</b> depending how Ruby is installed on your system.</p>
-            <pre><code>gem install update_repo</code></pre>
-          </div>
-        </div><!-- row -->
-      </div><!-- container -->
-    </section>
-    <!-- INSTALLATION END -->
-
-    <!-- USAGE -->
-    <section class="usage" id="usage">
-      <div class="container">
-        <div class="row row-header">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="icon fa-check-square-o">Usage</h1>
-          </div>
-        </div><!-- row -->
-        <div class="row row-body">
-          <div class="col-lg-12 col-md-12">
-            <h2>Quick Start</h2>
-            <p>Create a <a class="icon fa-external-link" target="_blank" href="http://yaml.org/">YAML</a>-formatted configuration file called <span class="filename">.updaterepo</span> (note the 'dot' at the start!) in your home directory that contains at least a <span class="yaml-tag">location:</span> tag pointing to the directory containing the git repositories you wish to have updated :</p>
-              <pre>
+    <![endif]--></head><body><nav class="navbar navbar-inverse navbar-fixed-top"><div class="container"><span class="forkongithub"><a href="https://github.com/seapagan/update_repo" target="_blank">Fork me on GitHub</a></span><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Update_Repo</a></div><div id="navbar" class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="#about">About</a></li><li><a href="#installation">Installation</a></li><li><a href="#usage">Usage</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#contribute">Contribute</a></li><li><a href="#license">License</a></li></ul></div></div></nav><section class="about" id="about"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-info-circle">About</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><p>A Simple Gem to keep multiple locally-cloned Git Repositories up to date. Current release version is <span id="version" class="version"></span></p><p>The script will simply run <span class="console-output">git pull</span> on every local clone of a git repository that it finds under the specified directory or directories.</p><p class="important-note">Note: Versions prior to 0.9.4 had a serious bug where the script would crash on startup unless there was an <span class="yaml-tag">exception:</span> defined in the configuration file. This has been fixed from version 0.9.4 onwards.</p><div class="text-center"><a href="https://travis-ci.org/seapagan/update_repo"><img src="https://travis-ci.org/seapagan/update_repo.svg?branch=master"></a></div></div></div></div></section><section class="installation" id="installation"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-download">Installation</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><p>A working copy of both <a href="http://www.ruby-lang.org" target="_blank" class="icon fa-external-link">Ruby</a> and <a href="http://git-scm.com" target="_blank" class="icon fa-external-link">Git</a> need to be installed on your machine. <b>Git version 1.8.5 or greater is required</b>, the script will not run with an older version or indeed without Git installed. Ruby version 2.3.0 and newer are supported (older versions will probably work, however they error on the Travis CI system so cannot be automatically tested).</p><p>Currently the script has only been tested under Linux, not Windows however Windows testing is next in the grand plan!</p><p>Simply install from the command prompt as you would any other gem. Note that you may require <b>'sudo'</b> depending how Ruby is installed on your system.</p><pre><code>gem install update_repo</code></pre></div></div></div></section><section class="usage" id="usage"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-check-square-o">Usage</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><h2>Quick Start</h2><p>Create a <a class="icon fa-external-link" target="_blank" href="http://yaml.org/">YAML</a>-formatted configuration file called <span class="filename">.updaterepo</span> (note the 'dot' at the start!) in your home directory that contains at least a <span class="yaml-tag">location:</span> tag pointing to the directory containing the git repositories you wish to have updated :</p><pre>
                 <code class="language-yaml">
                   ---
                   location:
                   - /media/myuser/git-repos
                   - /data/RepoDir
                 </code>
-              </pre>
-            <p>The directory or directories specified (there can be 1 root directory or as many as you wish) must already exist, and can be nested as deep as you wish with many repositories in many subdirectories.</p>
-            <p>This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below.</p>
-            <p>Now, run the script from anywhere :</p>
-            <pre><code>update_repo</code></pre>
-            <p><b>Note:</b> From version 0.9.0 onwards, the default mode of operation is <b>non-verbose</b>. If you wish the same output as previous versions then specify <span class="cmdline">--verbose</span> on the command line or <span class="yaml-tag">verbose: true</span> in the configuration file.</p>
-          </div>
-        </div><!-- row -->
-      </div><!-- container -->
-    </section>
-    <!-- USAGE END -->
-
-    <!-- CONFIGURATION -->
-    <section class="configuration" id="configuration">
-      <div class="container">
-        <div class="row row-header">
-          <div class="col-lg-12 col-md-12">
-            <h1 class="icon fa-cog">Configuration</h1>
-          </div>
-        </div><!-- row -->
-        <div class="row row-body">
-          <div class="col-lg-12 col-md-12">
-            <h2>Configuration file</h2>
-            <p>The configuration file defaults to <span class="filename">~/.updaterepo</span> and is a standard <a href="http://yaml.org/" class="icon  fa-external-link">YAML</a> formatted text file. If this configuration file is not found, the script will terminate with an error.</p>
-            <p>The first line <b>must</b> contain only the YAML frontmatter of 3 dashes (<span class="yaml-tag">---</span>). After that, the following sections can follow in any order. Only the <span class="yaml-tag">location:</span> section is compulsory, and that must contain at least one entry.</p>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">location:</span> - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :</p>
-            <pre>
+              </pre><p>The directory or directories specified (there can be 1 root directory or as many as you wish) must already exist, and can be nested as deep as you wish with many repositories in many subdirectories.</p><p>This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below.</p><p>Now, run the script from anywhere :</p><pre><code>update_repo</code></pre><p><b>Note:</b> From version 0.9.0 onwards, the default mode of operation is <b>non-verbose</b>. If you wish the same output as previous versions then specify <span class="cmdline">--verbose</span> on the command line or <span class="yaml-tag">verbose: true</span> in the configuration file.</p></div></div></div></section><section class="configuration" id="configuration"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-cog">Configuration</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><h2>Configuration file</h2><p>The configuration file defaults to <span class="filename">~/.updaterepo</span> and is a standard <a href="http://yaml.org/" class="icon fa-external-link">YAML</a> formatted text file. If this configuration file is not found, the script will terminate with an error.</p><p>The first line <b>must</b> contain only the YAML frontmatter of 3 dashes (<span class="yaml-tag">---</span>). After that, the following sections can follow in any order. Only the <span class="yaml-tag">location:</span> section is compulsory, and that must contain at least one entry.</p></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">location:</span> - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :</p><pre>
               <code class="language-yaml">
                 ---
                 location:
                 - /media/myuser/git-repos
                 - /data/RepoDir
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">exceptions:</span> - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the <b>directory</b> holding the repository (has the <span class="filename">.git</span> directory inside) :</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">exceptions:</span> - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the <b>directory</b> holding the repository (has the <span class="filename">.git</span> directory inside) :</p><pre>
               <code class="language-yaml">
                 exceptions:
                 - ubuntu-trusty
                 - update_repo
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">updaterepo.log</span> in the user's Home directory, defaults to <b>FALSE</b> (optional). This file would be overwritten on next run unless you also specify the <span class="yaml-tag">timestamp:</span> option. Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">log:</span> - Log all output to the file <span class="filename">updaterepo.log</span> in the user's Home directory, defaults to <b>FALSE</b> (optional). This file would be overwritten on next run unless you also specify the <span class="yaml-tag">timestamp:</span> option. Equivalent to <span class="cmdline">--log</span> and <span class="cmdline">--no-log</span> on the command line.</p><pre>
               <code class="language-yaml">
                 log: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">log_local:</span> - Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory. Defaults to <b>FALSE</b> (optional). Equivalent to <span class="cmdline">--log-local</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">log_local:</span> - Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory. Defaults to <b>FALSE</b> (optional). Equivalent to <span class="cmdline">--log-local</span> on the command line.</p><pre>
               <code class="language-yaml">
                 log_local: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">timestamp:</span> - timestamp the output files instead of overwriting them, defaults to FALSE (optional). Equivalent to <span class="cmdline">--timestamp</span> and <span class="cmdline">--no-timestamp</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">timestamp:</span> - timestamp the output files instead of overwriting them, defaults to FALSE (optional). Equivalent to <span class="cmdline">--timestamp</span> and <span class="cmdline">--no-timestamp</span> on the command line.</p><pre>
               <code class="language-yaml">
                 timestamp: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">color:</span> - Enable or disable coloured output, defaults to TRUE (optional). Equivalent to <span class="cmdline">--color</span> and <span class="cmdline">--no-color</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">color:</span> - Enable or disable coloured output, defaults to TRUE (optional). Equivalent to <span class="cmdline">--color</span> and <span class="cmdline">--no-color</span> on the command line.</p><pre>
               <code class="language-yaml">
                 color: false
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">verbose:</span> - Enable or disable Verbose mode, defaults to FALSE (optional). In this mode all the output of the git processes will be displayed to screen as will the local location and remote URL. Equivalent to <span class="cmdline">--verbose</span> and <span class="cmdline">--no-verbose</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">verbose:</span> - Enable or disable Verbose mode, defaults to FALSE (optional). In this mode all the output of the git processes will be displayed to screen as will the local location and remote URL. Equivalent to <span class="cmdline">--verbose</span> and <span class="cmdline">--no-verbose</span> on the command line.</p><pre>
               <code class="language-yaml">
                 verbose: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">verbose_errors:</span> - Enable or disable Verbose error reporting in the summary, defaults to FALSE (optional). If this is set to TRUE, the end-of-job summary will list all the error output lines from any failing Git processes, not just the first line. Equivalent to <span class="cmdline">--verbose-errors</span> and <span class="cmdline">--no-verbose-errors</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">verbose_errors:</span> - Enable or disable Verbose error reporting in the summary, defaults to FALSE (optional). If this is set to TRUE, the end-of-job summary will list all the error output lines from any failing Git processes, not just the first line. Equivalent to <span class="cmdline">--verbose-errors</span> and <span class="cmdline">--no-verbose-errors</span> on the command line.</p><pre>
               <code class="language-yaml">
                 verbose_errors: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">brief:</span> - Do not print the header, footer or summary, defaults to FALSE (optional). If this is set to TRUE, there will be no extra output except that from each git operation or the non-verbose legend. Equivalent to <span class="cmdline">--brief</span> and <span class="cmdline">--no-brief</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">brief:</span> - Do not print the header, footer or summary, defaults to FALSE (optional). If this is set to TRUE, there will be no extra output except that from each git operation or the non-verbose legend. Equivalent to <span class="cmdline">--brief</span> and <span class="cmdline">--no-brief</span> on the command line.</p><pre>
               <code class="language-yaml">
                 brief: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p><span class="yaml-tag">quiet:</span> - Enable or disable Quiet mode, defaults to FALSE (optional). If this is specified then there will be nothing printed to the terminal except for fatal errors. Overrules the <span class="cmdline">--verbose</span> mode if also specified. Equivalent to <span class="cmdline">--quiet</span> and <span class="cmdline">--no-quiet</span> on the command line.</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p><span class="yaml-tag">quiet:</span> - Enable or disable Quiet mode, defaults to FALSE (optional). If this is specified then there will be nothing printed to the terminal except for fatal errors. Overrules the <span class="cmdline">--verbose</span> mode if also specified. Equivalent to <span class="cmdline">--quiet</span> and <span class="cmdline">--no-quiet</span> on the command line.</p><pre>
               <code class="language-yaml">
                 quiet: true
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <p>Putting these together, below is an example <span class="filename">.updaterepo</span> file :</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><p>Putting these together, below is an example <span class="filename">.updaterepo</span> file :</p><pre>
               <code class="language-yaml">
                 ---
                 location:
@@ -253,14 +70,7 @@
                 brief: false
                 quiet: false
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <h2>Command line switches</h2>
-            <p>Command line switches are not compulsory. If none are specified then the program will read from the standard configuration file <span class="filename">~/.updaterepo</span> and automatically update the specified Repositories. However, if specified then they will take precedence over options from the configuration file.</p>
-            <p>Enter <code class="language-markup">update_repo --help</code> at the command prompt to get a list of available options :</p>
-            <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><h2>Command line switches</h2><p>Command line switches are not compulsory. If none are specified then the program will read from the standard configuration file <span class="filename">~/.updaterepo</span> and automatically update the specified Repositories. However, if specified then they will take precedence over options from the configuration file.</p><p>Enter <code class="language-markup">update_repo --help</code> at the command prompt to get a list of available options :</p><pre>
               <code class="language-markup">
                 Options:
                   -c, --color, --no-color    Use colored output (default: true)
@@ -277,260 +87,7 @@
                   -v, --version              Print version and exit
                   -h, --help                 Show this message
               </code>
-            </pre>
-          </div><!-- col -->
-
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Color</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when one of the &#39;--dump-*&#39; options is specified output will not be in color. No color codes will be saved to the logfile either.</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">color:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--color</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-c</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-color</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">true</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Dump</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Dumps a CSV file of each directory and its associated git remote URL to the console, and to the logfile if that is enabled.</p>
-              <p class="cmd-text">No equivalent in the YAML Configuration file.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-d</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Prune</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Used in conjunction with the --dump option to remove the first &lt;integer&gt; directory levels from the output. This will enable it to be imported back into a different directory structure.</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">prune:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--prune</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-p</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">0</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Log</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is &#39;updaterepo.log&#39; in the current users home directory. The previous log will be overwritten, but see the next option.</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">log:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-l</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Timestamp</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Used in conjunction with the --log option to rename the logfile with an added timestamp, thus not overwriting older logs</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">timestamp:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--timestamp</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-t</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-timestamp</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Log Local</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Store the logfile (if this is enabled) in the current working directory instead of the Users&#39; Home directory</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">log_local:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log-local</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-g</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log-local</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Verbose</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Display all raw Git output plus repository URL and location instead of the reduced output in the default mode. Note that the short-form command is the UPERCASE &#39;V&#39; not lower!</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">verbose:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-V</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Verbose Errors</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">List all the error output from a failing command in the summary, not just the first line</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">verbose_errors:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose-errors</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-E</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose-errors</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Brief Output</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Do not print the Header, Footer or Summary.</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">brief:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--brief</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-b</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-brief</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Quiet</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">No output will be displayed to screen during the running of script, except for any fatal errors.</p>
-              <p class="cmd-text">Equivalent to the <span class="yaml-tag">quiet:</span> YAML configuration file tag.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--quiet</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-q</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-quiet</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Dump Remotes</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Dumps a bare list to the console of all the Git remote URL&#39;s found in the specified directories. This can be saved by redirecting to file or using the --log option.</p>
-              <p class="cmd-text">No equivalent in the YAML Configuration file.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump-remotes</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-r</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Version</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Displays the current version number then terminates. All other options will be ignored.</p>
-              <p class="cmd-text">No equivalent in the YAML Configuration file.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--version</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-v</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-12 col-md-12">
-            <div class="cmd-header row-header">
-              <p>Help</p>
-            </div>
-            <div class="cmd-body row-body">
-              <p class="cmd-text">Displays a brief help text listing syntax and availiable switches then terminates. All other options will be ignored.</p>
-              <p class="cmd-text">No equivalent in the YAML Configuration file.
-              </p>
-              <ul class="opt-list">
-                <li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--help</span></li>
-                <li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-h</span></li>
-                <li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li>
-                <li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li>
-              </ul>
-            </div>
-          </div>
-        </div><!-- row -->
-      </div><!-- container -->
-    </section>
-    <!-- CONFIGURATION END -->
-
-    <section class="contribute" id="contribute">
-      <div class="container">
-  <div class="row row-header">
-    <div class="col-lg-12 col-md-12">
-      <h1 class="icon fa-code-fork">Contribute to the Development</h1>
-    </div>
-  </div><!-- row -->
-  <div class="row row-body">
-    <div class="col-lg-12 col-md-12">
-      <h2>Contributing</h2>
-      <p>The source code for <span class="console-output">update_repo</span> is freely available on my <a target="_blank" class="icon fa-external-link" href="https://github.com/seapagan/update_repo">Github</a> pages, under the <a class="icon fa-external-link" target="_blank" href="http://opensource.org/licenses/MIT">MIT</a> license.</p>
-      <p>If you wish to help in any way then :</p>
-      <ol>
-        <li>Fork it</li>
-        <li>Create your feature branch (<span class="console-output">git checkout -b my-new-feature</span>)</li>
-        <li>Commit your changes (<span class="console-output">git commit -am 'Add some feature'</span>)</li>
-        <li>Push to the branch (<span class="console-output">git push origin my-new-feature</span>)</li>
-        <li>Create a new Pull Request</li>
-      </ol>
-      <p>For full information on how to contribute to the development of this Gem or the Website, please see the Development section on the projects <a class="icon fa-external-link" target="_blank" href="https://github.com/seapagan/update_repo#development">Github repository</a>.</p>
-    </div>
-  </div><!-- row -->
-</div><!-- container -->
-
-    </section>
-
-    <section class="license" id="license">
-      <div class="container">
-  <div class="row row-header">
-    <div class="col-lg-12 col-md-12">
-      <h1 class="icon fa-book">License</h1>
-
-    </div><!-- col -->
-  </div><!-- row -->
-  <div class="row row-body">
-    <div class="col-lg-12 col-md-12">
-      <p>The gem is available as open source under the terms of the <a class="icon fa-external-link" target="_blank" href="http://opensource.org/licenses/MIT">MIT</a> License, see the file <span class="filename">LICENSE.txt</span>, also reproduced below :</p>
-      <pre>
+            </pre></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Color</p></div><div class="cmd-body row-body"><p class="cmd-text">Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when one of the &#39;--dump-*&#39; options is specified output will not be in color. No color codes will be saved to the logfile either.</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">color:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--color</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-c</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-color</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">true</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Dump</p></div><div class="cmd-body row-body"><p class="cmd-text">Dumps a CSV file of each directory and its associated git remote URL to the console, and to the logfile if that is enabled.</p><p class="cmd-text">No equivalent in the YAML Configuration file.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-d</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Prune</p></div><div class="cmd-body row-body"><p class="cmd-text">Used in conjunction with the --dump option to remove the first &lt;integer&gt; directory levels from the output. This will enable it to be imported back into a different directory structure.</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">prune:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--prune</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-p</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">0</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Log</p></div><div class="cmd-body row-body"><p class="cmd-text">Copies all script output to a logfile as well as STDOUT. The default logfile name is &#39;updaterepo.log&#39; in the current users home directory. The previous log will be overwritten, but see the next option.</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">log:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-l</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Timestamp</p></div><div class="cmd-body row-body"><p class="cmd-text">Used in conjunction with the --log option to rename the logfile with an added timestamp, thus not overwriting older logs</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">timestamp:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--timestamp</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-t</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-timestamp</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Log Local</p></div><div class="cmd-body row-body"><p class="cmd-text">Store the logfile (if this is enabled) in the current working directory instead of the Users&#39; Home directory</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">log_local:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--log-local</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-g</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-log-local</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Verbose</p></div><div class="cmd-body row-body"><p class="cmd-text">Display all raw Git output plus repository URL and location instead of the reduced output in the default mode. Note that the short-form command is the UPERCASE &#39;V&#39; not lower!</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">verbose:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-V</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Verbose Errors</p></div><div class="cmd-body row-body"><p class="cmd-text">List all the error output from a failing command in the summary, not just the first line</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">verbose_errors:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--verbose-errors</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-E</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-verbose-errors</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Brief Output</p></div><div class="cmd-body row-body"><p class="cmd-text">Do not print the Header, Footer or Summary.</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">brief:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--brief</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-b</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-brief</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Quiet</p></div><div class="cmd-body row-body"><p class="cmd-text">No output will be displayed to screen during the running of script, except for any fatal errors.</p><p class="cmd-text">Equivalent to the <span class="yaml-tag">quiet:</span> YAML configuration file tag.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--quiet</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-q</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">--no-quiet</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Dump Remotes</p></div><div class="cmd-body row-body"><p class="cmd-text">Dumps a bare list to the console of all the Git remote URL&#39;s found in the specified directories. This can be saved by redirecting to file or using the --log option.</p><p class="cmd-text">No equivalent in the YAML Configuration file.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--dump-remotes</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-r</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Version</p></div><div class="cmd-body row-body"><p class="cmd-text">Displays the current version number then terminates. All other options will be ignored.</p><p class="cmd-text">No equivalent in the YAML Configuration file.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--version</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-v</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div><div class="col-lg-12 col-md-12"><div class="cmd-header row-header"><p>Help</p></div><div class="cmd-body row-body"><p class="cmd-text">Displays a brief help text listing syntax and availiable switches then terminates. All other options will be ignored.</p><p class="cmd-text">No equivalent in the YAML Configuration file.</p><ul class="opt-list"><li class="cmd-opt"><span class="desc">Long-Form</span> : <span class="cmdline">--help</span></li><li class="cmd-opt"><span class="desc">Short-Form</span> : <span class="cmdline">-h</span></li><li class="cmd-opt"><span class="desc">Negative-Form</span> : <span class="cmdline">None.</span></li><li class="cmd-opt"><span class="desc">Default</span> : <span class="cmdline">false</span></li></ul></div></div></div></div></section><section class="contribute" id="contribute"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-code-fork">Contribute to the Development</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><h2>Contributing</h2><p>The source code for <span class="console-output">update_repo</span> is freely available on my <a target="_blank" class="icon fa-external-link" href="https://github.com/seapagan/update_repo">Github</a> pages, under the <a class="icon fa-external-link" target="_blank" href="http://opensource.org/licenses/MIT">MIT</a> license.</p><p>If you wish to help in any way then :</p><ol><li>Fork it</li><li>Create your feature branch (<span class="console-output">git checkout -b my-new-feature</span>)</li><li>Commit your changes (<span class="console-output">git commit -am 'Add some feature'</span>)</li><li>Push to the branch (<span class="console-output">git push origin my-new-feature</span>)</li><li>Create a new Pull Request</li></ol><p>For full information on how to contribute to the development of this Gem or the Website, please see the Development section on the projects <a class="icon fa-external-link" target="_blank" href="https://github.com/seapagan/update_repo#development">Github repository</a>.</p></div></div></div></section><section class="license" id="license"><div class="container"><div class="row row-header"><div class="col-lg-12 col-md-12"><h1 class="icon fa-book">License</h1></div></div><div class="row row-body"><div class="col-lg-12 col-md-12"><p>The gem is available as open source under the terms of the <a class="icon fa-external-link" target="_blank" href="http://opensource.org/licenses/MIT">MIT</a> License, see the file <span class="filename">LICENSE.txt</span>, also reproduced below :</p><pre>
         <code class="language-markup">
           The MIT License (MIT)
 
@@ -554,27 +111,4 @@
           OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
           THE SOFTWARE.
         </code>
-      </pre>
-    </div>
-  </div>
-</div><!-- container -->
-
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 text-right">
-            &copy; Grant Ramsay 2017 | <span class="site-version">Website v2.0-beta</span> | See my public projects on <a target="_blank" class="icon fa-github" href="https://github.com/seapagan">Github</a>
-          </div>
-        </div><!-- row -->
-      </div><!-- container -->
-    </footer>
-
-    <!-- build:js -->
-    <script src='js/main.js'></script>
-    <!-- endbuild -->
-  </body>
-</html>
-
+      </pre></div></div></div></section><footer class="footer"><div class="container"><div class="row"><div class="col-lg-12 text-right">&copy; Grant Ramsay 2017 | <span class="site-version">Website v2.0-beta</span> | See my public projects on <a target="_blank" class="icon fa-github" href="https://github.com/seapagan">Github</a></div></div></div></footer><script src="js/main-min.js"></script></body></html>
