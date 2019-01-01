@@ -40,6 +40,7 @@
     "gulp-minify": "3.1.0",
     "gulp-mustache": "^4.1.0",
     "gulp-newer": "^1.4.0",
+    "gulp-noop": "^1.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "jquery": "^3.3.1",

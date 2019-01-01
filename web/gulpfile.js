@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
-// var reload = browserSync.reload;
 var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
@@ -14,12 +13,12 @@ var minify = require('gulp-minify');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
-var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
 var mustache = require('gulp-mustache');
 var log = require('fancy-log');
 var c = require('ansi-colors');
-var minimist = require('minimist');
+var args = require('minimist')(process.argv.slice(2));
+var noop = require('gulp-noop');
 
 var SOURCEPATHS = {
   sassSource: 'sass/*.scss',
@@ -42,7 +41,7 @@ var APPPATH = {
 
 // determine if we want production mode (minified js/css/html) or not
 var isProduction = false;
-if (gutil.env.prod === true) {
+if (args.prod === true) {
   isProduction = true;
 }
 
@@ -61,8 +60,8 @@ gulp.task('sass', function () {
     .pipe(autoprefixer());
   return merge(cssFiles, bootstrapCSS, sassFiles)
     .pipe(concat('site.css'))
-    .pipe(isProduction ? cssmin({keepSpecialComments: 0}) : gutil.noop())
-    .pipe(isProduction ? rename({suffix: '.min'}) : gutil.noop())
+    .pipe(isProduction ? cssmin({keepSpecialComments: 0}) : noop())
+    .pipe(isProduction ? rename({suffix: '.min'}) : noop())
     .pipe(gulp.dest(APPPATH.css));
 });
 
@@ -74,7 +73,7 @@ gulp.task('scripts', function () {
   gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
-    .pipe(isProduction ? minify({noSource: true}) : gutil.noop())
+    .pipe(isProduction ? minify({noSource: true}) : noop())
     .pipe(gulp.dest(APPPATH.js));
 });
 
@@ -84,8 +83,8 @@ gulp.task('html', function () {
       removeTags: true
     }))
     .pipe(mustache(SOURCEPATHS.jsonSource))
-    .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
-    .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
+    .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : noop())
+    .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : noop())
     .pipe(gulp.dest(APPPATH.root));
 });
 
