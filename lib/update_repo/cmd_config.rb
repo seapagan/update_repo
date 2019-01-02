@@ -102,7 +102,7 @@ module UpdateRepo
     # rubocop:disable Metrics/LineLength
     def set_options
       Optimist.options do
-        version "update_repo version #{VERSION} (C)2017 G. Ramsay\n"
+        version "update_repo version #{VERSION} (C)2019 G. Ramsay\n"
         banner <<-OPTION_TEXT
 
   Keep multiple local Git-Cloned Repositories up to date with one command.
