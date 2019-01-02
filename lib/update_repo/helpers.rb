@@ -62,4 +62,15 @@ module Helpers
       "#{num} #{item.capitalize}"
     end
   end
+
+  def internet?
+    require 'resolv'
+    dns_resolver = Resolv::DNS.new
+    begin
+      dns_resolver.getaddress('icann.org')
+      return true
+    rescue Resolv::ResolvError => _e
+      return false
+    end
+  end
 end

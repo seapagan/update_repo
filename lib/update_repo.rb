@@ -22,6 +22,12 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
+      # die if there is no internet connection...
+      unless internet?
+        print 'There appears to be no internet access on this computer, '.red,
+              "the script cannot continue.\n".red
+        exit 2
+      end
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
       # set up the output and logging class
@@ -53,7 +59,7 @@ module UpdateRepo
 
     def checkgit
       unless which('git')
-        print 'Git is not installed on this machine, script cannot '.red,
+        print 'Git is not installed on this machine, the script cannot '.red,
               "continue.\n".red
         exit 1
       end
