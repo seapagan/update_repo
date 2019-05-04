@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.13'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '~> 12.3'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry'
@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   # enough since the code base is common.
   spec.add_development_dependency 'reek' if RUBY_VERSION >= '2.1'
   spec.add_development_dependency 'rubocop' if RUBY_VERSION >= '2.0'
+  spec.add_development_dependency 'rubocop-performance' if RUBY_VERSION >= '2.0'
 
   if RUBY_VERSION < '2.0'
     spec.add_development_dependency 'json', '= 1.8.3'
@@ -51,4 +52,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'confoog'
   spec.add_dependency 'optimist'
   spec.add_dependency 'versionomy'
+  # fix issue in Ruby < 2.5.5
+  spec.add_dependency "bigdecimal", "1.3.5" if RUBY_VERSION < '2.5.5'
 end
