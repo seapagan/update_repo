@@ -136,6 +136,8 @@ Add functionality, not in any specific order :
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Add option to specify a completely different directory for the log file other than the 2 current options of home dir and local dir
 - Document configuration file format and options. `[IN PROGRESS]`
+- Add option to display the active config options, including those on command line and config file.
+- Add option as corally to above to create the config file with options from existing config and command line
 
 Internal Changes and refactoring :
 - Add testing!
