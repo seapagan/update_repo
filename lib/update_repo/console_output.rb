@@ -70,6 +70,7 @@ module UpdateRepo
       end
       print_log ' |'
       list_failures unless @metrics[:failed_list].empty?
+      @metrics.save_errors(@cmd.getconfig) if @cmd[:save_errors]
     end
 
     # List any repositories that failed their update, and the error.
@@ -86,7 +87,7 @@ module UpdateRepo
         print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
         print_log "\n    -> ", failed[:line].chomp.red
       end
-      @metrics.save_errors(@cmd.getconfig) if @cmd[:save_errors]
+      print_log " \n\n"
     end
 
     # removes any duplications in the list of failed repos.

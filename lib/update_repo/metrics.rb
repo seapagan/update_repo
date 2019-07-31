@@ -40,7 +40,6 @@ module UpdateRepo
       # get the location of the config file, we'll use the same dir
       # and base name
       path = config.config_path + '.errors'
-      puts "Saving errors to #{path}"
       File.open(path, 'w') { |file| file.write @metrics[:failed_list].to_yaml }
     end
 

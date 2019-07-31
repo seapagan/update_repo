@@ -51,7 +51,6 @@ module UpdateRepo
       else
         puts 'Showing ' + 'ERRORS'.red.underline + ' from last full run :'
         @cons.show_last_errors
-        puts
       end
     end
 
