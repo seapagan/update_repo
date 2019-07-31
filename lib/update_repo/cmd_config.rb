@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'update_repo/version'
 require 'update_repo/helpers'
 require 'confoog'
@@ -13,9 +15,9 @@ module UpdateRepo
     include Helpers
 
     # This constant holds the path to the config file, default to home dir.
-    CONFIG_PATH = '~/'.freeze
+    CONFIG_PATH = '~/'
     # This constant holds the filename of the config file.
-    CONFIG_FILE = '.updaterepo'.freeze
+    CONFIG_FILE = '.updaterepo'
 
     def initialize
       # read the options from Trollop and store in temp variable.

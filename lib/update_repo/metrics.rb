@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'update_repo/version'
 require 'update_repo/helpers'
 require 'yaml'
