@@ -42,11 +42,17 @@ module UpdateRepo
       checkgit
       # print out our header unless we are dumping / importing ...
       @cons.show_header unless dumping?
-      config['location'].each do |loc|
-        @cmd[:dump_tree] ? dump_tree(File.join(loc)) : recurse_dir(loc)
+      if !@cmd[:show_errors]
+        config['location'].each do |loc|
+          @cmd[:dump_tree] ? dump_tree(File.join(loc)) : recurse_dir(loc)
+        end
+        # print out an informative footer unless dump / import ...
+        @cons.show_footer unless dumping?
+      else
+        puts 'Showing ' + 'ERRORS'.red.underline + ' from last full run :'
+        @cons.show_last_errors
+        puts
       end
-      # print out an informative footer unless dump / import ...
-      @cons.show_footer unless dumping?
     end
 
     private

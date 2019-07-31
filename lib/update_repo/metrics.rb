@@ -1,5 +1,6 @@
 require 'update_repo/version'
 require 'update_repo/helpers'
+require 'yaml'
 
 module UpdateRepo
   # Class : Metrics.
@@ -29,6 +30,24 @@ module UpdateRepo
     # @return [value] Return the value set.
     def []=(key, value)
       @metrics[key] = value
+    end
+
+    # This will save any (git) errors encountered to a file,
+    # so they can be reprinted again at a later date.
+    def save_errors(config)
+      return if @metrics[:failed_list].empty?
+
+      # get the location of the config file, we'll use the same dir
+      # and base name
+      path = config.config_path + '.errors'
+      puts "Saving errors to #{path}"
+      File.open(path, 'w') { |file| file.write @metrics[:failed_list].to_yaml }
+    end
+
+    # loads an error file (if exists) into the @metrics[:failed_list].
+    def load_errors(config)
+      path = config.config_path + '.errors'
+      @metrics[:failed_list] = YAML.load_file(path) if File.exist?(path)
     end
   end
 end

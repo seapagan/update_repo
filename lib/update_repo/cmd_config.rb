@@ -100,6 +100,7 @@ module UpdateRepo
     # @return [void]
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/LineLength
+    # rubocop:disable Metrics/AbcSize
     def set_options
       Optimist.options do
         version "update_repo version #{VERSION} (C)2019 G. Ramsay\n"
@@ -130,9 +131,12 @@ module UpdateRepo
         opt :verbose_errors, 'List all the error output from a failing command in the summary, not just the first line', default: false, short: 'E'
         opt :brief, 'Do not print the header, footer or summary', default: false, short: 'b'
         opt :quiet, 'Run completely silent, with no output to the terminal (except fatal errors)', default: false
+        opt :save_errors, 'Save any Git error messages from the last run for future display', default: false, short: 's'
+        opt :show_errors, 'Show any Git error messages from the last run of the script', default: false, short: 'S'
       end
     end
     # rubocop:enable Metrics/MethodLength
-    # rubocop:enable  Metrics/LineLength
+    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Metrics/AbcSize
   end
 end
