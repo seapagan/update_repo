@@ -101,7 +101,7 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     def close
-      @logfile.close if @logfile
+      @logfile&.close # if @logfile
     end
   end
 end
