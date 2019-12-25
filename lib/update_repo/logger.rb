@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'update_repo/version'
 require 'update_repo/helpers'
 
@@ -99,7 +101,7 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     def close
-      @logfile.close if @logfile
+      @logfile&.close # if @logfile
     end
   end
 end
