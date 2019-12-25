@@ -36,13 +36,17 @@ module UpdateRepo
 
     # This will save any (git) errors encountered to a file,
     # so they can be reprinted again at a later date.
+    # If no errors, then delete any previously existing error file.
     def save_errors(config)
-      return if @metrics[:failed_list].empty?
-
-      # get the location of the config file, we'll use the same dir
-      # and base name
       path = config.config_path + '.errors'
-      File.open(path, 'w') { |file| file.write @metrics[:failed_list].to_yaml }
+      if @metrics[:failed_list].empty?
+        # delete any existing  file
+        File.delete(path) if File.exist(path)
+      else
+        # get the location of the config file, we'll use the same dir
+        # and base name
+        File.open(path, 'w') { |file| file.write @metrics[:failed_list].to_yaml }
+      end
     end
 
     # loads an error file (if exists) into the @metrics[:failed_list].
