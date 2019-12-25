@@ -51,7 +51,6 @@ module UpdateRepo
         # print out an informative footer unless dump / import ...
         @cons.show_footer unless dumping?
       else
-        puts 'Showing ' + 'ERRORS'.red.underline + ' from last full run :'
         @cons.show_last_errors
       end
     end

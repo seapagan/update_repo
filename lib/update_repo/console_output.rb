@@ -133,7 +133,12 @@ module UpdateRepo
     # @return [void]
     def show_last_errors
       @metrics.load_errors(@cmd.getconfig)
-      list_failures unless @metrics[:failed_list].empty?
+      if !@metrics[:failed_list].empty?
+        puts 'Showing ' + 'ERRORS'.red.underline + ' from last full run :'
+        list_failures
+      else
+        puts 'There are' + ' No Errors'.green + " from last full run.\n\n"
+      end
     end
   end
 end
