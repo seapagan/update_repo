@@ -46,7 +46,7 @@ if (args.prod === true) {
 }
 
 gulp.task('clean-all', function () {
-  return gulp.src([APPPATH.root + '/*.html', APPPATH.css + '/*.css', APPPATH.js + '/*.js'], {read: false, force: true})
+  return gulp.src([APPPATH.root + '/*.html', APPPATH.css + '/*.css', APPPATH.js + '/*.js', APPPATH.fonts + '/*'], {read: false, force: true})
     .pipe(clean({force: true}));
 });
 
@@ -125,4 +125,4 @@ gulp.task('watch', gulp.series(['output-env', 'serve', 'clean-all', 'moveFonts',
 
 gulp.task('default', gulp.series(['watch']));
 
-gulp.task('build', gulp.series(['output-env', 'sass', 'scripts', 'clean-all', 'moveFonts', 'images', 'html']));
+gulp.task('build', gulp.series(['output-env', 'clean-all', 'sass', 'scripts', 'moveFonts', 'images', 'html']));
