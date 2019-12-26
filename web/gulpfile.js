@@ -53,7 +53,7 @@ gulp.task('clean-all', function () {
 gulp.task('sass', function () {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
-  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css', './node_modules/prismjs/themes/prism.css']);
+  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/@fortawesome/fontawesome-free/css/all.css', './node_modules/prismjs/themes/prism.css']);
 
   sassFiles = gulp.src(SOURCEPATHS.sassSource)
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
@@ -66,11 +66,12 @@ gulp.task('sass', function () {
 });
 
 gulp.task('scripts', function (done) {
+  var fontawesomeJS = './node_modules/@fortawesome/fontawesome-free/js/all.js'
   var prismJS = './node_modules/prismjs/prism.js';
   var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
   var prismWS = './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
 
-  gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
+  gulp.src([SOURCEPATHS.jsSource, fontawesomeJS, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
     .pipe(isProduction ? minify({noSource: true}) : noop())
@@ -97,7 +98,7 @@ gulp.task('images', function () {
 });
 
 gulp.task('moveFonts', function (done) {
-  gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/font-awesome/fonts/**'])
+  gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/@fortawesome/fontawesome-free/webfonts/**', './node_modules/font-awesome/fonts/**'])
     .pipe(gulp.dest(APPPATH.fonts));
   done();
 });
