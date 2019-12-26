@@ -7,6 +7,7 @@
 body {
   background-color: $body-background-color;
   font-family: $body-font;
+  font-size: 14px;
 }
 
 h1 {
@@ -72,17 +73,6 @@ h2 {
 
 .version {
   @include hilight-box($color: $filename-hilight-color);
-}
-
-.icon::before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  margin-right: .25em;
-  text-rendering: auto;
-  transform: translate(0, 0);
 }
 
 // NAVBAR

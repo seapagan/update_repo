@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
-// var reload = browserSync.reload;
 var autoprefixer = require('gulp-autoprefixer');
 var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
@@ -14,9 +13,12 @@ var minify = require('gulp-minify');
 var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var htmlmin = require('gulp-htmlmin');
-var gutil = require('gulp-util');
 var htmlreplace = require('gulp-html-replace');
 var mustache = require('gulp-mustache');
+var log = require('fancy-log');
+var c = require('ansi-colors');
+var args = require('minimist')(process.argv.slice(2));
+var noop = require('gulp-noop');
 
 var SOURCEPATHS = {
   sassSource: 'sass/*.scss',
@@ -39,40 +41,42 @@ var APPPATH = {
 
 // determine if we want production mode (minified js/css/html) or not
 var isProduction = false;
-if (gutil.env.prod === true) {
+if (args.prod === true) {
   isProduction = true;
 }
 
 gulp.task('clean-all', function () {
-  return gulp.src([APPPATH.root + '/*.html', APPPATH.css + '/*.css', APPPATH.js + '/*.js'], {read: false, force: true})
+  return gulp.src([APPPATH.root + '/*.html', APPPATH.css + '/*.css', APPPATH.js + '/*.js', APPPATH.fonts + '/*'], {read: false, force: true})
     .pipe(clean({force: true}));
 });
 
 gulp.task('sass', function () {
   var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
   var sassFiles;
-  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/font-awesome/css/font-awesome.css', './node_modules/prismjs/themes/prism.css']);
+  var cssFiles = gulp.src([SOURCEPATHS.cssSource, './node_modules/@fortawesome/fontawesome-free/css/all.css', './node_modules/prismjs/themes/prism.css']);
 
   sassFiles = gulp.src(SOURCEPATHS.sassSource)
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
     .pipe(autoprefixer());
   return merge(cssFiles, bootstrapCSS, sassFiles)
     .pipe(concat('site.css'))
-    .pipe(isProduction ? cssmin({keepSpecialComments: 0}) : gutil.noop())
-    .pipe(isProduction ? rename({suffix: '.min'}) : gutil.noop())
+    .pipe(isProduction ? cssmin({keepSpecialComments: 0}) : noop())
+    .pipe(isProduction ? rename({suffix: '.min'}) : noop())
     .pipe(gulp.dest(APPPATH.css));
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function (done) {
+  var fontawesomeJS = './node_modules/@fortawesome/fontawesome-free/js/all.js'
   var prismJS = './node_modules/prismjs/prism.js';
   var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
   var prismWS = './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
 
-  gulp.src([SOURCEPATHS.jsSource, prismJS, prismYAML, prismWS])
+  gulp.src([SOURCEPATHS.jsSource, fontawesomeJS, prismJS, prismYAML, prismWS])
     .pipe(concat('main.js'))
     .pipe(browserify())
-    .pipe(isProduction ? minify({noSource: true}) : gutil.noop())
+    .pipe(isProduction ? minify({noSource: true}) : noop())
     .pipe(gulp.dest(APPPATH.js));
+  done();
 });
 
 gulp.task('html', function () {
@@ -81,8 +85,8 @@ gulp.task('html', function () {
       removeTags: true
     }))
     .pipe(mustache(SOURCEPATHS.jsonSource))
-    .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : gutil.noop())
-    .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : gutil.noop())
+    .pipe(isProduction ? htmlreplace({'css': 'css/site.min.css', 'js': 'js/main-min.js'}) : noop())
+    .pipe(isProduction ? htmlmin({collapseWhitespace: true, removeComments: true}) : noop())
     .pipe(gulp.dest(APPPATH.root));
 });
 
@@ -93,31 +97,32 @@ gulp.task('images', function () {
     .pipe(gulp.dest(APPPATH.img));
 });
 
-gulp.task('moveFonts', function () {
-  gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/font-awesome/fonts/**'])
+gulp.task('moveFonts', function (done) {
+  gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/@fortawesome/fontawesome-free/webfonts/**', './node_modules/font-awesome/fonts/**'])
     .pipe(gulp.dest(APPPATH.fonts));
+  done();
 });
 
-gulp.task('serve', ['sass', 'scripts'], function () {
+gulp.task('serve', gulp.series(['sass', 'scripts'], function () {
   browserSync.init([APPPATH.css + '/*.css', APPPATH.root + '/*.html', APPPATH.js + '/*.js'], {
     server: {
       baseDir: APPPATH.root
     },
     open: false
   });
+}));
+
+gulp.task('output-env', async function () {
+  return isProduction ? log(c.red.bold.underline('Running PRODUCTION environment')) : log(c.green.bold.underline('Running DEVELOPMENT environment'));
 });
 
-gulp.task('output-env', function () {
-  return isProduction ? gutil.log(gutil.colors.red.bold.underline('Running PRODUCTION environment')) : gutil.log(gutil.colors.green.bold.underline('Running DEVELOPMENT environment'));
-});
-
-gulp.task('watch', ['output-env', 'serve', 'clean-all', 'moveFonts', 'images', 'html'], function () {
+gulp.task('watch', gulp.series(['output-env', 'serve', 'clean-all', 'moveFonts', 'images', 'html'], function () {
   gulp.watch([SOURCEPATHS.sassSource, SOURCEPATHS.sassPartials, SOURCEPATHS.cssSource], ['sass']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
   gulp.watch([SOURCEPATHS.imgSource], ['images']);
   gulp.watch([SOURCEPATHS.htmlSource, SOURCEPATHS.htmlPartials, SOURCEPATHS.jsonSource], ['html']);
-});
+}));
 
-gulp.task('default', ['watch']);
+gulp.task('default', gulp.series(['watch']));
 
-gulp.task('build', ['output-env', 'sass', 'scripts', 'clean-all', 'moveFonts', 'images', 'html']);
+gulp.task('build', gulp.series(['output-env', 'clean-all', 'sass', 'scripts', 'moveFonts', 'images', 'html']));
