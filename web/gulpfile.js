@@ -65,7 +65,7 @@ gulp.task('sass', function () {
     .pipe(gulp.dest(APPPATH.css));
 });
 
-gulp.task('scripts', function () {
+gulp.task('scripts', function (done) {
   var prismJS = './node_modules/prismjs/prism.js';
   var prismYAML = './node_modules/prismjs/components/prism-yaml.js';
   var prismWS = './node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js';
@@ -75,6 +75,7 @@ gulp.task('scripts', function () {
     .pipe(browserify())
     .pipe(isProduction ? minify({noSource: true}) : noop())
     .pipe(gulp.dest(APPPATH.js));
+  done();
 });
 
 gulp.task('html', function () {
@@ -95,9 +96,10 @@ gulp.task('images', function () {
     .pipe(gulp.dest(APPPATH.img));
 });
 
-gulp.task('moveFonts', function () {
+gulp.task('moveFonts', function (done) {
   gulp.src(['./node_modules/bootstrap/dist/fonts/**', './node_modules/font-awesome/fonts/**'])
     .pipe(gulp.dest(APPPATH.fonts));
+  done();
 });
 
 gulp.task('serve', gulp.series(['sass', 'scripts'], function () {
@@ -109,7 +111,7 @@ gulp.task('serve', gulp.series(['sass', 'scripts'], function () {
   });
 }));
 
-gulp.task('output-env', function () {
+gulp.task('output-env', async function () {
   return isProduction ? log(c.red.bold.underline('Running PRODUCTION environment')) : log(c.green.bold.underline('Running DEVELOPMENT environment'));
 });
 
