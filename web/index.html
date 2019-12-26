@@ -188,6 +188,15 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">save_errors:</span> - Enable or disable the option to save any Git errors from a previous run of the script, defaults to FALSE (optional). If this is specified then there will be nothing printed to the terminal except for fatal errors. Equivalent to <span class="cmdline">--save-errors</span> on the command line. Once saved, errors can be displayed using the <span class="cmdline">--show-errors</span> command line option.</p>
+            <pre>
+              <code class="language-yaml">
+                save_errors: true
+              </code>
+            </pre>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-md-12">
             <p>Putting these together, below is an example <span class="filename">.updaterepo</span> file :</p>
             <pre>
               <code class="language-yaml">
@@ -203,6 +212,7 @@
                 color: false
                 verbose: true
                 verbose_errors: true
+                save_errors: true
                 brief: false
                 quiet: false
               </code>
@@ -227,6 +237,8 @@
                   -E, --verbose-errors       List all the error output from a failing command in the summary, not just the first line
                   -b, --brief                Do not print the header, footer or summary
                   -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
+                  -s, --save-errors          Save any Git error messages from the last run for future display
+                  -S, --show-errors          Show any Git error messages from the last run of the script
                   -v, --version              Print version and exit
                   -h, --help                 Show this message
               </code>
