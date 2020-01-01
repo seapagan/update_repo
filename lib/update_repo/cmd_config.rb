@@ -72,7 +72,7 @@ module UpdateRepo
       end
     end
 
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     # make sure the parameter combinations are valid, terminating otherwise.
     # @param [none]
     # @return [void]
@@ -82,7 +82,7 @@ module UpdateRepo
       Optimist.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
       Optimist.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
     end
-    # rubocop:enable  Metrics/LineLength
+    # rubocop:enable  Layout/LineLength
 
     private
 
@@ -101,7 +101,7 @@ module UpdateRepo
     # @param [none]
     # @return [void]
     # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/LineLength
+    # rubocop:disable Layout/LineLength
     # rubocop:disable Metrics/AbcSize
     def set_options
       Optimist.options do
@@ -138,7 +138,7 @@ module UpdateRepo
       end
     end
     # rubocop:enable Metrics/MethodLength
-    # rubocop:enable Metrics/LineLength
+    # rubocop:enable Layout/LineLength
     # rubocop:enable Metrics/AbcSize
   end
 end
