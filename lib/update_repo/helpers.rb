@@ -65,14 +65,19 @@ module Helpers
     end
   end
 
+  # check for a working internet connection, return true or false.
+
+  # @return [boolean] True if working Internet connection, False otherwise.
   def internet?
     require 'resolv'
     dns_resolver = Resolv::DNS.new
     begin
       dns_resolver.getaddress('icann.org')
-      return true
+      true
     rescue Resolv::ResolvError => _e
-      return false
+      print "\nThere appears to be no internet access on this computer, ".red,
+            "the script cannot continue.\n\n".red
+      false
     end
   end
 end

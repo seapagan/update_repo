@@ -24,14 +24,10 @@ module UpdateRepo
     # Class constructor. No parameters required.
     # @return [void]
     def initialize
-      # die if there is no internet connection...
-      unless internet?
-        print 'There appears to be no internet access on this computer, '.red,
-              "the script cannot continue.\n".red
-        exit 2
-      end
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
+      # die if there is no Internet connection with a return code of 2...
+      exit 2 unless internet?
       # set up the output and logging class
       @log = Logger.new(@cmd)
       # create instance of the Metrics class
