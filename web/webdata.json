@@ -118,6 +118,15 @@
       "default"    : "false"
     },
     {
+      "title"      : "No Internet connection check",
+      "text"       : "Does not check for a working Internet connection before running the Script.",
+      "equivalent" : "noinetchk",
+      "long-form"  : "--noinetchk",
+      "short-form" : "-n",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
       "title"      : "Version",
       "text"       : "Displays the current version number then terminates. All other options will be ignored.",
       "equivalent" : "",

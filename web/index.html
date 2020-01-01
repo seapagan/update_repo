@@ -197,6 +197,15 @@
           </div><!-- col -->
 
           <div class="col-lg-12 col-md-12">
+            <p><span class="yaml-tag">noinetchk:</span> - Enable or disable checking for a working Internet connection before running the script, defaults to FALSE (optional). Equivalent to <span class="cmdline">--noinetchk</span> on the command line.</p>
+            <pre>
+              <code class="language-yaml">
+                noinetchk: true
+              </code>
+            </pre>
+          </div><!-- col -->
+
+          <div class="col-lg-12 col-md-12">
             <p>Putting these together, below is an example <span class="filename">.updaterepo</span> file :</p>
             <pre>
               <code class="language-yaml">
@@ -239,6 +248,7 @@
                   -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
                   -s, --save-errors          Save any Git error messages from the last run for future display
                   -S, --show-errors          Show any Git error messages from the last run of the script
+                  -n, --noinetchk            Do not check for a working Internet connection before running the script
                   -v, --version              Print version and exit
                   -h, --help                 Show this message
               </code>
