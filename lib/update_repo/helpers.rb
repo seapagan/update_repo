@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'resolv'
+
 # Module 'Helpers' containing assorted helper functions required elsewhere
 module Helpers
   # will remove the FIRST 'how_many' root levels from a directory path 'dir'..
@@ -62,6 +64,23 @@ module Helpers
       "#{num} Warnings"
     else
       "#{num} #{item.capitalize}"
+    end
+  end
+
+  # check for a working internet connection, return true or false.
+
+  # @return [boolean] True if working Internet connection, False otherwise.
+  def internet?(cmd)
+    return true if cmd[:noinetchk]
+
+    dns_resolver = Resolv::DNS.new
+    begin
+      dns_resolver.getaddress('icann.org')
+      true
+    rescue Resolv::ResolvError => _e
+      print "\nThere appears to be no internet access on this computer, ".red,
+            "the script cannot continue.\n\n".red
+      false
     end
   end
 end

@@ -26,6 +26,8 @@ module UpdateRepo
     def initialize
       # create a new instance of the CmdConfig class then read the config var
       @cmd = CmdConfig.new
+      # die if there is no Internet connection with a return code of 2...
+      exit 2 unless internet?(@cmd)
       # set up the output and logging class
       @log = Logger.new(@cmd)
       # create instance of the Metrics class
@@ -59,7 +61,7 @@ module UpdateRepo
 
     def checkgit
       unless which('git')
-        print 'Git is not installed on this machine, script cannot '.red,
+        print 'Git is not installed on this machine, the script cannot '.red,
               "continue.\n".red
         exit 1
       end
