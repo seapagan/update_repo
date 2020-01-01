@@ -135,6 +135,7 @@ module UpdateRepo
         opt :quiet, 'Run completely silent, with no output to the terminal (except fatal errors)', default: false
         opt :save_errors, 'Save any Git error messages from the last run for future display', default: false, short: 's'
         opt :show_errors, 'Show any Git error messages from the last run of the script', default: false, short: 'S'
+        opt :noinetchk, 'Do not check for a working Internet connection before running the script', default: false, short: 'n'
       end
     end
     # rubocop:enable Metrics/MethodLength
