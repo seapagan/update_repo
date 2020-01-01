@@ -100,6 +100,24 @@
       "default"    : "false"
     },
     {
+      "title"      : "Save Errors",
+      "text"       : "Save any Git error messages from the last run for future display. These can be displayed using the Show Errors command below, which will display previous errors then exit without running another pass.",
+      "equivalent" : "save_errors",
+      "long-form"  : "--save-errors",
+      "short-form" : "-s",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Show Errors",
+      "text"       : "Prints any errors detected in the previous run then exits. This needs the 'Save Errors' option above to be enabled.",
+      "equivalent" : "",
+      "long-form"  : "--show-errors",
+      "short-form" : "-S",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
       "title"      : "Version",
       "text"       : "Displays the current version number then terminates. All other options will be ignored.",
       "equivalent" : "",

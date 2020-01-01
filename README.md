@@ -94,6 +94,11 @@ brief: true
 quiet: true
 ```
 
+`save_errors:` - Save any Git error messages from the last run for future display, defaults to FALSE (optional)
+```yaml
+save_errors: true
+```
+
 #### Command line switches
 Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories. Command line options will take preference over those specified in the configuration file. Again, see the [Website][website] for complete details and usage.
 
@@ -116,6 +121,8 @@ Options:
   -E, --verbose-errors       List all the error output from a failing command in the summary, not just the first line
   -b, --brief                Do not print the header, footer or summary
   -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
+  -s, --save-errors          Save any Git error messages from the last run for future display
+  -S, --show-errors          Show any Git error messages from the last run of the script
   -v, --version              Print version and exit
   -h, --help                 Show this message
 ```
@@ -136,6 +143,8 @@ Add functionality, not in any specific order :
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Add option to specify a completely different directory for the log file other than the 2 current options of home dir and local dir
 - Document configuration file format and options. `[IN PROGRESS]`
+- Add option to display the active config options, including those on command line and config file.
+- Add option to create the config file with options from existing config and command line
 
 Internal Changes and refactoring :
 - Add testing!

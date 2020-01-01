@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'update_repo'
 
 # Catch ctrl-c and abort gracefully without Ruby back trace...

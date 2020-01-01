@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Module 'Helpers' containing assorted helper functions required elsewhere
 module Helpers
   # will remove the FIRST 'how_many' root levels from a directory path 'dir'..

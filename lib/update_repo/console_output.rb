@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'update_repo/version'
 require 'update_repo/helpers'
 
@@ -70,6 +72,7 @@ module UpdateRepo
       end
       print_log ' |'
       list_failures unless @metrics[:failed_list].empty?
+      @metrics.save_errors(@cmd.getconfig) if @cmd[:save_errors]
     end
 
     # List any repositories that failed their update, and the error.
@@ -78,13 +81,15 @@ module UpdateRepo
     def list_failures
       # ensure we don't have duplicate errors from the same repo
       remove_dups
-      print_log "\n\n!! Note : The following #{@metrics[:failed_list].count}",
+      puts "\n" unless @cmd[:show_errors]
+      print_log "\n!! Note : The following #{@metrics[:failed_list].count}",
                 ' repositories ', 'FAILED'.red.underline, ' during this run :'
       # print out any and all errors into a nice list
       @metrics[:failed_list].each do |failed|
         print_log "\n  [", 'x'.red, "] #{failed[:loc]}"
         print_log "\n    -> ", failed[:line].chomp.red
       end
+      print_log " \n\n"
     end
 
     # removes any duplications in the list of failed repos.
@@ -122,6 +127,18 @@ module UpdateRepo
       return unless @cmd[:log]
 
       print_log "\nLogging to file:".underline, " #{@log.logfile}\n".cyan
+    end
+
+    # just print out errors from the last run, if any
+    # @return [void]
+    def show_last_errors
+      @metrics.load_errors(@cmd.getconfig)
+      if !@metrics[:failed_list].empty?
+        puts 'Showing ' + 'ERRORS'.red.underline + ' from last full run :'
+        list_failures
+      else
+        puts 'There are' + ' No Errors'.green + " from last full run.\n\n"
+      end
     end
   end
 end
