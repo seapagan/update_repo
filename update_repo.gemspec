@@ -23,31 +23,21 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'rake', '~> 12.3'
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'fakefs'
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'inch'
-  spec.add_development_dependency 'simplecov', '~> 0.12'
+  spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'pullreview-coverage'
   spec.add_development_dependency 'should_not'
   spec.add_development_dependency 'wwtd'
+  spec.add_development_dependency 'reek'
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop-performance'
 
-  # The below dependencies require at least Ruby 2 for the latest versions.
-  # Below this we fix to the last working versions to keep Ruby 1.9.3 compat or
-  # we ignore completely - Reek and Rubocop working in the latest versions is
-  # enough since the code base is common.
-  spec.add_development_dependency 'reek' if RUBY_VERSION >= '2.1'
-  spec.add_development_dependency 'rubocop' if RUBY_VERSION >= '2.0'
-  spec.add_development_dependency 'rubocop-performance' if RUBY_VERSION >= '2.0'
-
-  if RUBY_VERSION < '2.0'
-    spec.add_development_dependency 'json', '= 1.8.3'
-    spec.add_development_dependency 'tins', '= 1.6.0'
-    spec.add_dependency 'term-ansicolor', '= 1.3.2'
-  end
-
+  # prooduction dependencies
   spec.add_dependency 'colorize'
   spec.add_dependency 'confoog'
   spec.add_dependency 'optimist'
