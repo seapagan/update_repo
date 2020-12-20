@@ -46,14 +46,14 @@ module UpdateRepo
       checkgit
       # print out our header unless we are dumping / importing ...
       @cons.show_header unless dumping?
-      if !@cmd[:show_errors]
+      if @cmd[:show_errors]
+        @cons.show_last_errors
+      else
         config['location'].each do |loc|
           @cmd[:dump_tree] ? dump_tree(File.join(loc)) : recurse_dir(loc)
         end
         # print out an informative footer unless dump / import ...
         @cons.show_footer unless dumping?
-      else
-        @cons.show_last_errors
       end
     end
 
@@ -88,7 +88,6 @@ module UpdateRepo
     # a Git repository then update it (or as directed by command line)
     # @param dirname [string] Contains the directory to search for Git repos.]
     # @return [void]
-    # rubocop:disable LineLength
     def recurse_dir(dirname)
       walk_tree(dirname).each do |repo|
         if dumping?
@@ -98,7 +97,6 @@ module UpdateRepo
         end
       end
     end
-    # rubocop:enable LineLength
 
     # walk the specified tree, return an array of hashes holding valid repos
     # @param dirname [string] Directory to use as the base of the search
