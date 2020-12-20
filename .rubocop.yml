@@ -1,14 +1,15 @@
 require: rubocop-performance
 
 AllCops:
+  NewCops: enable
   DisplayCopNames: true
   DisplayStyleGuide: true
   ExtraDetails: true
   Exclude:
-    - 'web/node_modules/**/*'
-    - 'Vagrantfile'
-    - 'update_repo.gemspec'
-    - 'bin/**/*'
+    - "web/node_modules/**/*"
+    - "Vagrantfile"
+    - "update_repo.gemspec"
+    - "bin/**/*"
 
 Style/SymbolArray:
   Enabled: false

@@ -57,7 +57,7 @@ module UpdateRepo
     # @return [various] Returns the true value of the comamnd symbol
     # ignore the :reek:NilCheck for this function
     def true_cmd(command)
-      cmd_given = @conf['cmd'][(command.to_s + '_given').to_sym]
+      cmd_given = @conf['cmd']["#{command}_given".to_sym]
       cmd_line = @conf['cmd'][command.to_sym]
 
       if cmd_given
@@ -72,7 +72,6 @@ module UpdateRepo
       end
     end
 
-    # rubocop:disable Layout/LineLength
     # make sure the parameter combinations are valid, terminating otherwise.
     # @param [none]
     # @return [void]
@@ -82,7 +81,6 @@ module UpdateRepo
       Optimist.die 'You cannot use --dump AND --import'.red if true_cmd(:import)
       Optimist.die 'You cannot use --dump AND --dump-remote'.red if true_cmd(:dump_remote)
     end
-    # rubocop:enable  Layout/LineLength
 
     private
 

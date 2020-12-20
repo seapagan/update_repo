@@ -79,7 +79,7 @@ module UpdateRepo
                          unchanged: '^Already up-to-date.' }
 
       detect_strings.each do |status, regex|
-        @status[status] = true if line.chomp =~ /#{regex}/
+        @status[status] = true if /#{regex}/.match?(line.chomp)
       end
 
       print_line(line, @status)

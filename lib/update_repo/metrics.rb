@@ -42,7 +42,7 @@ module UpdateRepo
     def save_errors(config)
       # get the location of the config file, we'll use the same dir
       # and base name
-      path = config.config_path + '.errors'
+      path = "#{config.config_path}.errors"
       if @metrics[:failed_list].empty?
         # delete any existing  file if we have no errors
         File.delete(path) if File.exist?(path)
@@ -56,7 +56,7 @@ module UpdateRepo
     # @param config [instance] of Config class
     # @return [void]
     def load_errors(config)
-      path = config.config_path + '.errors'
+      path = "#{config.config_path}.errors"
       @metrics[:failed_list] = YAML.load_file(path) if File.exist?(path)
     end
   end

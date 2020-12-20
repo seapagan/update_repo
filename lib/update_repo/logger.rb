@@ -36,7 +36,7 @@ module UpdateRepo
     def generate_filename
       # add a timestamp if requested
       name = if @cmd[:timestamp]
-               'updaterepo-' + Time.new.strftime('%y%m%d-%H%M%S') + '.log'
+               "updaterepo-#{Time.new.strftime('%y%m%d-%H%M%S')}.log"
              else
                'updaterepo.log'
              end
@@ -54,14 +54,14 @@ module UpdateRepo
     # @return [void]
     def output(*string)
       # nothing to screen if we want to be --quiet
-      unless @cmd[:quiet]
+      if !@cmd[:quiet] && (@cmd[:verbose] || !repo_text?)
         # log header and footer to screen regardless
-        print(*string) if @cmd[:verbose] || !repo_text?
+        print(*string)
       end
       # log to file if that has been enabled
       return unless @cmd[:log]
 
-      @logfile.write(string.join('').gsub(/\e\[(\d+)(;\d+)*m/, ''))
+      @logfile.write(string.join.gsub(/\e\[(\d+)(;\d+)*m/, ''))
     end
 
     # function repostat - outputs a coloured char depending on the status hash,

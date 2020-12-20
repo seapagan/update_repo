@@ -14,3 +14,4 @@
 *.sublime*
 node_modules
 .vagrant
+.vscode

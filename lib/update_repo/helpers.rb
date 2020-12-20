@@ -23,7 +23,7 @@ module Helpers
   private
 
   def gitdir?(dirpath)
-    gitpath = dirpath + '/.git'
+    gitpath = "#{dirpath}/.git"
     File.exist?(gitpath) && File.directory?(gitpath)
   end
 
