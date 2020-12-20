@@ -9,7 +9,7 @@ require 'update_repo/version'
 Gem::Specification.new do |spec|
   spec.name          = 'update_repo'
   spec.version       = UpdateRepo::VERSION
-  spec.required_ruby_version = '>= 1.9.3'
+  spec.required_ruby_version = '>= 2.4.0'
   spec.authors       = ['Grant Ramsay']
   spec.email         = ['seapagan@gmail.com']
 
