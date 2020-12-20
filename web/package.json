@@ -47,6 +47,6 @@
     "merge-stream": "^2.0.0",
     "mustache": "^4.1.0",
     "popper.js": "^1.16.0",
-    "prismjs": "^1.22.0"
+    "prismjs": "^1.21.0"
   }
 }
