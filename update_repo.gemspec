@@ -36,6 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rake'
+  spec.add_development_dependency 'rubocop-rspec'
 
   # prooduction dependencies
   spec.add_dependency 'colorize'
