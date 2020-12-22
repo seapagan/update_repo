@@ -3,5 +3,5 @@
 require 'spec_helper'
 
 RSpec.describe UpdateRepo::CmdConfig do
-  subject { UpdateRepo::CmdConfig }
+  subject { described_class }
 end

@@ -12,7 +12,7 @@ AllCops:
   Exclude:
     - "web/node_modules/**/*"
     - "Vagrantfile"
-    - "update_repo.gemspec"
+    # - "update_repo.gemspec"
     - "bin/**/*"
 
 Style/SymbolArray:
@@ -22,3 +22,4 @@ Metrics/BlockLength:
   Enabled: true
   Exclude:
     - spec/**/*
+    - update_repo.gemspec
