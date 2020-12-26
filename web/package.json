@@ -11,6 +11,7 @@
   "devDependencies": {
     "autoprefixer": "^10.1.0",
     "css-loader": "^5.0.1",
+    "extra-watch-webpack-plugin": "^1.0.3",
     "html-webpack-partials-plugin": "^0.8.0",
     "html-webpack-plugin": "^4.5.0",
     "postcss-import": "^14.0.0",

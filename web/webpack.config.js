@@ -2,6 +2,7 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
+const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 
 const postCSSPlugins = [
   require("postcss-import"),
@@ -30,6 +31,9 @@ module.exports = {
   },
   mode: "development",
   plugins: [
+    new ExtraWatchWebpackPlugin({
+      files: ["./partials/*.html"],
+    }),
     new HtmlWebpackPlugin({
       title:
         "update_repo | Automate the update of multiple local Git repository clones",
