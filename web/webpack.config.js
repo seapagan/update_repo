@@ -2,6 +2,7 @@ const { clear } = require("console");
 const path = require("path");
 
 const postCSSPlugins = [
+  require("postcss-import"),
   require("postcss-simple-vars"),
   require("postcss-nested"),
   require("autoprefixer"),
@@ -24,7 +25,11 @@ module.exports = {
           "css-loader?url=false",
           {
             loader: "postcss-loader",
-            options: { postcssOptions: { plugins: postCSSPlugins } },
+            options: {
+              postcssOptions: {
+                plugins: postCSSPlugins,
+              },
+            },
           },
         ],
       },
