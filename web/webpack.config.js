@@ -10,6 +10,18 @@ const postCSSPlugins = [
   require("autoprefixer"),
 ];
 
+const partialsList = [
+  { path: path.join(__dirname, "./partials/_links.html"), location: "head" },
+  { path: path.join(__dirname, "partials/_navbar.html") },
+  { path: path.join(__dirname, "partials/_about.html") },
+  { path: path.join(__dirname, "partials/_installation.html") },
+  { path: path.join(__dirname, "partials/_usage.html") },
+  { path: path.join(__dirname, "partials/_configuration.html") },
+  { path: path.join(__dirname, "partials/_contribute.html") },
+  { path: path.join(__dirname, "partials/_license.html") },
+  { path: path.join(__dirname, "partials/_footer.html") },
+];
+
 module.exports = {
   entry: "./assets/scripts/Main.js",
   output: {
@@ -22,36 +34,7 @@ module.exports = {
       title:
         "update_repo | Automate the update of multiple local Git repository clones",
     }),
-    new HtmlWebpackPartialsPlugin([
-      {
-        path: path.join(__dirname, "./partials/_links.html"),
-        location: "head",
-      },
-      {
-        path: path.join(__dirname, "partials/_navbar.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_about.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_installation.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_usage.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_configuration.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_contribute.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_license.html"),
-      },
-      {
-        path: path.join(__dirname, "partials/_footer.html"),
-      },
-    ]),
+    new HtmlWebpackPartialsPlugin(partialsList),
   ],
   watch: true,
   module: {
