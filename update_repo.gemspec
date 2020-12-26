@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'coveralls'
+  # spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'fakefs'
   spec.add_development_dependency 'inch'
   spec.add_development_dependency 'pry'
@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'should_not'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'wwtd'
+  spec.add_development_dependency 'solargraph'
 
   # prooduction dependencies
   spec.add_dependency 'colorize'

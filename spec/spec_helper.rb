@@ -4,7 +4,7 @@ $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'should_not/rspec'
 require 'simplecov'
 require 'pullreview/coverage'
-require 'coveralls'
+# require 'coveralls'
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,

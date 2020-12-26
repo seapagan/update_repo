@@ -23,7 +23,7 @@ RSpec.describe UpdateRepo::Metrics, '- Class to store & return run metrics' do
     end
   end
 
-  context 'in use' do
+  context 'when class used' do
     let(:metrics) { subject.new }
 
     it 'correctly sets and reads the numeric metric variables' do
