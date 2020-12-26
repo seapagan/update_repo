@@ -35,8 +35,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'should_not'
   spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'wwtd'
   spec.add_development_dependency 'solargraph'
+  spec.add_development_dependency 'wwtd'
 
   # prooduction dependencies
   spec.add_dependency 'colorize'

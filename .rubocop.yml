@@ -1,8 +1,7 @@
-require: 
+require:
   - rubocop-performance
   - rubocop-rake
   - rubocop-rspec
-
 
 AllCops:
   NewCops: enable
@@ -11,6 +10,7 @@ AllCops:
   ExtraDetails: true
   Exclude:
     - "web/node_modules/**/*"
+    - "web-old/node_modules/**/*"
     - "Vagrantfile"
     # - "update_repo.gemspec"
     - "bin/**/*"
