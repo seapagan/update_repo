@@ -10,7 +10,7 @@ A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 This is the conversion to a Gem of one of my standalone Ruby scripts. Still a work in progress but the required base functionality is there.
 The script will simply run `git pull` on every local clone of a git repository that it finds under the specified directory or directories.
 
-__Note:__ From version 0.9.0 onwards, the default mode of operation is non-verbose. If you wish the same output as previous versions then specify `--verbose` on the command line or `verbose: true` in the configuration file.
+**Note:** From version 0.9.0 onwards, the default mode of operation is non-verbose. If you wish the same output as previous versions then specify `--verbose` on the command line or `verbose: true` in the configuration file.
 
 ## Installation
 
@@ -27,82 +27,100 @@ $ gem install update_repo
 ## Usage
 
 #### Quick start
+
 Create a [YAML][yaml]-formatted configuration file `.updaterepo` **in your home directory** that contains at least a 'location' tag pointing to the directory containing the git repositories you wish to have updated :
+
 ```yaml
 ---
 location:
-- /media/myuser/git-repos
-- /data/RepoDir
+  - /media/myuser/git-repos
+  - /data/RepoDir
 ```
+
 This is the most basic example of a configuration file and there are other options that can be added to fine-tune the operation - see the description of configuration options below and the [Website][website] for more information.
 
 This file should be located in the users home directory (`~/.updaterepo`).
 
 Run the script :
+
 ```
 $ update_repo
 ```
 
 ## Configuration
+
 The below is a summary of the most common configuration options, see the [Website][website] for complete details and usage.
+
 #### Configuration file
+
 The configuration file defaults to `~/.updaterepo` and is a standard [YAML][yaml]-formatted text file. If this configuration file is not found, the script will terminate with an error.
 The first line must contain the YAML frontmatter of 3 dashes (`---`). After that, the following sections can follow in any order. Only the `location:` section is compulsory, and that must contain at least one entry.
 
 `location:` - at least one directory which contains the locally cloned repository(s) to update. There is no limit on how many directories can be listed :
+
 ```yaml
 ---
 location:
-- /media/myuser/git-repos
-- /data/RepoDir
+  - /media/myuser/git-repos
+  - /data/RepoDir
 ```
 
-`exceptions:` - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the __directory__ holding the repository (has the `.git` directory inside)
+`exceptions:` - an (optional) list of repositories that will NOT be updated automatically. Use this for repositories that need special handling, or should only be manually updated. Note that the name specified is that of the **directory** holding the repository (has the `.git` directory inside)
+
 ```yaml
 exceptions:
-- ubuntu-trusty
-- update_repo
+  - ubuntu-trusty
+  - update_repo
 ```
 
 `log:` - Log all output to the file `./.updaterepo`, defaults to FALSE (optional)
+
 ```yaml
 log: true
 ```
 
 `timestamp:` - timestamp the output files instead of overwriting them, defaults to FALSE (optional)
+
 ```yaml
 timestamp: true
 ```
 
 `verbose:` - display the output of the git command for each repo, defaults to FALSE (optional)
+
 ```yaml
 verbose: true
 ```
 
 `verbose_errors:` - List all the error output from a failing command in the summary, not just the first line, defaults to FALSE (optional)
+
 ```yaml
 verbose_errors: true
 ```
 
 `brief:` - Do not print the header, footer or summary, defaults to FALSE (optional)
+
 ```yaml
 brief: true
 ```
 
 `quiet:` - no output at all, not even the header and footer, defaults to FALSE (optional)
+
 ```yaml
 quiet: true
 ```
 
 `save_errors:` - Save any Git error messages from the last run for future display, defaults to FALSE (optional)
+
 ```yaml
 save_errors: true
 ```
 
 #### Command line switches
+
 Options are not required. If none are specified then the program will read from the standard configuration file (~/.updaterepo) and automatically update the specified Repositories. Command line options will take preference over those specified in the configuration file. Again, see the [Website][website] for complete details and usage.
 
 Enter `update_repo --help` at the command prompt to get a list of available options :
+
 ```
 Options:
   -c, --color, --no-color    Use colored output (default: true)
@@ -128,6 +146,7 @@ Options:
 ```
 
 ## To-Do
+
 Add functionality, not in any specific order :
 
 - Either add an option 'variants' or similar to allow non-standard git pull commands (eg Ubuntu kernel), or update the 'exceptions' option to do same.
@@ -138,20 +157,22 @@ Add functionality, not in any specific order :
 - Add option to only display a (text) tree of the discovered git repositories, not updating them.
 - Add ability to specify the colors used for each repository result (failure, warning, skipped, updated, default etc). This should only be done from the configuration file. The default settings will probably look pretty bad on a white background for example. Specify from the safe defined list used by the `colorize` gem.
 - Add Import & Export functionality :
-  * ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
-  * re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
+  - ability to export a text dump of each repo location and remote as a CSV file. `[DONE]`
+  - re-import the above dump on a different machine or after reinstall. Modify the '--prune' command to apply to this function also, removing the required number of directory levels before importing.
 - Add option to use alternative git command if required, either globally or on a case-by-case basis (see also comments on 'variants' above). Currently the script just uses a blanket `git pull` command on all repositories.
 - Add option to specify a completely different directory for the log file other than the 2 current options of home dir and local dir
 - Document configuration file format and options. `[IN PROGRESS]`
 - Add option to display the active config options, including those on command line and config file.
 - Add option to create the config file with options from existing config and command line
+- [WEB] Migrate to using Webpack instead of Gulp
 
 Internal Changes and refactoring :
+
 - Add testing!
 - Error checking and reporting for the git processes `[IN PROGRESS]`
 - Improve error-checking and recovery while parsing the configuration file
-  * Ignore and report invalid or missing directories
-  * Add more failure cases, there may be more git errors than "fatal:" or "error:"
+  - Ignore and report invalid or missing directories
+  - Add more failure cases, there may be more git errors than "fatal:" or "error:"
 - Retry for connection issues etc (config setting).
 - Fail gracefully with warning and useful information if there are no `location:` entries or that tag is missing completely
 
@@ -185,6 +206,7 @@ To ease the setup of a consistent development environment under both Linux and W
 #### Setting up Vagrant and VirtalBox
 
 The easiest VM to use for both Windows, Linux and Mac is [VirtualBox][virtualbox] which is Free and Open Source.
+
 - Download and install Vagrant from their download pages [here][vagrantdl]. Follow the installation instructions depending on your operating system.
 - Download and install VirtualBox from their download pages [here][virtualboxdl]. Follow the installation instructions depending on your operating system.
 - Open a terminal (or Command Prompt in Windows) in the root directory of your checked-out copy of this project, the one containing the [Vagrantfile](Vagrantfile).
@@ -196,7 +218,7 @@ The easiest VM to use for both Windows, Linux and Mac is [VirtualBox][virtualbox
 
 #### Special comments for Windows users
 
-There is no default ssh client installed in any version of windows, so `vagrant ssh` will fail, giving you the settings required to use a third-party ssh client (for example my preferred windows SSH client is [MobaXterm][mobaxterm]). If you prefer that `vagrant ssh` actually works from the command line, it is possible to install the ssh command line programs if you also install the [Git for Windows][git4windows] software. Install this, ensuring that you choose the option 'Use Git and optional Unix tools from the Windows Command Prompt'. After this, the ssh executable will be available from any windows Command Shell and so `vagrant ssh` will work as expected. *Please note the warning given by the installer related to this option though!*
+There is no default ssh client installed in any version of windows, so `vagrant ssh` will fail, giving you the settings required to use a third-party ssh client (for example my preferred windows SSH client is [MobaXterm][mobaxterm]). If you prefer that `vagrant ssh` actually works from the command line, it is possible to install the ssh command line programs if you also install the [Git for Windows][git4windows] software. Install this, ensuring that you choose the option 'Use Git and optional Unix tools from the Windows Command Prompt'. After this, the ssh executable will be available from any windows Command Shell and so `vagrant ssh` will work as expected. _Please note the warning given by the installer related to this option though!_
 
 ## Contributing
 
@@ -228,7 +250,7 @@ The gem is available as open source under the terms of the [MIT License][mit].
 [website]: http://updaterepo.seapagan.net
 [git]: http://git-scm.com
 [ruby]: http://www.ruby-lang.org
-[yaml]:  http://yaml.org
+[yaml]: http://yaml.org
 [rubocop]: https://github.com/bbatsov/rubocop
 [reek]: https://github.com/troessner/reek
 [inch]: https://inch-ci.org
@@ -243,4 +265,3 @@ The gem is available as open source under the terms of the [MIT License][mit].
 [node]: http://nodejs.org
 [mobaxterm]: http://mobaxterm.mobatek.net/
 [git4windows]: https://git-scm.com/download/win
-
