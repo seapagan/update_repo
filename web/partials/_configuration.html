@@ -1,0 +1,335 @@
+<!-- CONFIGURATION -->
+<section class="configuration" id="configuration">
+  <div class="container">
+    <div class="row row-header">
+      <div class="col-lg-12 col-md-12">
+        <h1><span class="fas fa-cog"></span> Configuration</h1>
+      </div>
+    </div>
+    <!-- row -->
+    <div class="row row-body">
+      <div class="col-lg-12 col-md-12">
+        <h2>Configuration file</h2>
+        <p>
+          The configuration file defaults to
+          <span class="filename">~/.updaterepo</span> and is a standard
+          <a href="http://yaml.org/" class="icon fa-external-link">YAML</a>
+          formatted text file. If this configuration file is not found, the
+          script will terminate with an error.
+        </p>
+        <p>
+          The first line <b>must</b> contain only the YAML frontmatter of 3
+          dashes (<span class="yaml-tag">---</span>). After that, the following
+          sections can follow in any order. Only the
+          <span class="yaml-tag">location:</span> section is compulsory, and
+          that must contain at least one entry.
+        </p>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">location:</span> - at least one directory which
+          contains the locally cloned repository(s) to update. There is no limit
+          on how many directories can be listed :
+        </p>
+        <pre>
+            <code class="language-yaml">
+              ---
+              location:
+              - /media/myuser/git-repos
+              - /data/RepoDir
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">exceptions:</span> - an (optional) list of
+          repositories that will NOT be updated automatically. Use this for
+          repositories that need special handling, or should only be manually
+          updated. Note that the name specified is that of the
+          <b>directory</b> holding the repository (has the
+          <span class="filename">.git</span> directory inside) :
+        </p>
+        <pre>
+            <code class="language-yaml">
+              exceptions:
+              - ubuntu-trusty
+              - update_repo
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">log:</span> - Log all output to the file
+          <span class="filename">updaterepo.log</span> in the user's Home
+          directory, defaults to <b>FALSE</b> (optional). This file would be
+          overwritten on next run unless you also specify the
+          <span class="yaml-tag">timestamp:</span> option. Equivalent to
+          <span class="cmdline">--log</span> and
+          <span class="cmdline">--no-log</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              log: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">log_local:</span> - Store the logfile (if this
+          is enabled) in the current working directory instead of the Users'
+          Home directory. Defaults to <b>FALSE</b> (optional). Equivalent to
+          <span class="cmdline">--log-local</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              log_local: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">timestamp:</span> - timestamp the output files
+          instead of overwriting them, defaults to FALSE (optional). Equivalent
+          to <span class="cmdline">--timestamp</span> and
+          <span class="cmdline">--no-timestamp</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              timestamp: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">color:</span> - Enable or disable coloured
+          output, defaults to TRUE (optional). Equivalent to
+          <span class="cmdline">--color</span> and
+          <span class="cmdline">--no-color</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              color: false
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">verbose:</span> - Enable or disable Verbose
+          mode, defaults to FALSE (optional). In this mode all the output of the
+          git processes will be displayed to screen as will the local location
+          and remote URL. Equivalent to
+          <span class="cmdline">--verbose</span> and
+          <span class="cmdline">--no-verbose</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              verbose: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">verbose_errors:</span> - Enable or disable
+          Verbose error reporting in the summary, defaults to FALSE (optional).
+          If this is set to TRUE, the end-of-job summary will list all the error
+          output lines from any failing Git processes, not just the first line.
+          Equivalent to <span class="cmdline">--verbose-errors</span> and
+          <span class="cmdline">--no-verbose-errors</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              verbose_errors: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">brief:</span> - Do not print the header, footer
+          or summary, defaults to FALSE (optional). If this is set to TRUE,
+          there will be no extra output except that from each git operation or
+          the non-verbose legend. Equivalent to
+          <span class="cmdline">--brief</span> and
+          <span class="cmdline">--no-brief</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              brief: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">quiet:</span> - Enable or disable Quiet mode,
+          defaults to FALSE (optional). If this is specified then there will be
+          nothing printed to the terminal except for fatal errors. Overrules the
+          <span class="cmdline">--verbose</span> mode if also specified.
+          Equivalent to <span class="cmdline">--quiet</span> and
+          <span class="cmdline">--no-quiet</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              quiet: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">save_errors:</span> - Enable or disable the
+          option to save any Git errors from a previous run of the script,
+          defaults to FALSE (optional). If this is specified then there will be
+          nothing printed to the terminal except for fatal errors. Equivalent to
+          <span class="cmdline">--save-errors</span> on the command line. Once
+          saved, errors can be displayed using the
+          <span class="cmdline">--show-errors</span> command line option.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              save_errors: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          <span class="yaml-tag">noinetchk:</span> - Enable or disable checking
+          for a working Internet connection before running the script, defaults
+          to FALSE (optional). Equivalent to
+          <span class="cmdline">--noinetchk</span> on the command line.
+        </p>
+        <pre>
+            <code class="language-yaml">
+              noinetchk: true
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <p>
+          Putting these together, below is an example
+          <span class="filename">.updaterepo</span> file :
+        </p>
+        <pre>
+            <code class="language-yaml">
+              ---
+              location:
+              - /media/myuser/git-repos
+              - /data/RepoDir
+              exceptions:
+              - ubuntu-trusty
+              - update_repo
+              log: true
+              timestamp: true
+              color: false
+              verbose: true
+              verbose_errors: true
+              save_errors: true
+              brief: false
+              quiet: false
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      <div class="col-lg-12 col-md-12">
+        <h2>Command line switches</h2>
+        <p>
+          Command line switches are not compulsory. If none are specified then
+          the program will read from the standard configuration file
+          <span class="filename">~/.updaterepo</span> and automatically update
+          the specified Repositories. However, if specified then they will take
+          precedence over options from the configuration file.
+        </p>
+        <p>
+          Enter <code class="language-markup">update_repo --help</code> at the
+          command prompt to get a list of available options :
+        </p>
+        <pre>
+            <code class="language-markup">
+              Options:
+                -c, --color, --no-color    Use colored output (default: true)
+                -d, --dump                 Dump a list of Directories and Git URL's to STDOUT in CSV format
+                -p, --prune=&lt;i&gt;            Number of directory levels to remove from the --dump output. Only valid when --dump or -d specified (Default: 0)
+                -l, --log                  Create a logfile of all program output to './update_repo.log'. Any older logs will be overwritten
+                -t, --timestamp            Timestamp the logfile instead of overwriting. Does nothing unless the --log option is also specified
+                -g, --log-local            Create the logfile in the current directory instead of in the users home directory
+                -r, --dump-remote          Create a dump to screen or log listing all the git remote URLS found in the specified directories
+                -V, --verbose              Display each repository and the git output to screen
+                -E, --verbose-errors       List all the error output from a failing command in the summary, not just the first line
+                -b, --brief                Do not print the header, footer or summary
+                -q, --quiet                Run completely silent, with no output to the terminal (except fatal errors)
+                -s, --save-errors          Save any Git error messages from the last run for future display
+                -S, --show-errors          Show any Git error messages from the last run of the script
+                -n, --noinetchk            Do not check for a working Internet connection before running the script
+                -v, --version              Print version and exit
+                -h, --help                 Show this message
+            </code>
+          </pre>
+      </div>
+      <!-- col -->
+
+      {{#switches}}
+      <div class="col-lg-12 col-md-12">
+        <div class="cmd-header row-header">
+          <p>{{title}}</p>
+        </div>
+        <div class="cmd-body row-body">
+          <p class="cmd-text">{{text}}</p>
+          <p class="cmd-text">
+            {{#equivalent}}Equivalent to the
+            <span class="yaml-tag">{{equivalent}}</span> YAML configuration file
+            tag.{{/equivalent}}{{^equivalent}}No equivalent in the YAML
+            Configuration file.{{/equivalent}}
+          </p>
+          <ul class="opt-list">
+            <li class="cmd-opt">
+              <span class="desc">Long-Form</span> :
+              <span class="cmdline">{{long-form}}</span>
+            </li>
+            <li class="cmd-opt">
+              <span class="desc">Short-Form</span> :
+              <span class="cmdline">{{short-form}}</span>
+            </li>
+            <li class="cmd-opt">
+              <span class="desc">Negative-Form</span> :
+              <span class="cmdline"
+                >{{negative}}{{^negative}}None.{{/negative}}</span
+              >
+            </li>
+            <li class="cmd-opt">
+              <span class="desc">Default</span> :
+              <span class="cmdline">{{default}}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      {{/switches}}
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+</section>
+<!-- CONFIGURATION END -->
