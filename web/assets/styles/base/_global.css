@@ -2,6 +2,10 @@
 body {
 }
 
+.ui.container.section {
+  padding-bottom: $sectionPadding;
+}
+
 .ui.segment.section-hdr {
   background-color: $headerBlue;
   color: black;
