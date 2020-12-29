@@ -1,5 +1,16 @@
 /* This will contain Global directives */
 body {
+  background-color: $body-background-color;
+  font-size: 14px;
+}
+
+h1 {
+  color: $headline-color;
+  font-family: $headline-font;
+  font-size: 2em;
+  margin: 10px;
+  text-align: center;
+  text-shadow: $text-shadow-color 2px 1px 3px;
 }
 
 .ui.container.section {
@@ -7,8 +18,17 @@ body {
 }
 
 .ui.segment.section-hdr {
-  background-color: $headerBlue;
+  background-color: $section-header-color;
   color: black;
+  border-bottom: 1px solid #000;
+}
+
+.ui.segment.section-body {
+  background-color: $section-body-color;
+}
+
+.travis-logo {
+  text-align: center;
 }
 
 .filename {

@@ -1,4 +1,11 @@
 /* Put all color variable definitions here */
+
+$body-background-color: #808080;
+
+$headline-color: #54542c;
+$section-header-color: #d7d7c1;
+$section-body-color: #ebebe0;
+
 $headerBlue: #f1f8ff;
 
 $filename-hilight-color: #444;
