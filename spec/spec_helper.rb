@@ -8,7 +8,7 @@ require 'pullreview/coverage'
 
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  Coveralls::SimpleCov::Formatter,
+  # Coveralls::SimpleCov::Formatter,
   PullReview::Coverage::Formatter
 ]
 SimpleCov.start

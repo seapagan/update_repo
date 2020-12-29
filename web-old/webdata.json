@@ -1,0 +1,148 @@
+{
+  "switches": [
+    {
+      "title"      : "Color",
+      "text"       : "Determines if the output will be displayed in color or not. Default is TRUE. Note that regardless of this setting, when one of the '--dump-*' options is specified output will not be in color. No color codes will be saved to the logfile either.",
+      "equivalent" : "color:",
+      "long-form"  : "--color",
+      "short-form" : "-c",
+      "negative"   : "--no-color",
+      "default"    : "true"
+    },
+    {
+      "title"      : "Dump",
+      "text"       : "Dumps a CSV file of each directory and its associated git remote URL to the console, and to the logfile if that is enabled.",
+      "equivalent" : "",
+      "long-form"  : "--dump",
+      "short-form" : "-d",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Prune",
+      "text"       : "Used in conjunction with the --dump option to remove the first <integer> directory levels from the output. This will enable it to be imported back into a different directory structure.",
+      "equivalent" : "prune:",
+      "long-form"  : "--prune",
+      "short-form" : "-p",
+      "negative"   : "",
+      "default"    : "0"
+    },
+    {
+      "title"      : "Log",
+      "text"       : "Copies all script output to a logfile as well as STDOUT. The default logfile name is 'updaterepo.log' in the current users home directory. The previous log will be overwritten, but see the next option.",
+      "equivalent" : "log:",
+      "long-form"  : "--log",
+      "short-form" : "-l",
+      "negative"   : "--no-log",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Timestamp",
+      "text"       : "Used in conjunction with the --log option to rename the logfile with an added timestamp, thus not overwriting older logs",
+      "equivalent" : "timestamp:",
+      "long-form"  : "--timestamp",
+      "short-form" : "-t",
+      "negative"   : "--no-timestamp",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Log Local",
+      "text"       : "Store the logfile (if this is enabled) in the current working directory instead of the Users' Home directory",
+      "equivalent" : "log_local:",
+      "long-form"  : "--log-local",
+      "short-form" : "-g",
+      "negative"   : "--no-log-local",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Verbose",
+      "text"       : "Display all raw Git output plus repository URL and location instead of the reduced output in the default mode. Note that the short-form command is the UPERCASE 'V' not lower!",
+      "equivalent" : "verbose:",
+      "long-form"  : "--verbose",
+      "short-form" : "-V",
+      "negative"   : "--no-verbose",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Verbose Errors",
+      "text"       : "List all the error output from a failing command in the summary, not just the first line",
+      "equivalent" : "verbose_errors:",
+      "long-form"  : "--verbose-errors",
+      "short-form" : "-E",
+      "negative"   : "--no-verbose-errors",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Brief Output",
+      "text"       : "Do not print the Header, Footer or Summary.",
+      "equivalent" : "brief:",
+      "long-form"  : "--brief",
+      "short-form" : "-b",
+      "negative"   : "--no-brief",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Quiet",
+      "text"       : "No output will be displayed to screen during the running of script, except for any fatal errors.",
+      "equivalent" : "quiet:",
+      "long-form"  : "--quiet",
+      "short-form" : "-q",
+      "negative"   : "--no-quiet",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Dump Remotes",
+      "text"       : "Dumps a bare list to the console of all the Git remote URL's found in the specified directories. This can be saved by redirecting to file or using the --log option.",
+      "equivalent" : "",
+      "long-form"  : "--dump-remotes",
+      "short-form" : "-r",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Save Errors",
+      "text"       : "Save any Git error messages from the last run for future display. These can be displayed using the Show Errors command below, which will display previous errors then exit without running another pass.",
+      "equivalent" : "save_errors",
+      "long-form"  : "--save-errors",
+      "short-form" : "-s",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Show Errors",
+      "text"       : "Prints any errors detected in the previous run then exits. This needs the 'Save Errors' option above to be enabled.",
+      "equivalent" : "",
+      "long-form"  : "--show-errors",
+      "short-form" : "-S",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "No Internet connection check",
+      "text"       : "Does not check for a working Internet connection before running the Script.",
+      "equivalent" : "noinetchk",
+      "long-form"  : "--noinetchk",
+      "short-form" : "-n",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Version",
+      "text"       : "Displays the current version number then terminates. All other options will be ignored.",
+      "equivalent" : "",
+      "long-form"  : "--version",
+      "short-form" : "-v",
+      "negative"   : "",
+      "default"    : "false"
+    },
+    {
+      "title"      : "Help",
+      "text"       : "Displays a brief help text listing syntax and availiable switches then terminates. All other options will be ignored.",
+      "equivalent" : "",
+      "long-form"  : "--help",
+      "short-form" : "-h",
+      "negative"   : "",
+      "default"    : "false"
+    }
+  ]
+}
