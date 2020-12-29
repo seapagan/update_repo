@@ -2,6 +2,7 @@
 body {
   background-color: $body-background-color;
   font-size: 14px;
+  font-family: $body-font;
 }
 
 h1 {
@@ -29,6 +30,11 @@ h1 {
 
 .travis-logo {
   text-align: center;
+}
+
+.footer-text {
+  text-align: right;
+  font-style: italic;
 }
 
 .filename {
