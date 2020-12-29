@@ -10,3 +10,31 @@ body {
   background-color: $headerBlue;
   color: black;
 }
+
+.filename {
+  @mixin hilight-box #444;
+}
+
+.yaml-tag {
+  @mixin hilight-box #07a;
+}
+
+.cmdline {
+  @mixin hilight-box $cmdline-hilight-color;
+}
+
+.console-output {
+  @mixin hilight-box $console-hilight-color;
+}
+
+.important-note {
+  @mixin hilight-box $important-hilight-color;
+  font-size: 1.2em;
+  padding: 5px;
+  text-align: justify;
+  text-shadow: $text-shadow-color 2px 1px 3px;
+}
+
+.version {
+  @mixin hilight-box $filename-hilight-color;
+}

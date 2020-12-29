@@ -1,1 +1,11 @@
-/* This will contain and Mixins */
+/* This will contain any Mixins */
+
+/* hilighted box around content */
+@define-mixin hilight-box $color {
+  font-weight: bold;
+  border: thin solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f2f0;
+  color: $color;
+  padding: 0 0.3em;
+}

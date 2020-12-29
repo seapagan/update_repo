@@ -1,2 +1,10 @@
 /* Put all color variable definitions here */
 $headerBlue: #f1f8ff;
+
+$filename-hilight-color: #444;
+$console-hilight-color: #444;
+$yaml-hilight-color: #07a;
+$cmdline-hilight-color: #f33;
+$important-hilight-color: #f33;
+
+$text-shadow-color: #aaa;

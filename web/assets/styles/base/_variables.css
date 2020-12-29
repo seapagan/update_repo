@@ -1,1 +1,4 @@
 /* This will contain PostCSS variables */
+
+/* padding between sections... */
+$sectionPadding: 10px;
