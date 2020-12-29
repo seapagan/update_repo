@@ -1,0 +1,19 @@
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  Exclude:
+    - "web/node_modules/**/*"
+    - "web-old/node_modules/**/*"
+    - "Vagrantfile"
+    # - "update_repo.gemspec"
+    - "bin/**/*"
+
+Style/SymbolArray:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+    - update_repo.gemspec

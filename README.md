@@ -1,7 +1,8 @@
 # update_repo [![Gem Version](https://badge.fury.io/rb/update_repo.svg)](https://badge.fury.io/rb/update_repo) [![Build Status](https://travis-ci.org/seapagan/update_repo.svg?branch=master)](https://travis-ci.org/seapagan/update_repo)
 
 [![Coverage Status](https://coveralls.io/repos/seapagan/update_repo/badge.svg?branch=master&service=github)](https://coveralls.io/github/seapagan/update_repo?branch=master)
-[![Code Climate](https://codeclimate.com/github/seapagan/update_repo/badges/gpa.svg)](https://codeclimate.com/github/seapagan/update_repo)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/maintainability)](https://codeclimate.com/github/seapagan/update_repo/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/test_coverage)](https://codeclimate.com/github/seapagan/update_repo/test_coverage)
 [![Inline docs](http://inch-ci.org/github/seapagan/update_repo.svg?branch=master)](http://inch-ci.org/github/seapagan/update_repo)
 [![PullReview stats](https://www.pullreview.com/github/seapagan/update_repo/badges/master.svg?)](https://www.pullreview.com/github/seapagan/update_repo/reviews/master)
 
