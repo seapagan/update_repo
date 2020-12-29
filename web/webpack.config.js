@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
@@ -25,6 +26,12 @@ const partialsList = [
 ];
 
 module.exports = {
+  resolve: {
+    alias: {
+      // use the raw jquery instead of the precompiled minimised
+      jquery: "jquery/src/jquery",
+    },
+  },
   entry: "./assets/scripts/Main.js",
   output: {
     filename: "bundled.js",
@@ -37,6 +44,10 @@ module.exports = {
   },
   mode: "development",
   plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    }),
     new ExtraWatchWebpackPlugin({
       files: ["./partials/*.html"],
     }),
