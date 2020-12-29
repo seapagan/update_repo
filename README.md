@@ -194,7 +194,7 @@ The source for the Gem’s website is also included in this repository. In fact,
 - [/web/](web/) folder - this is the SOURCE of the website, and all modifications should be performed here.
 - [/docs/](docs/) folder - this is the GENERATED OUTPUT for the website, and this folder is served up directly and live to the web using GitHub Pages. Do not make any modifications to the files in this folder directly, your changes will be overwritten when the website is generated. Alway make changes in the `/web/` folder.
 
-There are also a few support files to configure Node and Gulp which are used for the build process.
+There are also a few support files to configure Node and Webpack which are used for the build process.
 
 For full details on how to update the website properly, please see the [WEBSITE.md](WEBSITE.md) file in the root of this repository.
 
