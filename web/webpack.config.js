@@ -2,6 +2,7 @@ const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
+const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 
 const postCSSPlugins = [
@@ -29,6 +30,11 @@ module.exports = {
     filename: "bundled.js",
     path: path.resolve(__dirname, "../docs"),
   },
+  devServer: {
+    static: [path.resolve(__dirname, "../docs")],
+    hot: true,
+    port: 3000,
+  },
   mode: "development",
   plugins: [
     new ExtraWatchWebpackPlugin({
@@ -37,10 +43,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       title:
         "update_repo | Automate the update of multiple local Git repository clones",
+      alwaysWriteToDisk: true,
     }),
     new HtmlWebpackPartialsPlugin(partialsList),
+    new HtmlWebpackHarddiskPlugin(),
   ],
-  watch: true,
   module: {
     rules: [
       {
