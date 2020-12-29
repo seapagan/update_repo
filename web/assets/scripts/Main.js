@@ -5,6 +5,12 @@ if (module.hot) {
   module.hot.accept();
 }
 
+import Prism from "prismjs";
+import "prismjs/components/prism-yaml.js";
+import "prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js";
+
+Prism.highlightAll();
+
 // return the version number of the latest released Gem
 function getgemver() {
   // URL to the API...
@@ -14,5 +20,5 @@ function getgemver() {
   });
 }
 
-// call the function to get the latest our published gem version
+// call the function to get the our latest published gem version
 getgemver();

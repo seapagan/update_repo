@@ -1,4 +1,5 @@
 @import "fomantic-ui-css/semantic.min.css";
+@import "prismjs/themes/prism.css";
 @import "base/_variables";
 @import "base/_colors";
 @import "base/_mixins";
