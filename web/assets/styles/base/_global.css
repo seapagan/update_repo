@@ -18,6 +18,11 @@ h1 {
   padding-bottom: $sectionPadding;
 }
 
+.ui.container.section-top {
+  padding-bottom: $sectionPadding;
+  padding-top: 40px;
+}
+
 .ui.segment.section-hdr {
   background-color: $section-header-color;
   color: black;
