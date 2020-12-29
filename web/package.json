@@ -4,6 +4,7 @@
   "description": "Web generating code for update_repo website",
   "scripts": {
     "dev": "webpack serve",
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "seapagan@gmail.com",
