@@ -4,7 +4,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/maintainability)](https://codeclimate.com/github/seapagan/update_repo/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/test_coverage)](https://codeclimate.com/github/seapagan/update_repo/test_coverage)
 [![Inline docs](http://inch-ci.org/github/seapagan/update_repo.svg?branch=master)](http://inch-ci.org/github/seapagan/update_repo)
-[![PullReview stats](https://www.pullreview.com/github/seapagan/update_repo/badges/master.svg?)](https://www.pullreview.com/github/seapagan/update_repo/reviews/master)
 
 A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 
