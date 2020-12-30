@@ -1,7 +1,6 @@
 // this will be the main Javascript file
 const path = require("path");
 
-// import "/home/seapagan/work/update_repo/web/assets/styles/styles.css";
 import "../styles/styles.css";
 
 if (module.hot) {
