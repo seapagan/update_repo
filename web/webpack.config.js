@@ -1,3 +1,4 @@
+const currentTask = process.env.npm_lifecycle_event;
 const path = require("path");
 const webpack = require("webpack");
 
@@ -26,7 +27,7 @@ const partialsList = [
   { path: path.join(__dirname, "partials/_footer.html") },
 ];
 
-module.exports = {
+let config = {
   resolve: {
     alias: {
       // use the raw jquery instead of the precompiled minimised
@@ -38,12 +39,6 @@ module.exports = {
     filename: "bundled.js",
     path: path.resolve(__dirname, "../docs"),
   },
-  devServer: {
-    static: [path.resolve(__dirname, "../docs")],
-    hot: true,
-    port: 3000,
-  },
-  mode: "development",
   plugins: [
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -80,3 +75,27 @@ module.exports = {
     ],
   },
 };
+
+if (currentTask == "dev") {
+  config.devServer = {
+    static: [path.resolve(__dirname, "../docs")],
+    hot: true,
+    port: 3000,
+    dev: { writeToDisk: true },
+  };
+  config.mode = "development";
+}
+
+if (currentTask == "build") {
+  config.output = {
+    filename: "[name].[chunkhash].js",
+    chunkFilename: "[name].[chunkhash].js",
+    path: path.resolve(__dirname, "../docs"),
+  };
+  config.mode = "production";
+  config.optimization = {
+    splitChunks: { chunks: "all" },
+  };
+}
+
+module.exports = config;
