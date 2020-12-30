@@ -48,7 +48,15 @@ $ npm run dev
 
 Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. CSS and partials will be compiled and inserted into the HTML code. There is also a `build` task that will do the same but without running the watch process or browser sync.
 
-# **This text needs updated with production scripts**
+When all is good, we cen generate a production-ready website by running the following from the `master` branch:
+
+```
+$ npm run build
+```
+
+This will then present a minimized bersion (along with a CNAME file) suitable for running under Githun Pages. Simply pushing this to Github will update the Website automatically.
+
+### **There is still some work to do on the website, mainly getting the Mustache scripts working again.**
 
 [website]: http://updaterepo.seapagan.net
 [node]: http://nodejs.org
