@@ -87,6 +87,7 @@ if (currentTask == "dev") {
 
 if (currentTask == "build") {
   cssConfig.use.unshift(MiniCssExtractPlugin.loader);
+  postCSSPlugins.push(require("cssnano"));
   pluginList.unshift(
     new MiniCssExtractPlugin({ filename: "styles.[chunkhash].css" })
   );
