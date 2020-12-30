@@ -3,7 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/seapagan/update_repo/badge.svg?branch=master&service=github)](https://coveralls.io/github/seapagan/update_repo?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/maintainability)](https://codeclimate.com/github/seapagan/update_repo/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c0e12927ea95bbf2b3c9/test_coverage)](https://codeclimate.com/github/seapagan/update_repo/test_coverage)
-[![Inline docs](http://inch-ci.org/github/seapagan/update_repo.svg?branch=master)](http://inch-ci.org/github/seapagan/update_repo)
+[![Inline docs](https://inch-ci.org/github/seapagan/update_repo.svg?branch=master)](https://inch-ci.org/github/seapagan/update_repo)
 
 A Simple Gem to keep multiple locally-cloned Git Repositories up to date.
 
@@ -164,7 +164,7 @@ Add functionality, not in any specific order :
 - Document configuration file format and options. `[IN PROGRESS]`
 - Add option to display the active config options, including those on command line and config file.
 - Add option to create the config file with options from existing config and command line
-- [WEB] Migrate to using Webpack instead of Gulp
+- [WEB] Migrate to using Webpack instead of Gulp `[IN PROGRESS]`
 
 Internal Changes and refactoring :
 
