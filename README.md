@@ -16,7 +16,7 @@ The script will simply run `git pull` on every local clone of a git repository t
 
 #### Pre-requirements
 
-It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] (version 1.9.3 and newer) need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows.
+It goes without saying that at the very least a working copy of both [`Git`][git] (version 1.8.5 or greater, the script will not run with an older version) and [`Ruby`][ruby] (the script is tested under version 2.5+ though lower versions may work but is unsupported) need to be installed on your machine. Also, the script has currently only been tested under Linux, not windows - it does work perfectly fine under the [Windows Subsystem for Linux][wsl] though.
 
 Install this from the shell prompt as you would any other Ruby Gem
 
@@ -265,3 +265,4 @@ The gem is available as open source under the terms of the [MIT License][mit].
 [node]: http://nodejs.org
 [mobaxterm]: http://mobaxterm.mobatek.net/
 [git4windows]: https://git-scm.com/download/win
+[wsl]: https://docs.microsoft.com/en-us/windows/wsl/about
