@@ -7,6 +7,7 @@ const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const postCSSPlugins = [
   require("postcss-import"),
@@ -28,57 +29,53 @@ const partialsList = [
   { path: path.join(__dirname, "partials/_footer.html") },
 ];
 
-let config = {
-  resolve: {
-    alias: {
-      // use the raw jquery instead of the precompiled minimised
-      jquery: "jquery/src/jquery",
+let cssConfig = {
+  test: /\.css$/i,
+  use: [
+    "css-loader?url=false",
+    {
+      loader: "postcss-loader",
+      options: {
+        postcssOptions: {
+          plugins: postCSSPlugins,
+        },
+      },
     },
-  },
+  ],
+};
+
+const pluginList = [
+  new webpack.ProvidePlugin({
+    $: "jquery",
+    jQuery: "jquery",
+  }),
+  new ExtraWatchWebpackPlugin({
+    files: ["./partials/*.html"],
+  }),
+  new HtmlWebpackPlugin({
+    title:
+      "update_repo | Automate the update of multiple local Git repository clones",
+    alwaysWriteToDisk: true,
+  }),
+  new HtmlWebpackPartialsPlugin(partialsList),
+  new HtmlWebpackHarddiskPlugin(),
+  new CleanWebpackPlugin(),
+];
+
+let config = {
   entry: "./assets/scripts/Main.js",
   output: {
     filename: "bundled.js",
     path: path.resolve(__dirname, "../docs"),
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-    }),
-    new ExtraWatchWebpackPlugin({
-      files: ["./partials/*.html"],
-    }),
-    new HtmlWebpackPlugin({
-      title:
-        "update_repo | Automate the update of multiple local Git repository clones",
-      alwaysWriteToDisk: true,
-    }),
-    new HtmlWebpackPartialsPlugin(partialsList),
-    new HtmlWebpackHarddiskPlugin(),
-    new CleanWebpackPlugin(),
-  ],
+  plugins: pluginList,
   module: {
-    rules: [
-      {
-        test: /\.css$/i,
-        use: [
-          "style-loader",
-          "css-loader?url=false",
-          {
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: postCSSPlugins,
-              },
-            },
-          },
-        ],
-      },
-    ],
+    rules: [cssConfig],
   },
 };
 
 if (currentTask == "dev") {
+  cssConfig.use.unshift("style-loader");
   config.devServer = {
     static: [path.resolve(__dirname, "../docs")],
     hot: true,
@@ -89,6 +86,10 @@ if (currentTask == "dev") {
 }
 
 if (currentTask == "build") {
+  cssConfig.use.unshift(MiniCssExtractPlugin.loader);
+  pluginList.unshift(
+    new MiniCssExtractPlugin({ filename: "styles.[chunkhash].css" })
+  );
   config.output = {
     filename: "[name].[chunkhash].js",
     chunkFilename: "[name].[chunkhash].js",
