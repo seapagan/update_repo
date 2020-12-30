@@ -1,4 +1,6 @@
 // this will be the main Javascript file
+// const path = require("path");
+
 import "../styles/styles.css";
 
 if (module.hot) {
