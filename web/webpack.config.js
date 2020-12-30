@@ -8,6 +8,7 @@ const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const fse = require("fs-extra");
 
 const postCSSPlugins = [
   require("postcss-import"),
@@ -16,6 +17,14 @@ const postCSSPlugins = [
   require("postcss-nested"),
   require("autoprefixer"),
 ];
+
+class RunAfterCompile {
+  apply(compiler) {
+    compiler.hooks.done.tap("Copy CNAME", function () {
+      fse.copySync("./CNAME", "../docs/CNAME");
+    });
+  }
+}
 
 const partialsList = [
   { path: path.join(__dirname, "./partials/_links.html"), location: "head" },
@@ -88,8 +97,9 @@ if (currentTask == "dev") {
 if (currentTask == "build") {
   cssConfig.use.unshift(MiniCssExtractPlugin.loader);
   postCSSPlugins.push(require("cssnano"));
-  pluginList.unshift(
-    new MiniCssExtractPlugin({ filename: "styles.[chunkhash].css" })
+  pluginList.push(
+    new MiniCssExtractPlugin({ filename: "styles.[chunkhash].css" }),
+    new RunAfterCompile()
   );
   config.output = {
     filename: "[name].[chunkhash].js",
