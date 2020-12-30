@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackPartialsPlugin = require("html-webpack-partials-plugin");
 const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const postCSSPlugins = [
   require("postcss-import"),
@@ -54,6 +55,7 @@ let config = {
     }),
     new HtmlWebpackPartialsPlugin(partialsList),
     new HtmlWebpackHarddiskPlugin(),
+    new CleanWebpackPlugin(),
   ],
   module: {
     rules: [
