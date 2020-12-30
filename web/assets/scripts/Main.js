@@ -1,5 +1,5 @@
 // this will be the main Javascript file
-const path = require("path");
+// const path = require("path");
 
 import "../styles/styles.css";
 
