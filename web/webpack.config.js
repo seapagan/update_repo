@@ -8,6 +8,7 @@ const HtmlWebpackHarddiskPlugin = require("html-webpack-harddisk-plugin");
 const ExtraWatchWebpackPlugin = require("extra-watch-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const fse = require("fs-extra");
 
 const postCSSPlugins = [
@@ -119,6 +120,21 @@ if (currentTask == "build") {
   config.mode = "production";
   config.optimization = {
     splitChunks: { chunks: "all" },
+    minimizer: [
+      new OptimizeCSSAssetsPlugin({
+        // cssnano configuration
+        cssProcessorPluginOptions: {
+          preset: [
+            "default",
+            {
+              discardComments: {
+                removeAll: true,
+              },
+            },
+          ],
+        },
+      }),
+    ],
   };
 }
 
