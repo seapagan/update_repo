@@ -1,4 +1,14 @@
-@import "fomantic-ui-css/semantic.min.css";
+/* import only required fomantic-ui components */
+/* @import "fomantic-ui-css/semantic.min.css"; */
+@import "fomantic-ui-css/components/reset.css";
+@import "fomantic-ui-css/components/site.css";
+@import "fomantic-ui-css/components/menu.css";
+@import "fomantic-ui-css/components/container.css";
+@import "fomantic-ui-css/components/header.css";
+@import "fomantic-ui-css/components/image.css";
+@import "fomantic-ui-css/components/segment.css";
+@import "fomantic-ui-css/components/text.css";
+
 @import "prismjs/themes/prism.css";
 @import "base/_variables";
 @import "base/_colors";
