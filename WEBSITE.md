@@ -46,7 +46,7 @@ The Webpack task will take care of generating the website in the [/docs/](docs/)
 $ npm run dev
 ```
 
-Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. CSS and partials will be compiled and inserted into the HTML code. There is also a `build` task that will do the same but without running the watch process or browser sync.
+Now, when you change any HTML, CSS or JavaScript those changes will be copied over to the correct place. CSS and partials will be compiled and inserted into the HTML code, and the web browser will automatically refresh for you - this can be accessed from `http://localhost:3000`.
 
 When all is good, we cen generate a production-ready website by running the following from the `master` branch:
 
@@ -54,7 +54,7 @@ When all is good, we cen generate a production-ready website by running the foll
 $ npm run build
 ```
 
-This will then present a minimized bersion (along with a CNAME file) suitable for running under Githun Pages. Simply pushing this to Github will update the Website automatically.
+This will then present a minimized version (along with a CNAME file) suitable for running under Github Pages. Simply pushing this to Github will update the Website automatically.
 
 ### **There is still some work to do on the website, mainly getting the Mustache scripts working again.**
 
