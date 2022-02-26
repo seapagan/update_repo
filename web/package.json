@@ -38,6 +38,6 @@
   "dependencies": {
     "fomantic-ui-css": "^2.8.7",
     "jquery": "^3.5.1",
-    "prismjs": "^1.22.0"
+    "prismjs": "^1.27.0"
   }
 }
