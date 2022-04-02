@@ -6,18 +6,19 @@ require 'inch/rake'
 
 RSpec::Core::RakeTask.new(:spec)
 
-# rubocop
+# Rubocop
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new do |task|
   task.requires << 'rubocop-performance'
   task.fail_on_error = false
 end
 
+# Inch (Internal Documentation check)
 Inch::Rake::Suggest.new do |suggest|
   suggest.args << '--pedantic'
 end
 
-# reek
+# Reek
 require 'reek/rake/task'
 Reek::Rake::Task.new do |t|
   t.fail_on_error = false

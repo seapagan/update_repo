@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe UpdateRepo::CmdConfig do
+RSpec.describe UpdateRepo::Logger do
   subject { described_class }
+
+  pending 'Tests to be written'
 end
