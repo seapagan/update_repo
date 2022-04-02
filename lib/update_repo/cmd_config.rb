@@ -60,16 +60,12 @@ module UpdateRepo
       cmd_given = @conf['cmd']["#{command}_given".to_sym]
       cmd_line = @conf['cmd'][command.to_sym]
 
-      if cmd_given
-        # if we specify something on the cmd line, that takes precedence
-        cmd_line
-      elsif !@conf[command.to_s].nil?
-        # if we have a value in the config file we use that.
-        @conf[command.to_s]
-      else
-        # this will catch any 'default' values in the cmd setup.
-        cmd_line
-      end
+      # if we specify something on the cmd line or there is no setting in the
+      # config, that takes precedence
+      return cmd_line if cmd_given || @conf[command.to_s].nil?
+
+      # otherwise return the config variable
+      @conf[command.to_s]
     end
 
     # make sure the parameter combinations are valid, terminating otherwise.

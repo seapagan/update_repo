@@ -94,7 +94,7 @@ module UpdateRepo
       # array with the functions we want to skip
       repo_output = %w[do_update print_line handle_output skip_repo update]
       # return TRUE if DOES match, FALSE otherwise.
-      repo_output.include?(calling_fn) ? true : false
+      repo_output.include?(calling_fn)
     end
 
     # close the logfile, if it exists

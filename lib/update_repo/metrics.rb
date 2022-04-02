@@ -48,7 +48,7 @@ module UpdateRepo
         File.delete(path) if File.exist?(path)
       else
         # otherwise save  the errors to file
-        File.open(path, 'w') { |file| file.write @metrics[:failed_list].to_yaml }
+        File.write(path, @metrics[:failed_list].to_yaml)
       end
     end
 
