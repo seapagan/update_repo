@@ -328,8 +328,10 @@ the warning given by the installer related to this option though!_
 
 ## Contributing
 
-1. Fork it
+**NOTE The default Branch has been renamed to 'main' from 'master'. Please ensure
+you update any existing checkouts.**
 
+1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
