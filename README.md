@@ -22,11 +22,10 @@ non-verbose. If you wish the same output as previous versions then specify
 
 It goes without saying that at the very least a working copy of both
 [`Git`][git] (version 1.8.5 or greater, the script will not run with an older
-version) and [`Ruby`][ruby] (the script is tested under version 2.5+ though
-lower versions may work but is unsupported) need to be installed on your
-machine. Also, the script has currently only been tested under Linux, not
-windows - it does work perfectly fine under the [Windows Subsystem for
-Linux][wsl] though.
+version) and [`Ruby`][ruby] (the script supports version 2.6.0 and above) need
+to be installed on your machine. Also, the script has currently only been tested
+under Linux, not windows - it does work perfectly fine under the [Windows
+Subsystem for Linux][wsl] though.
 
 Install this from the shell prompt as you would any other Ruby Gem
 

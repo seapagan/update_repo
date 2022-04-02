@@ -7,7 +7,7 @@ require 'update_repo/version'
 Gem::Specification.new do |spec|
   spec.name          = 'update_repo'
   spec.version       = UpdateRepo::VERSION
-  spec.required_ruby_version = '>= 2.4.0'
+  spec.required_ruby_version = '>= 2.6.0'
   spec.authors       = ['Grant Ramsay']
   spec.email         = ['seapagan@gmail.com']
 
@@ -38,11 +38,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'solargraph'
   spec.add_development_dependency 'wwtd'
 
-  # prooduction dependencies
+  # production dependencies
   spec.add_dependency 'colorize'
   spec.add_dependency 'confoog'
   spec.add_dependency 'optimist'
   spec.add_dependency 'versionomy'
-  # fix issue in Ruby < 2.5.5
-  spec.add_dependency 'bigdecimal', '1.3.5' if RUBY_VERSION < '2.5.5'
+
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
