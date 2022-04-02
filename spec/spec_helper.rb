@@ -5,8 +5,8 @@ Coveralls.wear!
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'should_not/rspec'
-require 'simplecov'
-require 'pullreview/coverage'
+# require 'simplecov'
+# require 'pullreview/coverage'
 # require 'coveralls'
 
 # SimpleCov.formatters = [
