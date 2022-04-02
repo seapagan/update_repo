@@ -63,7 +63,7 @@ module UpdateRepo
       err = @metrics[:failed_list].find { |fail| fail[:loc] == err_loc }
       # if so we append this new line to it otherwise create the metric
       if err && @cmd[:verbose_errors]
-        err[:line] = err[:line] + ' ' * 7 + line
+        err[:line] = err[:line] + (' ' * 7) + line
       else
         @metrics[:failed_list].push(loc: err_loc, line: line)
       end
