@@ -1,0 +1,21 @@
+{
+  "editor.formatOnSave": true, // use rubocop for formatting
+  "ruby.format": "rubocop",
+  "ruby.lint": {
+    // "reek": {
+    //   "useBundler": true // enable reek via bundler
+    // },
+    "reek": false,
+    "rubocop": {
+      "useBundler": true // enable rubocop via bundler
+    }
+    // "rubocop": false
+  },
+  "ruby.rubocop.onSave": true,
+  "ruby.useBundler": true, //run non-lint commands with bundle exec
+  "ruby.useLanguageServer": true,
+  "ruby.rubocop.useBundler": true, // use the internal language server (see below)
+  "[ruby]": {
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  }
+}
