@@ -3,6 +3,7 @@
 require 'resolv'
 
 # Module 'Helpers' containing assorted helper functions required elsewhere
+# ignore :reek:UtilityFunction for this Module
 module Helpers
   # will remove the FIRST 'how_many' root levels from a directory path 'dir'..
   # @param dir [string] Path to be truncated
@@ -20,13 +21,20 @@ module Helpers
   end
 
   # mark these as private simply so that 'reek' wont flag as utility function.
-  private
+  # private
 
+  # helper function to check if passed path is a Git Repository by checking for
+  # the existence of a '.git' directory
+  # @param dirpath [string] Path to be checked
+  # @return [Boolean] True if path contains a Git repo
   def gitdir?(dirpath)
     gitpath = "#{dirpath}/.git"
     File.exist?(gitpath) && File.directory?(gitpath)
   end
 
+  # Show a pretty-print version of the passed duration object
+  # @param duration [integer] Time to be converted
+  # @return [String] Pretty representation of the passed time.
   def show_time(duration)
     time_taken = Time.at(duration).utc
     time_taken.strftime('%-H hours, %-M Minutes and %-S seconds')
@@ -43,6 +51,8 @@ module Helpers
   # From : http://stackoverflow.com/a/5471032/6641755
   #
   #   which('ruby') #=> /usr/bin/ruby
+  # @param cmd [string] command to search for
+  # @return [string] Location of the command or nil if not found
   def which(cmd)
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
@@ -68,7 +78,7 @@ module Helpers
   end
 
   # check for a working internet connection, return true or false.
-
+  # @param cmd [hash] current cmd settings hash.
   # @return [boolean] True if working Internet connection, False otherwise.
   def internet?(cmd)
     return true if cmd[:noinetchk]
