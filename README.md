@@ -1,4 +1,4 @@
-# update_repo [![Gem Version](https://badge.fury.io/rb/update_repo.svg)](https://badge.fury.io/rb/update_repo) [![Build Status](https://travis-ci.com/seapagan/update_repo.svg?branch=main)](https://travis-ci.com/seapagan/update_repo)
+# update_repo [![Gem Version](https://badge.fury.io/rb/update_repo.svg)](https://badge.fury.io/rb/update_repo) [![Build Status](https://app.travis-ci.com/seapagan/update_repo.svg?branch=main)](https://app.travis-ci.com/seapagan/update_repo)
 
 [![Coverage Status](https://coveralls.io/repos/github/seapagan/update_repo/badge.svg)](https://coveralls.io/github/seapagan/update_repo)
 [![Inline docs](https://inch-ci.org/github/seapagan/update_repo.svg?branch=main)](https://inch-ci.org/github/seapagan/update_repo)
