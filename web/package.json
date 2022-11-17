@@ -37,7 +37,7 @@
     "webpack-dev-server": "^4.0.0-beta.0"
   },
   "dependencies": {
-    "fomantic-ui-css": "^2.8.7",
+    "fomantic-ui-css": "^2.9.0",
     "jquery": "^3.5.1",
     "prismjs": "^1.22.0"
   }
